@@ -5,6 +5,7 @@ namespace Marek\Toggl\Http;
 use GuzzleHttp\ClientInterface;
 use Marek\Toggl\Configuration\AuthConfigurationInterface;
 use Marek\Toggl\Http\Factory\RequestFactoryInterface;
+use Marek\Toggl\Http\Factory\ResponseFactoryInterface;
 use Marek\Toggl\Http\Value\Transport;
 
 class HttpClient implements HttpClientInterface
@@ -24,15 +25,22 @@ class HttpClient implements HttpClientInterface
      */
     private $auth;
 
+    /**
+     * @var ResponseFactoryInterface
+     */
+    private $responseFactory;
+
     public function __construct(
         AuthConfigurationInterface $auth,
         ClientInterface $client,
-        RequestFactoryInterface $requestFactory
+        RequestFactoryInterface $requestFactory,
+        ResponseFactoryInterface $responseFactory
     )
     {
+        $this->auth = $auth;
         $this->client = $client;
         $this->requestFactory = $requestFactory;
-        $this->auth = $auth;
+        $this->responseFactory = $responseFactory;
     }
 
     public function get(Transport $transport)
@@ -60,6 +68,8 @@ class HttpClient implements HttpClientInterface
         $request = $this->requestFactory
             ->createWithParameters($method, $transport->getUri(), $transport->getData());
 
-        return $this->client->send($request, ['auth' => $this->auth->getAuthentication()]);
+        $response = $this->client->send($request, ['auth' => $this->auth->getAuthentication()]);
+
+        return $this->responseFactory->createFromResponse($response);
     }
 }

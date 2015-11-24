@@ -2,7 +2,7 @@
 
 namespace Marek\Toggl\Http\Value;
 
-use Marek\Toggl\API\Request\Data;
+use Marek\Toggl\Http\Value\Request\Value;
 
 /**
  * Class Transport
@@ -16,7 +16,7 @@ abstract class Transport
     abstract public function getUri();
 
     /**
-     * @return Data
+     * @return Value
      */
     abstract public function getData();
 }

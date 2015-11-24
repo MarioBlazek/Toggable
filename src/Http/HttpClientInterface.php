@@ -2,7 +2,6 @@
 
 namespace Marek\Toggl\Http;
 
-use Marek\Toggl\API\Value\ValueObject;
 use Marek\Toggl\Http\Value\Transport;
 
 interface HttpClientInterface

@@ -2,7 +2,7 @@
 
 namespace Marek\Toggl\Http\Value;
 
-use Marek\Toggl\API\Request\Data;
+use Marek\Toggl\Http\Value\Request\Value;
 
 class TransportValue extends Transport
 {
@@ -12,11 +12,11 @@ class TransportValue extends Transport
     private $uri;
 
     /**
-     * @var Data
+     * @var Value
      */
     private $data;
 
-    public function __construct($uri, Data $data)
+    public function __construct($uri, Value $data)
     {
         $this->uri = $uri;
         $this->data = $data;
@@ -31,7 +31,7 @@ class TransportValue extends Transport
     }
 
     /**
-     * @return Data
+     * @return Value
      */
     public function getData()
     {

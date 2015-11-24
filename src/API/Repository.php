@@ -2,8 +2,8 @@
 
 namespace Marek\Toggl\API;
 
-use Marek\Toggl\API\Request\NullData;
 use Marek\Toggl\Http\HttpClientInterface;
+use Marek\Toggl\Http\Value\Request\Request;
 use Marek\Toggl\Http\Value\TransportValue;
 
 class Repository implements RepositoryInterface
@@ -20,7 +20,7 @@ class Repository implements RepositoryInterface
 
     public function me()
     {
-        $transport = new TransportValue('me', new NullData());
+        $transport = new TransportValue('me', new Request());
 
         return $this->client->get($transport);
     }

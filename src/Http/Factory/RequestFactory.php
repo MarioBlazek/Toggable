@@ -3,8 +3,7 @@
 namespace Marek\Toggl\Http\Factory;
 
 use GuzzleHttp\Psr7\Request;
-use Psr\Http\Message\RequestInterface;
-use Marek\Toggl\API\Request\Data;
+use Marek\Toggl\Http\Value\Request\Value;
 
 class RequestFactory implements RequestFactoryInterface
 {
@@ -18,13 +17,13 @@ class RequestFactory implements RequestFactoryInterface
     /**
      * {@inheritdoc}
      */
-    public function createWithParameters($method, $uri, Data $data)
+    public function createWithParameters($method, $uri, Value $data)
     {
         return new Request(
             $method,
             $uri,
             $this->headers,
-            $data->getData()
+            $data->data
         );
     }
 }
