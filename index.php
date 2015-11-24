@@ -10,7 +10,9 @@ use Marek\Toggl\Http\Factory\RequestFactory;
 use Marek\Toggl\Http\Factory\ResponseFactory;
 use Marek\Toggl\Http\Value\Response\Response;
 
-$auth = new TokenAuth('5eade916d3f1fb61f3a4044e2510d4e9');
+$token = file_get_contents('token.txt.dist');
+
+$auth = new TokenAuth((string)$token);
 
 $headers = [
     'Content-Type' => 'application/json',
