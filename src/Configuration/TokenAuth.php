@@ -19,6 +19,6 @@ class TokenAuth implements AuthConfigurationInterface
      */
     public function getAuthentication()
     {
-        return $this->token . ":api_token";
+        return [$this->token, "api_token"];
     }
 }

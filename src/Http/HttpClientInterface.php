@@ -2,6 +2,9 @@
 
 namespace Marek\Toggl\Http;
 
+use Marek\Toggl\API\Value\ValueObject;
+use Marek\Toggl\Http\Value\Transport;
+
 interface HttpClientInterface
 {
     const GET = 'GET';
@@ -12,11 +15,11 @@ interface HttpClientInterface
 
     const DELETE = 'DELETE';
 
-    public function get();
+    public function get(Transport $transport);
 
-    public function post();
+    public function post(Transport $transport);
 
-    public function put();
+    public function put(Transport $transport);
 
-    public function delete();
+    public function delete(Transport $transport);
 }

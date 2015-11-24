@@ -6,11 +6,10 @@ use GuzzleHttp\Client;
 
 class HttpClientFactory
 {
-    public static function createWithParameters($baseUri, array $headers)
+    public static function createWithParameters($baseUri)
     {
         return new Client([
             'base_uri' => $baseUri,
-            'headers' => $headers
         ]);
     }
 }

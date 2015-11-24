@@ -25,6 +25,6 @@ class EmailAndPasswordAuth implements AuthConfigurationInterface
      */
     public function getAuthentication()
     {
-        return $this->email. ":" .$this->password;
+        return [$this->email, $this->password];
     }
 }
