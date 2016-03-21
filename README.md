@@ -1,1 +1,3 @@
-# Toggl API Wrapper
+# Toggable - Toggl API wrapper for PHP
+
+Work in progress...
