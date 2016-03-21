@@ -1,75 +1,46 @@
 <?php
 
-namespace Marek\Toggl\Http;
+namespace Marek\Toggable\Http;
 
 use GuzzleHttp\ClientInterface;
-use Marek\Toggl\Configuration\AuthConfigurationInterface;
-use Marek\Toggl\Http\Factory\RequestFactoryInterface;
-use Marek\Toggl\Http\Factory\ResponseFactoryInterface;
-use Marek\Toggl\Http\Value\Transport;
+use GuzzleHttp\Exception\GuzzleException;
+use Psr\Http\Message\RequestInterface;
+use Marek\Toggable\API\Security\TokenInterface;
 
 class HttpClient implements HttpClientInterface
 {
+    /**
+     * @var \Marek\Toggable\API\Security\TokenInterface
+     */
+    private $token;
+
     /**
      * @var ClientInterface
      */
     private $client;
 
-    /**
-     * @var RequestFactoryInterface
-     */
-    private $requestFactory;
-
-    /**
-     * @var AuthConfigurationInterface
-     */
-    private $auth;
-
-    /**
-     * @var ResponseFactoryInterface
-     */
-    private $responseFactory;
-
-    public function __construct(
-        AuthConfigurationInterface $auth,
-        ClientInterface $client,
-        RequestFactoryInterface $requestFactory,
-        ResponseFactoryInterface $responseFactory
-    )
+    public function __construct(ClientInterface $client, TokenInterface $token)
     {
-        $this->auth = $auth;
+        $this->token = $token;
         $this->client = $client;
-        $this->requestFactory = $requestFactory;
-        $this->responseFactory = $responseFactory;
     }
 
-    public function get(Transport $transport)
+    /**
+     * {@inheritdoc}
+     */
+    public function send(RequestInterface $request)
     {
-        return $this->sendRequest(HttpClientInterface::GET, $transport);
-    }
+        $response = null;
 
-    public function post(Transport $transport)
-    {
-        return $this->sendRequest(HttpClientInterface::POST, $transport);
-    }
+        try {
+            $response = $this->client->send($request, array(
+                'auth' => $this->token->getAuthentication(),
+                )
+            );
+        } catch (GuzzleException $e) {
+            var_dump($e->getMessage());
+        }
 
-    public function put(Transport $transport)
-    {
-        return $this->sendRequest(HttpClientInterface::PUT, $transport);
-    }
-
-    public function delete(Transport $transport)
-    {
-        return $this->sendRequest(HttpClientInterface::DELETE, $transport);
-    }
-
-    private function sendRequest($method, Transport $transport)
-    {
-        $request = $this->requestFactory
-            ->createWithParameters($method, $transport->getUri(), $transport->getData());
-
-        $response = $this->client->send($request, ['auth' => $this->auth->getAuthentication()]);
-
-        return $this->responseFactory->createFromResponse($response);
+        return $response;
     }
 }

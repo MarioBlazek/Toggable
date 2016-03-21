@@ -2,31 +2,30 @@
 
 require "vendor/autoload.php";
 
-use Marek\Toggl\Configuration\TokenAuth;
-use Marek\Toggl\Http\Factory\HttpClientFactory;
-use Marek\Toggl\Http\HttpClient;
-use Marek\Toggl\API\Repository;
-use Marek\Toggl\Http\Factory\RequestFactory;
-use Marek\Toggl\Http\Factory\ResponseFactory;
-use Marek\Toggl\Http\Value\Response\Response;
+if (!file_exists('config.yml')) {
+    die;
+}
 
-$token = file_get_contents('token.txt.dist');
+try {
+    $config = \Symfony\Component\Yaml\Yaml::parse(file_get_contents('config.yml'));
+} catch (\Symfony\Component\Yaml\Exception\ParseException $e) {
+    echo "Error reading config file\n";
+}
 
-$auth = new TokenAuth((string)$token);
+$apiToken = new \Marek\Toggable\API\Security\ApiToken(
+    $config['marek_toggable']['security']['token']
+);
 
-$headers = [
-    'Content-Type' => 'application/json',
-];
+$guzzle = new \GuzzleHttp\Client(array(
+    'base_uri' => $config['marek_toggable']['base_uri']
+    )
+);
 
-$baseUri = "https://www.toggl.com/api/v8/";
-$client = HttpClientFactory::createWithParameters($baseUri);
+$client = new \Marek\Toggable\Http\HttpClient($guzzle, $apiToken);
 
-$requestFactory = new RequestFactory();
-$responseFactory = new ResponseFactory();
-$httpClient = new HttpClient($auth, $client, $requestFactory, $responseFactory);
+/** @var \Marek\Toggable\Toggl $toggl */
+$toggl = new \Marek\Toggable\Toggl($client);
 
-$repository = new Repository($httpClient);
-/** @var Response $response */
-$response = $repository->me();
+$response = $toggl->getClientProjects(17491841);
 
 var_dump($response);

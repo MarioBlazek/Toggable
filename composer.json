@@ -1,15 +1,16 @@
 {
-    "name": "marek/toggl-api-wrapper",
-    "description": "PHP Toggl API Wrapper",
+    "name": "marek/Toggable",
+    "description": "Toggable - Toggl API wrapper for PHP",
     "require": {
-        "rmccue/requests": ">=1.0"
+        "guzzlehttp/guzzle": "~6.0",
+        "zendframework/zend-hydrator": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0"
     },
     "autoload": {
 	"psr-4": {
-	    "Marek\\Toggl\\": "src/"
+	    "Marek\\Toggable\\": "src/"
 	}
     },
     "authors": [

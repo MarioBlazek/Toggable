@@ -1,0 +1,4 @@
+marek_toggable:
+    base_uri: "https://www.toggl.com/api/v8/"
+    security:
+        token: 'token'

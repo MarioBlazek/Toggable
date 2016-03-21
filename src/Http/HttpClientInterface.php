@@ -1,24 +1,21 @@
 <?php
 
-namespace Marek\Toggl\Http;
+namespace Marek\Toggable\Http;
 
-use Marek\Toggl\Http\Value\Transport;
-
+/**
+ * Interface HttpClientInterface
+ * @package Marek\Toggable\Http
+ */
 interface HttpClientInterface
 {
-    const GET = 'GET';
-
-    const PUT = 'PUT';
-
-    const POST = 'POST';
-
-    const DELETE = 'DELETE';
-
-    public function get(Transport $transport);
-
-    public function post(Transport $transport);
-
-    public function put(Transport $transport);
-
-    public function delete(Transport $transport);
+    /**
+     * Send Http request and returns response
+     *
+     * @param \Psr\Http\Message\RequestInterface $request
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function send(\Psr\Http\Message\RequestInterface $request);
 }

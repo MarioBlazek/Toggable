@@ -2,9 +2,9 @@
 
 namespace Marek\Toggl\Http\Response;
 
-use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use Marek\Toggl\API\Value\ValueObject;
 
-class Response extends GuzzleResponse
+class Response extends ValueObject
 {
 
 }

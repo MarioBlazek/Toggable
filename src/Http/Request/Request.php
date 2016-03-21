@@ -2,7 +2,9 @@
 
 namespace Marek\Toggl\Http\Request;
 
-class Request
+use Marek\Toggl\API\Value\ValueObject;
+
+class Request extends ValueObject
 {
 
 }
