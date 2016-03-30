@@ -1,12 +1,12 @@
 <?php
 
-namespace Marek\Toggl\API\Value\User;
+namespace Marek\Toggable\API\Toggl\Values\User;
 
-use Marek\Toggl\API\Value\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
 
 /**
  * Class BlogPost
- * @package Marek\Toggl\API\Value\User
+ * @package Marek\Toggable\API\Toggl\Values\User
  *
  * @property-read string $title
  * @property-read string $url

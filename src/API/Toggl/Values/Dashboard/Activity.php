@@ -1,12 +1,12 @@
 <?php
 
-namespace Marek\Toggl\API\Value\Dashboard;
+namespace Marek\Toggable\API\Toggl\Values\Dashboard;
 
-use Marek\Toggl\API\Value\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
 
 /**
  * Class Activity
- * @package Marek\Toggl\API\Value\Dashboard
+ * @package Marek\Toggable\API\Toggl\Values\Dashboard
  *
  * @property-read int $userId
  * @property-read int $projectId

@@ -2,9 +2,10 @@
 
 namespace Marek\Toggable;
 
-use Marek\Toggable\API\Toggl\Client\ClientInterface;
-
-interface TogglInterface extends ClientInterface
+interface TogglInterface
 {
-
+    /**
+     * @return \Marek\Toggable\API\Toggl\ClientServiceInterface
+     */
+    public function getClientService();
 }

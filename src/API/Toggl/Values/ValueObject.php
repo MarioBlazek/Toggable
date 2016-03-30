@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\Toggable\API\Toggl;
+namespace Marek\Toggable\API\Toggl\Values;
 
 use Marek\Toggable\Exception\PropertyNotFoundException;
 

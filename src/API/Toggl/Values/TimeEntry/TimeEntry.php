@@ -1,12 +1,12 @@
 <?php
 
-namespace Marek\Toggl\API\Value\TimeEntry;
+namespace Marek\Toggable\API\Toggl\Values\TimeEntry;
 
-use Marek\Toggl\API\Value\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
 
 /**
  * Class TimeEntry
- * @package Marek\Toggl\API\Value\TimeEntry
+ * @package Marek\Toggable\API\Toggl\Values\TimeEntry
  *
  * @property-read int $id
  * @property-read string $description

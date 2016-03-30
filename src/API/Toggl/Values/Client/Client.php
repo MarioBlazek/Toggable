@@ -1,12 +1,12 @@
 <?php
 
-namespace Marek\Toggable\API\Toggl\Client;
+namespace Marek\Toggable\API\Toggl\Values\Client;
 
-use Marek\Toggable\API\Toggl\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
 
 /**
  * Class Client
- * @package Marek\Toggable\API\Toggl\Client
+ * @package Marek\Toggable\API\Toggl\Values\Client
  *
  * @property-read int $id
  * @property-read int $guid

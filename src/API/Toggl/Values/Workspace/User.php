@@ -1,12 +1,12 @@
 <?php
 
-namespace Marek\Toggl\API\Value\Workspace;
+namespace Marek\Toggable\API\Toggl\Values\Workspace;
 
-use Marek\Toggl\API\Value\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
 
 /**
  * Class User
- * @package Marek\Toggl\API\Value\Workspace
+ * @package Marek\Toggable\API\Toggl\Values\Workspace
  *
  * @property-read int $id
  * @property-read int $uid
