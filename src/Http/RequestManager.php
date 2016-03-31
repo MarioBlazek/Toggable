@@ -2,12 +2,10 @@
 
 namespace Marek\Toggable\Http;
 
-use GuzzleHttp\Exception\BadResponseException;
 use Marek\Toggable\API\Http\Request\Request;
-use Marek\Toggable\API\Http\Response\Error\Error;
+use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Http\Response\Response;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
-use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class RequestManager

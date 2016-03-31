@@ -5,7 +5,7 @@ namespace Marek\Toggable\Http;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\RequestInterface;
-use Marek\Toggable\API\Http\Response\Error\Error;
+use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Security\TokenInterface;
 
 /**

@@ -38,7 +38,7 @@ class WorkspaceService implements WorkspaceServiceInterface
         $request = new WorkspacesRequest();
 
         $response = $this->requestManager->request($request);
-        var_dump($response->body[0]['subscription']);
+        
         $workspaces = array();
         foreach($response->body as $workspace) {
             $workspaces[] = (new ObjectProperty())->hydrate($workspace, new Workspace());

@@ -34,7 +34,12 @@ class Request extends ValueObject
     /**
      * @var array
      */
-    public $headers = array();
+    /**
+     * @var array
+     */
+    public $headers = array(
+        'Content-Type' => 'application/json',
+    );
 
     /**
      * @var bool

@@ -3,16 +3,19 @@
 namespace Marek\Toggable\Service\Client;
 
 use InvalidArgumentException;
-use Marek\Toggable\API\Http\Client\ClientResponse;
-use Marek\Toggable\API\Http\Client\ClientsResponse;
-use Marek\Toggable\API\Http\Project\ProjectsResponse;
-use Marek\Toggable\API\Http\Request\Client\CreateClientRequest;
-use Marek\Toggable\API\Http\Request\Client\GetClientDetailsRequest;
-use Marek\Toggable\API\Http\Request\Client\GetClientProjectsRequest;
-use Marek\Toggable\API\Http\Request\Client\GetClientsRequest;
-use Marek\Toggable\API\Http\Response\Error\Error;
-use Marek\Toggable\API\Toggl\Project\Project;
-use Marek\Toggable\API\Toggl\Values\Client\Client;
+use Marek\Toggable\API\Http\Request\Client\UpdateClient;
+use Marek\Toggable\API\Http\Response\Client\Client as ClientResponse;
+use Marek\Toggable\API\Http\Response\Client\Clients as ClientsResponse;
+use Marek\Toggable\API\Http\Response\Project\Projects as ProjectsResponse;
+use Marek\Toggable\API\Http\Response\Successful as SuccessfulResponse;
+use Marek\Toggable\API\Toggl\Values\Project\Project as ProjectValue;
+use Marek\Toggable\API\Toggl\Values\Client\Client as ClientValue;
+use Marek\Toggable\API\Http\Request\Client\CreateClient as CreateClientRequest;
+use Marek\Toggable\API\Http\Request\Client\GetClientDetails as GetClientDetailsRequest;
+use Marek\Toggable\API\Http\Request\Client\GetClientProjects as GetClientProjectsRequest;
+use Marek\Toggable\API\Http\Request\Client\GetClients as GetClientsRequest;
+use Marek\Toggable\API\Http\Request\Client\DeleteClient as DeleteClientRequest;
+use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Toggl\ClientServiceInterface;
 use Marek\Toggable\Http\RequestManagerInterface;
 use Zend\Hydrator\ObjectProperty;
@@ -42,7 +45,7 @@ class ClientService implements ClientServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function createClient(Client $client)
+    public function createClient(ClientValue $client)
     {
         $request = new CreateClientRequest(array('client' => $client));
         $response = $this->requestManager->request($request);
@@ -51,7 +54,7 @@ class ClientService implements ClientServiceInterface
             return $response;
         }
 
-        $clientResponse = (new ObjectProperty())->hydrate($response->body, new Client());
+        $clientResponse = (new ObjectProperty())->hydrate($response->body['data'], new ClientValue());
 
         return new ClientResponse(array('client' => $clientResponse));
     }
@@ -70,7 +73,7 @@ class ClientService implements ClientServiceInterface
         $request = new GetClientDetailsRequest(array('clientId' => $clientId));
         $response = $this->requestManager->request($request);
 
-        $client = (new ObjectProperty())->hydrate($response->body, new Client);
+        $client = (new ObjectProperty())->hydrate($response->body, new ClientValue);
 
         return new ClientResponse(array('client' => $client));
     }
@@ -85,7 +88,7 @@ class ClientService implements ClientServiceInterface
 
         $clients = array();
         foreach($response->body as $client) {
-            $clients[] = (new ObjectProperty())->hydrate($client, new Client);
+            $clients[] = (new ObjectProperty())->hydrate($client, new ClientValue);
         }
 
         return new ClientsResponse(array('clients' => $clients));
@@ -106,7 +109,7 @@ class ClientService implements ClientServiceInterface
 
         $projects = array();
         foreach ($response as $project) {
-            $projects[] = (new ObjectProperty())->hydrate($project, new Project());
+            $projects[] = (new ObjectProperty())->hydrate($project, new ProjectValue());
         }
 
         return new ProjectsResponse(array('projects' => $projects));
@@ -116,9 +119,29 @@ class ClientService implements ClientServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function updateClient()
+    public function updateClient($clientId, ClientValue $client)
     {
-        // TODO: Implement updateClient() method.
+        if (empty($clientId) || !is_int($clientId)) {
+            throw new InvalidArgumentException(
+                sprintf('$clientId argument not provided in %s', get_class($this))
+            );
+        }
+
+        $request = new UpdateClient(array(
+            'clientId' => $clientId,
+            'client' => $client,
+            )
+        );
+
+        $response = $this->requestManager->request($request);
+
+        if ($response instanceof Error) {
+            return $response;
+        }
+
+        $client = (new ObjectProperty())->hydrate($response->body['data'], new ClientValue);
+
+        return new ClientResponse(array('client' => $client));
     }
 
     /**
@@ -126,6 +149,19 @@ class ClientService implements ClientServiceInterface
      */
     public function deleteClient($clientId)
     {
-        // TODO: Implement deleteClient() method.
+        if (empty($clientId) || !is_int($clientId)) {
+            throw new InvalidArgumentException(
+                sprintf('$clientId argument not provided in %s', get_class($this))
+            );
+        }
+
+        $request = new DeleteClientRequest(array('clientId' => $clientId));
+        $response = $this->requestManager->request($request);
+
+        if ($response instanceof Error) {
+            return $response;
+        }
+
+        return new SuccessfulResponse();
     }
 }

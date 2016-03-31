@@ -5,13 +5,13 @@ namespace Marek\Toggable\API\Http\Request\Client;
 use Marek\Toggable\API\Http\Request\Request;
 
 /**
- * Class GetClientProjectsRequest
+ * Class GetClientProjects
  * @package Marek\Toggable\API\Http\Request\Client
  *
  * @property-read int $clientId
  * @property-read string $active
  */
-class GetClientProjectsRequest extends Request
+class GetClientProjects extends Request
 {
     /**
      * @var string

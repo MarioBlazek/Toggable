@@ -13,7 +13,7 @@ interface ClientServiceInterface
      *
      * @param \Marek\Toggable\API\Toggl\Values\Client\Client $client
      *
-     * @return \Marek\Toggable\API\Http\Client\ClientResponse
+     * @return \Marek\Toggable\API\Http\Response\Client\Client
      */
     public function createClient(\Marek\Toggable\API\Toggl\Values\Client\Client $client);
 
@@ -22,14 +22,14 @@ interface ClientServiceInterface
      *
      * @param int $clientId
      *
-     * @return \Marek\Toggable\API\Http\Client\ClientResponse
+     * @return \Marek\Toggable\API\Http\Response\Client\Client
      */
     public function getClientDetails($clientId);
 
     /**
      * Get list of clients available to the user
      *
-     * @return \Marek\Toggable\API\Http\Client\ClientsResponse
+     * @return \Marek\Toggable\API\Http\Response\Client\Clients
      */
     public function getClients();
 
@@ -39,11 +39,26 @@ interface ClientServiceInterface
      * @param int $clientId
      * @param string $active
      *
-     * @return \Marek\Toggable\API\Http\Project\ProjectsResponse
+     * @return \Marek\Toggable\API\Http\Response\Project\Projects
      */
     public function getClientProjects($clientId, $active = \Marek\Toggable\API\Toggl\Values\Client\Client::ACTIVE);
 
-    public function updateClient();
+    /**
+     * Updates Client
+     *
+     * @param int $clientId
+     * @param \Marek\Toggable\API\Toggl\Values\Client\Client $client
+     *
+     * @return \Marek\Toggable\API\Http\Response\Client\Client
+     */
+    public function updateClient($clientId, \Marek\Toggable\API\Toggl\Values\Client\Client $client);
 
+    /**
+     * Deletes Client by client id
+     *
+     * @param int $clientId
+     *
+     * @return \Marek\Toggable\API\Http\Response\Successful
+     */
     public function deleteClient($clientId);
 }

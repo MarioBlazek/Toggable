@@ -15,6 +15,7 @@ class Toggl implements TogglInterface
      * @var \Marek\Toggable\API\Toggl\ClientServiceInterface
      */
     private $clientService;
+    
     /**
      * @var \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
      */

@@ -3,13 +3,12 @@
 namespace Marek\Toggable\API\Http\Request\Client;
 
 use Marek\Toggable\API\Http\Request\Request;
-use Marek\Toggable\API\Toggl\Values\Client\Client;
 
 /**
- * Class CreateClientRequest
+ * Class CreateClient
  * @package Marek\Toggable\API\Http\Request\Client
  */
-class CreateClientRequest extends Request
+class CreateClient extends Request
 {
     /**
      * @var string
@@ -22,16 +21,14 @@ class CreateClientRequest extends Request
     public $method = Request::POST;
 
     /**
-     * @var Client
+     * @var \Marek\Toggable\API\Toggl\Values\Client\Client
      */
     public $client;
 
     /**
-     * @var array
+     * @var boolean
      */
-    public $headers = array(
-        'Content-Type' => 'application/json',
-    );
+    public $hasData = true;
 
     /**
      * {@inheritdoc}

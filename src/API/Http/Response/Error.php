@@ -1,8 +1,6 @@
 <?php
 
-namespace Marek\Toggable\API\Http\Response\Error;
-
-use Marek\Toggable\API\Http\Response\Response;
+namespace Marek\Toggable\API\Http\Response;
 
 /**
  * Class Error
