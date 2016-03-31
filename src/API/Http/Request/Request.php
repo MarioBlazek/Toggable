@@ -2,7 +2,8 @@
 
 namespace Marek\Toggable\API\Http\Request;
 
-use Marek\Toggable\API\Toggl\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
+use RuntimeException;
 
 /**
  * Class Request
@@ -10,6 +11,8 @@ use Marek\Toggable\API\Toggl\ValueObject;
  *
  * @property-read string $method
  * @property-read string $uri
+ * @property-read array $data
+ * @property-read array $headers
  */
 class Request extends ValueObject
 {
@@ -27,4 +30,26 @@ class Request extends ValueObject
      * @var string
      */
     public $uri;
+
+    /**
+     * @var array
+     */
+    public $headers = array();
+
+    /**
+     * @var bool
+     */
+    public $hasData = false;
+
+    /**
+     * Converts object to array
+     *
+     * @return array
+     *
+     * @throws RuntimeException
+     */
+    public function toArray()
+    {
+        throw new RuntimeException('Not implemented');
+    }
 }

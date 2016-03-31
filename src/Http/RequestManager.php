@@ -2,9 +2,12 @@
 
 namespace Marek\Toggable\Http;
 
+use GuzzleHttp\Exception\BadResponseException;
 use Marek\Toggable\API\Http\Request\Request;
+use Marek\Toggable\API\Http\Response\Error\Error;
 use Marek\Toggable\API\Http\Response\Response;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class RequestManager
@@ -27,12 +30,28 @@ class RequestManager implements RequestManagerInterface
      */
     public function request(Request $request)
     {
-        $request = new GuzzleRequest($request->method, $request->uri);
+        if ($request->hasData) {
+
+            $request = new GuzzleRequest($request->method, $request->uri, $request->headers, json_encode($request->toArray()));
+
+        } else {
+
+            $request = new GuzzleRequest($request->method, $request->uri, $request->headers);
+
+        }
 
         $response = $this->client->send($request);
 
+        if ($response instanceof Error) {
+            return $response;
+        }
+
         $responseBody = json_decode((string)$response->getBody(), true);
 
-        return new Response($response->getStatusCode(), $responseBody);
+        return new Response(array(
+            'statusCode' => $response->getStatusCode(),
+            'body' => $responseBody,
+            )
+        );
     }
 }

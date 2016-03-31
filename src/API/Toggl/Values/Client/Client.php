@@ -61,4 +61,46 @@ class Client extends ValueObject
      * @var string
      */
     public $cur;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function toArray()
+    {
+        $data =  array();
+
+        if (!empty($this->id)) {
+            $data['id'] = $this->id;
+        }
+
+        if (!empty($this->guid)) {
+            $data['guid'] = $this->guid;
+        }
+
+        if (!empty($this->wid)) {
+            $data['wid'] = $this->wid;
+        }
+
+        if (!empty($this->name)) {
+            $data['name'] = $this->name;
+        }
+
+        if (!empty($this->notes)) {
+            $data['notes'] = $this->notes;
+        }
+
+        if (!empty($this->cur)) {
+            $data['cur'] = $this->cur;
+        }
+
+        if (!empty($this->hrate)) {
+            $data['hrate'] = $this->hrate;
+        }
+
+        if (!empty($this->at)) {
+            $data['at'] = $this->at->format('c');
+        }
+
+        return $data;
+    }
 }

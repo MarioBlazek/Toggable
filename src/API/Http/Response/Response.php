@@ -2,7 +2,7 @@
 
 namespace Marek\Toggable\API\Http\Response;
 
-use Marek\Toggable\API\Toggl\ValueObject;
+use Marek\Toggable\API\Toggl\Values\ValueObject;
 
 /**
  * Class Response

@@ -8,7 +8,14 @@ namespace Marek\Toggable\API\Toggl;
  */
 interface ClientServiceInterface
 {
-    public function createClient();
+    /**
+     * Creates new Client
+     *
+     * @param \Marek\Toggable\API\Toggl\Values\Client\Client $client
+     *
+     * @return \Marek\Toggable\API\Http\Client\ClientResponse
+     */
+    public function createClient(\Marek\Toggable\API\Toggl\Values\Client\Client $client);
 
     /**
      * Gets detailed data about client
@@ -34,7 +41,7 @@ interface ClientServiceInterface
      *
      * @return \Marek\Toggable\API\Http\Project\ProjectsResponse
      */
-    public function getClientProjects($clientId, $active = Client::ACTIVE);
+    public function getClientProjects($clientId, $active = \Marek\Toggable\API\Toggl\Values\Client\Client::ACTIVE);
 
     public function updateClient();
 

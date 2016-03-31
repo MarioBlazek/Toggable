@@ -3,7 +3,13 @@
 namespace Marek\Toggable\API\Toggl\Values;
 
 use Marek\Toggable\Exception\PropertyNotFoundException;
+use JsonSerializable;
+use RuntimeException;
 
+/**
+ * Class ValueObject
+ * @package Marek\Toggable\API\Toggl\Values
+ */
 abstract class ValueObject
 {
     /**
@@ -75,5 +81,15 @@ abstract class ValueObject
     public function __unset($property)
     {
         $this->__set($property, NULL);
+    }
+
+    /**
+     * Converts properties to array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        throw new RuntimeException('Not implemented.');
     }
 }

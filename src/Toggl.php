@@ -3,6 +3,7 @@
 namespace Marek\Toggable;
 
 use Marek\Toggable\API\Toggl\ClientServiceInterface;
+use Marek\Toggable\API\Toggl\WorkspaceServiceInterface;
 
 /**
  * Class Toggl
@@ -14,10 +15,18 @@ class Toggl implements TogglInterface
      * @var \Marek\Toggable\API\Toggl\ClientServiceInterface
      */
     private $clientService;
+    /**
+     * @var \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
+     */
+    private $workspaceService;
 
-    public function __construct(ClientServiceInterface $clientService)
+    public function __construct(
+        ClientServiceInterface $clientService,
+        WorkspaceServiceInterface $workspaceService
+    )
     {
         $this->clientService = $clientService;
+        $this->workspaceService = $workspaceService;
     }
 
     /**
@@ -27,4 +36,14 @@ class Toggl implements TogglInterface
     {
         return $this->clientService;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWorkspaceService()
+    {
+        return $this->workspaceService;
+    }
+
+
 }

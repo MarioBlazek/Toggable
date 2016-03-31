@@ -21,11 +21,18 @@ $guzzle = new \GuzzleHttp\Client(array(
     )
 );
 
-$client = new \Marek\Toggable\Http\HttpClient($guzzle, $apiToken);
+$httpClient = new \Marek\Toggable\Http\HttpClient($guzzle, $apiToken);
+$requestManager = new \Marek\Toggable\Http\RequestManager($httpClient);
+$clientService = new \Marek\Toggable\Service\Client\ClientService($requestManager);
+$workspaceService = new \Marek\Toggable\Service\Workspace\WorkspaceService($requestManager);
 
-/** @var \Marek\Toggable\Toggl $toggl */
-$toggl = new \Marek\Toggable\Toggl($client);
+$toggl = new Marek\Toggable\Toggl($clientService, $workspaceService);
 
-$response = $toggl->getClientProjects(17491841);
+//$clientService = $toggl->getClientService();
+//$client = new \Marek\Toggable\API\Toggl\Values\Client\Client(array('name' => 'Very Big Company', 'wid' => 777));
+//$response = $clientService->createClient($client);
+$workspaceService = $toggl->getWorkspaceService();
+$response = $workspaceService->getWorkspaces();
+
 
 var_dump($response);

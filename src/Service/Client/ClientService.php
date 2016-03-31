@@ -6,9 +6,11 @@ use InvalidArgumentException;
 use Marek\Toggable\API\Http\Client\ClientResponse;
 use Marek\Toggable\API\Http\Client\ClientsResponse;
 use Marek\Toggable\API\Http\Project\ProjectsResponse;
+use Marek\Toggable\API\Http\Request\Client\CreateClientRequest;
 use Marek\Toggable\API\Http\Request\Client\GetClientDetailsRequest;
 use Marek\Toggable\API\Http\Request\Client\GetClientProjectsRequest;
 use Marek\Toggable\API\Http\Request\Client\GetClientsRequest;
+use Marek\Toggable\API\Http\Response\Error\Error;
 use Marek\Toggable\API\Toggl\Project\Project;
 use Marek\Toggable\API\Toggl\Values\Client\Client;
 use Marek\Toggable\API\Toggl\ClientServiceInterface;
@@ -40,9 +42,18 @@ class ClientService implements ClientServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function createClient()
+    public function createClient(Client $client)
     {
-        // TODO: Implement createClient() method.
+        $request = new CreateClientRequest(array('client' => $client));
+        $response = $this->requestManager->request($request);
+
+        if ($response instanceof Error) {
+            return $response;
+        }
+
+        $clientResponse = (new ObjectProperty())->hydrate($response->body, new Client());
+
+        return new ClientResponse(array('client' => $clientResponse));
     }
 
     /**

@@ -3,10 +3,13 @@
 namespace Marek\Toggable\API\Http\Request\Client;
 
 use Marek\Toggable\API\Http\Request\Request;
-use JsonSerializable;
-use Marek\Toggable\API\Toggl\ValueObject;
+use Marek\Toggable\API\Toggl\Values\Client\Client;
 
-class CreateClientRequest extends Request implements JsonSerializable
+/**
+ * Class CreateClientRequest
+ * @package Marek\Toggable\API\Http\Request\Client
+ */
+class CreateClientRequest extends Request
 {
     /**
      * @var string
@@ -19,15 +22,22 @@ class CreateClientRequest extends Request implements JsonSerializable
     public $method = Request::POST;
 
     /**
-     * @var ValueObject
+     * @var Client
      */
-    public $data;
+    public $client;
+
+    /**
+     * @var array
+     */
+    public $headers = array(
+        'Content-Type' => 'application/json',
+    );
 
     /**
      * {@inheritdoc}
      */
-    function jsonSerialize()
+    public function toArray() 
     {
-        
+        return array('client' => $this->client->toArray());
     }
 }
