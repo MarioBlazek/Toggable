@@ -22,6 +22,7 @@ class Client extends ValueObject
     const ACTIVE = 'true';
     const NON_ACTIVE = 'false';
     const BOTH = 'both';
+
     /**
      * @var int
      */
@@ -67,38 +68,21 @@ class Client extends ValueObject
      */
     public function toArray()
     {
+        $className = get_class($this);
+        $classProperties = get_class_vars($className);
+
         $data =  array();
+        foreach ($classProperties as $propertyName => $propertyValue) {
 
-        if (!empty($this->id)) {
-            $data['id'] = $this->id;
-        }
+            if (!empty($this->$propertyName)) {
 
-        if (!empty($this->guid)) {
-            $data['guid'] = $this->guid;
-        }
+                $data[$propertyName] = $this->$propertyName;
 
-        if (!empty($this->wid)) {
-            $data['wid'] = $this->wid;
-        }
+            } else if ($this->$propertyName instanceof \DateTime) {
 
-        if (!empty($this->name)) {
-            $data['name'] = $this->name;
-        }
+                $data[$propertyName] = $this->$propertyName->format('c');
 
-        if (!empty($this->notes)) {
-            $data['notes'] = $this->notes;
-        }
-
-        if (!empty($this->cur)) {
-            $data['cur'] = $this->cur;
-        }
-
-        if (!empty($this->hrate)) {
-            $data['hrate'] = $this->hrate;
-        }
-
-        if (!empty($this->at)) {
-            $data['at'] = $this->at->format('c');
+            }
         }
 
         return $data;
