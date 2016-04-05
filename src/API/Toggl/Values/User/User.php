@@ -10,34 +10,38 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  *
  * @property-read int $id
  * @property-read string $apiToken
- * @property-read int $defaultWid
+ * @property-read int $default_wid
+ * @property-read string $fullname
  * @property-read string $email
- * @property-read string $jqueryTimeofdayFormat
- * @property-read string $jqueryDateFormat
- * @property-read string $timeofdayFormat
- * @property-read string $dateFormat
- * @property-read boolean $storeStartAndStopTime
- * @property-read int $beginningOfWeek
+ * @property-read string $jquery_timeofday_format
+ * @property-read string $jquery_date_format
+ * @property-read string $timeofday_format
+ * @property-read string $date_format
+ * @property-read boolean $store_start_and_stop_time
+ * @property-read int $beginning_of_week
  * @property-read string $language
- * @property-read string $imageUrl
- * @property-read boolean $sidebarPiechart
- * @property-read \DateTime $lastChangedAt
+ * @property-read string $image_url
+ * @property-read boolean $sidebar_piechart
+ * @property-read \DateTime $at
+ * @property-read \DateTime $created_at
  * @property-read int $retention
- * @property-read boolean $recordTimeline
- * @property-read boolean $renderTimeline
- * @property-read boolean $timelineEnabled
- * @property-read boolean $timelineExperiment
- * @property-read \Marek\Toggl\API\Value\User\BlogPost $newBlogPost
- * @property-read \Marek\Toggl\API\Value\TimeEntry\TimeEntry[] $timeEntries
- * @property-read \Marek\Toggl\API\Value\Project\Project[] $projects
- * @property-read \Marek\Toggl\API\Value\Tag\Tag[] $tags
- * @property-read \Marek\Toggl\API\Value\Workspace\Workspace[] $workspaces
- * @property-read \Marek\Toggl\API\Value\Client\Client[] $clients
- * @property-read boolean $sendProductEmails
- * @property-read boolean $sendWeeklyReport
- * @property-read boolean $sendTimerNotifications
- * @property-read boolean $openidEnabled
+ * @property-read boolean $record_timeline
+ * @property-read boolean $render_timeline
+ * @property-read boolean $timeline_enabled
+ * @property-read boolean $timeline_experiment
+ * @property-read boolean $manual_mode
+ * @property-read boolean $should_upgrade
+ * @property-read boolean $achievements_enabled
+ * @property-read boolean $openid_enabled
+ * @property-read \Marek\Toggable\API\Toggl\Values\User\BlogPost $new_blog_post
+ * @property-read \Marek\Toggable\API\Toggl\Values\User\BlogPost $last_blog_entry
+ * @property-read boolean $send_product_emails
+ * @property-read boolean $send_weekly_report
+ * @property-read boolean $send_timer_notifications
+ * @property-read boolean $invitation
  * @property-read string $timezone
+ * @property-read string $duration_format
+ * @property-read string $obm
  */
 class User extends ValueObject
 {
@@ -56,7 +60,12 @@ class User extends ValueObject
      *
      * @var int
      */
-    public $defaultWid;
+    public $default_wid;
+
+    /**
+     * @var string
+     */
+    public $fullname;
 
     /**
      * Email
@@ -68,36 +77,36 @@ class User extends ValueObject
     /**
      * @var string
      */
-    public $jqueryTimeofdayFormat;
+    public $jquery_timeofday_format;
 
     /**
      * @var string
      */
-    public $jqueryDateFormat;
+    public $jquery_date_format;
 
     /**
      * @var string
      */
-    public $timeofdayFormat;
+    public $timeofday_format;
 
     /**
      * @var string
      */
-    public $dateFormat;
+    public $date_format;
 
     /**
      * Whether start and stop time are saved on time entry
      *
      * @var boolean
      */
-    public $storeStartAndStopTime;
+    public $store_start_and_stop_time;
 
     /**
      * Integer 0-6, Sunday=0
      *
      * @var int
      */
-    public $beginningOfWeek;
+    public $beginning_of_week;
 
     /**
      * User's language
@@ -111,19 +120,24 @@ class User extends ValueObject
      *
      * @var string
      */
-    public $imageUrl;
+    public $image_url;
 
     /**
      * Should a piechart be shown on the sidebar
      *
      * @var boolean
      */
-    public $sidebarPiechart;
+    public $sidebar_piechart;
 
     /**
      * @var \DateTime
      */
-    public $lastChangedAt;
+    public $at;
+
+    /**
+     * @var \DateTime
+     */
+    public $created_at;
 
     /**
      * @var int
@@ -133,82 +147,77 @@ class User extends ValueObject
     /**
      * @var boolean
      */
-    public $recordTimeline;
+    public $record_timeline;
 
     /**
      * @var boolean
      */
-    public $renderTimeline;
+    public $render_timeline;
 
     /**
      * @var boolean
      */
-    public $timelineEnabled;
+    public $timeline_enabled;
 
     /**
      * @var boolean
      */
-    public $timelineExperiment;
+    public $timeline_experiment;
+
+    /**
+     * @var boolean
+     */
+    public $manual_mode;
+
+    /**
+     * @var boolean
+     */
+    public $should_upgrade;
+
+    /**
+     * @var boolean
+     */
+    public $achievements_enabled;
+
+    /**
+     * @var boolean
+     */
+    public $invitation;
 
     /**
      * An object with toggl blog post title and link
      *
-     * @var \Marek\Toggl\API\Value\User\BlogPost
+     * @var \Marek\Toggable\API\Toggl\Values\User\BlogPost
      */
-    public $newBlogPost;
-
-    /**
-     * @var \Marek\Toggl\API\Value\TimeEntry\TimeEntry[]
-     */
-    public $timeEntries;
-
-    /**
-     * @var \Marek\Toggl\API\Value\Project\Project[]
-     */
-    public $projects;
-
-    /**
-     * @var \Marek\Toggl\API\Value\Tag\Tag[]
-     */
-    public $tags;
-
-    /**
-     * @var \Marek\Toggl\API\Value\Workspace\Workspace[]
-     */
-    public $workspaces;
-
-    /**
-     * @var \Marek\Toggl\API\Value\Client\Client[]
-     */
-    public $clients;
+    public $new_blog_post;
 
     /**
      * Toggl can send newsletters over e-mail to the user
      *
      * @var boolean
      */
-    public $sendProductEmails;
+    public $send_product_emails;
 
     /**
      * If user receives weekly report
      *
      * @var boolean
      */
-    public $sendWeeklyReport;
+    public $send_weekly_report;
 
     /**
      * Email user about long-running (more than 8 hours) tasks
      *
      * @var boolean
      */
-    public $sendTimerNotifications;
+    public $send_timer_notifications;
 
     /**
      * Google signin enabled
      *
      * @var boolean
      */
-    public $openidEnabled;
+    public $openid_enabled;
 
     /**
      * Timezone user has set on the "My profile" page ( IANA TZ timezones )
@@ -216,4 +225,19 @@ class User extends ValueObject
      * @var string
      */
     public $timezone;
+
+    /**
+     * @var \Marek\Toggable\API\Toggl\Values\User\BlogPost
+     */
+    public $last_blog_entry;
+
+    /**
+     * @var string
+     */
+    public $duration_format;
+
+    /**
+     * @var string
+     */
+    public $obm;
 }

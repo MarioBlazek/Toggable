@@ -18,6 +18,11 @@ class RequestManager implements RequestManagerInterface
      */
     private $client;
 
+    /**
+     * RequestManager constructor.
+     *
+     * @param \Marek\Toggable\Http\HttpClientInterface $client
+     */
     public function __construct(HttpClientInterface $client)
     {
         $this->client = $client;

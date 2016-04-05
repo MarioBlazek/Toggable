@@ -11,6 +11,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read int $id
  * @property-read string $name
  * @property-read int $wid
+ * @property-read \DateTime $at
  */
 class Tag extends ValueObject
 {
@@ -32,4 +33,9 @@ class Tag extends ValueObject
      * @var int
      */
     public $wid;
+
+    /**
+     * @var \DateTime
+     */
+    public $at;
 }

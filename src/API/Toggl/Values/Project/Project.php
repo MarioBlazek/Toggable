@@ -28,6 +28,10 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  */
 class Project extends ValueObject
 {
+    const ACTIVE = 'true';
+    const INACTIVE = 'false';
+    const ACTIVE_AND_INACTIVE = 'both';
+
     /**
      * @var int
      */
