@@ -2,6 +2,7 @@
 
 namespace Marek\Toggable\Service\Workspace;
 
+use Marek\Toggable\API\Http\Request\Workspace\UpdateWorkspace;
 use Marek\Toggable\API\Http\Request\Workspace\Workspaces as WorkspacesRequest;
 use Marek\Toggable\API\Http\Request\Workspace\Workspace as WorkspaceRequest;
 use Marek\Toggable\API\Http\Request\Workspace\WorkspaceUsers as WorkspaceUsersRequest;
@@ -145,7 +146,7 @@ class WorkspaceService implements WorkspaceServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getWorkspaceProjects($workspaceId, $active = Activity::ACTIVE, $actualHours = 'false', $onlyTemplates = 'false')
     {
@@ -175,7 +176,7 @@ class WorkspaceService implements WorkspaceServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getWorkspaceTasks($workspaceId, $active = Activity::ACTIVE)
     {
@@ -210,7 +211,7 @@ class WorkspaceService implements WorkspaceServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getWorkspaceTags($workspaceId)
     {
@@ -239,6 +240,32 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         return new WorkspaceTagsResponse(array(
             'tags' => $tags,
+        ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateWorkspace($workspaceId, Workspace $workspace)
+    {
+        if (empty($workspaceId) || !is_int($workspaceId)) {
+            throw new InvalidArgumentException(
+                sprintf('$workspaceId argument not provided in %s', get_class($this))
+            );
+        }
+
+        $request = new UpdateWorkspace(array(
+            'workspaceId' => $workspaceId,
+            'workspace' => $workspace,
+        ));
+
+        $response = $this->requestManager->request($request);
+        var_dump($response);
+        die;
+        $workspace = (new ObjectProperty())->hydrate($response->body['data'], new Workspace());
+
+        return new WorkspaceResponse(array(
+            'workspace' => $workspace,
         ));
     }
 }

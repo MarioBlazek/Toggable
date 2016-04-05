@@ -72,4 +72,14 @@ interface WorkspaceServiceInterface
      * @return \Marek\Toggable\API\Http\Response\Workspace\WorkspaceTags
      */
     public function getWorkspaceTags($workspaceId);
+
+    /**
+     * Updates workspace
+     *
+     * @param int $workspaceId
+     * @param \Marek\Toggable\API\Toggl\Values\Workspace\Workspace $workspace
+     *
+     * @return \Marek\Toggable\API\Http\Response\Workspace\Workspace
+     */
+    public function updateWorkspace($workspaceId, \Marek\Toggable\API\Toggl\Values\Workspace\Workspace $workspace);
 }
