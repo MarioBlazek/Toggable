@@ -8,8 +8,8 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * Class Activity
  * @package Marek\Toggable\API\Toggl\Values\Dashboard
  *
- * @property-read int $userId
- * @property-read int $projectId
+ * @property-read int $user_id
+ * @property-read int $project_id
  * @property-read int $duration
  * @property-read string $description
  * @property-read \DateTime $stop
@@ -22,14 +22,14 @@ class Activity extends ValueObject
      *
      * @var int
      */
-    public $userId;
+    public $user_id;
 
     /**
      *  Project ID (ID is 0 if time entry doesn't have project connected to it)
      *
      * @var int
      */
-    public $projectId;
+    public $project_id;
 
     /**
      * Time entry duration in seconds.
