@@ -4,7 +4,6 @@ namespace Marek\Toggable\Factory;
 
 use Marek\Toggable\Service\Authentication\AuthenticationService;
 use Marek\Toggable\Service\Dashboard\DashboardService;
-use Symfony\Component\Yaml\Yaml;
 use GuzzleHttp\Client;
 use Marek\Toggable\Toggl;
 use Marek\Toggable\API\Security\UsernameAndPasswordToken;
@@ -16,21 +15,22 @@ use Marek\Toggable\Service\Workspace\WorkspaceService;
 
 class TogglFactory
 {
-    public static function buildToggable()
+    public static function buildToggable($config)
     {
-        if (!file_exists(__DIR__ . '/../../config.yml')) {
+        if (!file_exists($config)) {
             throw new \InvalidArgumentException('Please provide configuration file.');
         }
 
-        $config = Yaml::parse(file_get_contents(__DIR__ . '/../../config.yml'));
+        $config = require_once($config);
 
+        $authentication = null;
         if (!empty($config['marek_toggable']['security']['token'])) {
 
-            $apiToken = new ApiToken($config['marek_toggable']['security']['token']);
+            $authentication = new ApiToken($config['marek_toggable']['security']['token']);
 
         } else if (!empty($config['marek_toggable']['security']['username']) && !empty($config['marek_toggable']['security']['password'])) {
 
-            $usernameAndPasswordToken = new UsernameAndPasswordToken(
+            $authentication = new UsernameAndPasswordToken(
                 $config['marek_toggable']['security']['username'],
                 $config['marek_toggable']['security']['password']
             );
@@ -51,7 +51,7 @@ class TogglFactory
             )
         );
 
-        $httpClient = new HttpClient($guzzle, $apiToken);
+        $httpClient = new HttpClient($guzzle, $authentication);
         $requestManager = new RequestManager($httpClient);
         $clientService = new ClientService($requestManager);
         $workspaceService = new WorkspaceService($requestManager);

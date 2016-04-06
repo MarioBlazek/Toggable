@@ -1,4 +1,4 @@
 /.idea
 /vendor/
 /composer.lock
-/token.txt.dist
+/config.local.php
