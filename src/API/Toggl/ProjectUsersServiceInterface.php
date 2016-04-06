@@ -3,10 +3,10 @@
 namespace Marek\Toggable\API\Toggl;
 
 /**
- * Interface TimeEntryServiceInterface
+ * Interface ProjectUsersServiceInterface
  * @package Marek\Toggable\API\Toggl
  */
-interface TimeEntryServiceInterface
+interface ProjectUsersServiceInterface
 {
 
 }

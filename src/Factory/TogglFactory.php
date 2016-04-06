@@ -2,6 +2,8 @@
 
 namespace Marek\Toggable\Factory;
 
+use Marek\Toggable\Service\Authentication\AuthenticationService;
+use Marek\Toggable\Service\Dashboard\DashboardService;
 use Symfony\Component\Yaml\Yaml;
 use GuzzleHttp\Client;
 use Marek\Toggable\Toggl;
@@ -53,8 +55,10 @@ class TogglFactory
         $requestManager = new RequestManager($httpClient);
         $clientService = new ClientService($requestManager);
         $workspaceService = new WorkspaceService($requestManager);
+        $authenticationService = new AuthenticationService($requestManager);
+        $dashboardService = new DashboardService($requestManager);
 
-        $toggl = new Toggl($clientService, $workspaceService);
+        $toggl = new Toggl($clientService, $workspaceService, $authenticationService, $dashboardService);
 
         return $toggl;
     }

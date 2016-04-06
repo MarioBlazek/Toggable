@@ -260,8 +260,7 @@ class WorkspaceService implements WorkspaceServiceInterface
         ));
 
         $response = $this->requestManager->request($request);
-        var_dump($response);
-        die;
+
         $workspace = (new ObjectProperty())->hydrate($response->body['data'], new Workspace());
 
         return new WorkspaceResponse(array(

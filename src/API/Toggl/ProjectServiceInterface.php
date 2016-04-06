@@ -2,6 +2,11 @@
 
 namespace Marek\Toggable\API\Toggl;
 
-interface ProjectServiceInterface {
+/**
+ * Interface ProjectServiceInterface
+ * @package Marek\Toggable\API\Toggl
+ */
+interface ProjectServiceInterface
+{
 
 }

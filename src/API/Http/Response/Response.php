@@ -10,6 +10,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  *
  * @property-read int $statusCode
  * @property-read array $body
+ * @property-read string $cookie
  */
 class Response extends ValueObject
 {
@@ -22,4 +23,9 @@ class Response extends ValueObject
      * @var array
      */
     public $body;
+
+    /**
+     * @var string
+     */
+    public $cookie;
 }

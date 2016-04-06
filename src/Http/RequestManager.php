@@ -51,10 +51,15 @@ class RequestManager implements RequestManagerInterface
 
         $responseBody = json_decode((string)$response->getBody(), true);
 
+        $cookie = '';
+        if ($response->hasHeader('Set-Cookie')) {
+            $cookie = $response->getHeader('Set-Cookie')[0];
+        }
+
         return new Response(array(
             'statusCode' => $response->getStatusCode(),
             'body' => $responseBody,
-            )
-        );
+            'cookie' => $cookie,
+        ));
     }
 }

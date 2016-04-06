@@ -1,3 +1,3 @@
-# Install guide
+# Toggable installation instructions
 
 Work in progress...

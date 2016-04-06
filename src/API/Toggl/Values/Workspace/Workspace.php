@@ -22,9 +22,10 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read int $rounding
  * @property-read int $roundingMinutes
  * @property-read \DateTime $at
- * @property-read string $logoUrl
+ * @property-read string $logo_url
  * @property-read string $api_token
  * @property-read boolean $ical_enabled
+ * @property-read string $ical_url
  * @property-read boolean $subscription
  * @property-read boolean $campaign
  * @property-read boolean $business_tester
@@ -132,7 +133,7 @@ class Workspace extends ValueObject
      *
      * @var string
      */
-    public $logoUrl;
+    public $logo_url;
 
     /**
      * API token
@@ -145,6 +146,11 @@ class Workspace extends ValueObject
      * @var boolean
      */
     public $ical_enabled;
+
+    /**
+     * @var string
+     */
+    public $ical_url;
 
     /**
      * @var string
