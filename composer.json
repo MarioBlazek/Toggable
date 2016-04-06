@@ -1,5 +1,5 @@
 {
-    "name": "marek/Toggable",
+    "name": "marioblazek/toggable",
     "description": "Toggable - Toggl API wrapper for PHP",
     "require": {
         "guzzlehttp/guzzle": "~6.0",
