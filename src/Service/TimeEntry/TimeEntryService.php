@@ -3,14 +3,17 @@
 namespace Marek\Toggable\Service\TimeEntry;
 
 use InvalidArgumentException;
+use Marek\Toggable\API\Http\Request\TimeEntry\BulkUpdateTimeEntriesTags;
 use Marek\Toggable\API\Http\Request\TimeEntry\CreateTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\DeleteTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\GetRunningTimeEntry;
+use Marek\Toggable\API\Http\Request\TimeEntry\GetTimeEntriesStartedInDateRange;
 use Marek\Toggable\API\Http\Request\TimeEntry\GetTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\StartTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\StopTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\UpdateTimeEntry;
 use Marek\Toggable\API\Http\Response\Error;
+use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntry as TimeEntryResponse;
 use Marek\Toggable\API\Toggl\TimeEntryServiceInterface;
 use Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry;
@@ -207,5 +210,56 @@ class TimeEntryService implements TimeEntryServiceInterface
         return $response;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function getTimeEntriesStartedInDateRange(\DateTime $startDate, \DateTime $endDate)
+    {
+        $request = new GetTimeEntriesStartedInDateRange(array(
+            'startDate' => $startDate,
+            'endDate'   => $endDate,
+        ));
 
+        $response = $this->requestManager->request($request);
+
+        if ($response instanceof Error) {
+            return $response;
+        }
+
+        $entries = array();
+        foreach ($response->body as $entry) {
+            $entries[] = (new ObjectProperty())->hydrate($entry, new TimeEntry());
+        }
+
+        return new TimeEntries(array(
+            'timeEntries' => $entries,
+        ));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function bulkUpdateTimeEntriesTags(array $timeEntries, array $tags, $tagAction = \Marek\Toggable\API\Toggl\Values\TagAction::ADD)
+    {
+        $request = new BulkUpdateTimeEntriesTags(array(
+            'timeEntries'   => $timeEntries,
+            'tags'          => $tags,
+            'tagAction'     => $tagAction,
+        ));
+
+        $response = $this->requestManager->request($request);
+
+        if ($response instanceof Error) {
+            return $response;
+        }
+
+        $entries = array();
+        foreach ($response->body['data'] as $entry) {
+            $entries[] = (new ObjectProperty())->hydrate($entry, new TimeEntry());
+        }
+
+        return new TimeEntries(array(
+            'timeEntries' => $entries,
+        ));
+    }
 }

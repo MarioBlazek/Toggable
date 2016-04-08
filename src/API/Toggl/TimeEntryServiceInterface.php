@@ -69,4 +69,25 @@ interface TimeEntryServiceInterface
      * @return \Marek\Toggable\API\Http\Response\Successful
      */
     public function deleteTimeEntry($timeEntryId);
+
+    /**
+     * Returns TimeEntry objects started in specified date range
+     *
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     *
+     * @return \Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries
+     */
+    public function getTimeEntriesStartedInDateRange(\DateTime $startDate, \DateTime $endDate);
+
+    /**
+     * Updates TimeEntry object by given Tags with given action
+     *
+     * @param \Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry[] $timeEntries
+     * @param \Marek\Toggable\API\Toggl\Values\Tag\Tag[] $tags
+     * @param string $tagAction
+     *
+     * @return \Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries
+     */
+    public function bulkUpdateTimeEntriesTags(array $timeEntries, array $tags, $tagAction = \Marek\Toggable\API\Toggl\Values\TagAction::ADD);
 }
