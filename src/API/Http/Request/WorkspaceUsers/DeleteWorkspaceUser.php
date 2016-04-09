@@ -5,30 +5,30 @@ namespace Marek\Toggable\API\Http\Request\WorkspaceUsers;
 use Marek\Toggable\API\Http\Request\Request;
 
 /**
- * Class GetWorkspaceUsers
+ * Class DeleteWorkspaceUser
  * @package Marek\Toggable\API\Http\Request\WorkspaceUsers
  *
- * @property-read int $workspaceId
+ * @property-read int $workspaceUserId
  */
-class GetWorkspaceUsers extends Request
+class DeleteWorkspaceUser extends Request
 {
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/workspace_users';
+    public $uri = 'workspace_users/{workspace_user_id}';
 
     /**
      * @var string
      */
-    public $method = Request::GET;
+    public $method = Request::DELETE;
 
     /**
      * @var int
      */
-    public $workspaceId;
+    public $workspaceUserId;
 
     /**
-     * GetWorkspaceUsers constructor.
+     * DeleteWorkspaceUser constructor.
      *
      * @param array $properties
      */
@@ -36,6 +36,6 @@ class GetWorkspaceUsers extends Request
     {
         parent::__construct($properties);
 
-        $this->uri = str_replace('{workspace_id}', $this->workspaceId, $this->uri);
+        $this->uri = str_replace('{workspace_user_id}', $this->workspaceUserId, $this->uri);
     }
 }
