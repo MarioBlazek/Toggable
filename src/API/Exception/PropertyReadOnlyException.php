@@ -1,17 +1,17 @@
 <?php
 
-namespace Marek\Toggable\Exception;
+namespace Marek\Toggable\API\Exception;
 
 use Exception;
 
 /**
- * Class PropertyNotFoundException
+ * Class PropertyReadOnlyException
  * @package Marek\Toggable\Exception
  */
-class PropertyNotFoundException extends Exception
+class PropertyReadOnlyException extends Exception
 {
     /**
-     * Generates: Property '{$propertyName}' not found.
+     * Generates: Property '{$propertyName}' is readonly[ on class '{$className}'].
      *
      * @param string $propertyName
      * @param string|null $className Optionally to specify class in abstract/parent classes
@@ -20,9 +20,9 @@ class PropertyNotFoundException extends Exception
     public function __construct($propertyName, $className = null, Exception $previous = null)
     {
         if ($className === null) {
-            parent::__construct("Property '{$propertyName}' not found", 0, $previous);
+            parent::__construct("Property '{$propertyName}' is readonly", 0, $previous);
         } else {
-            parent::__construct("Property '{$propertyName}' not found on class '{$className}'", 0, $previous);
+            parent::__construct("Property '{$propertyName}' is readonly on class '{$className}'", 0, $previous);
         }
     }
 }

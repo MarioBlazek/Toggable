@@ -2,8 +2,7 @@
 
 namespace Marek\Toggable\API\Toggl\Values;
 
-use Marek\Toggable\Exception\PropertyNotFoundException;
-use JsonSerializable;
+use Marek\Toggable\API\Exception\PropertyNotFoundException;
 use RuntimeException;
 
 /**
@@ -31,7 +30,7 @@ abstract class ValueObject
      * @param $property
      * @param $value
      *
-     * @throws \Marek\Toggable\Exception\PropertyNotFoundException
+     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
      */
     public function __set($property, $value)
     {
@@ -47,7 +46,7 @@ abstract class ValueObject
      *
      * @return mixed
      *
-     * @throws \Marek\Toggable\Exception\PropertyNotFoundException
+     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
      */
     public function __get($property)
     {
@@ -76,7 +75,7 @@ abstract class ValueObject
     /**
      * @param $property
      *
-     * @throws \Marek\Toggable\Exception\PropertyNotFoundException
+     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
      */
     public function __unset($property)
     {
