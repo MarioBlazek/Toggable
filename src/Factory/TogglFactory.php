@@ -2,14 +2,15 @@
 
 namespace Marek\Toggable\Factory;
 
+use Marek\Toggable\Hydrator\DataHydrator;
 use Marek\Toggable\Service\Authentication\AuthenticationService;
 use Marek\Toggable\Service\Dashboard\DashboardService;
 use GuzzleHttp\Client;
 use Marek\Toggable\Toggl;
 use Marek\Toggable\API\Security\UsernameAndPasswordToken;
 use Marek\Toggable\API\Security\ApiToken;
-use Marek\Toggable\Http\HttpClient;
-use Marek\Toggable\Http\RequestManager;
+use Marek\Toggable\Http\Client\HttpClient;
+use Marek\Toggable\Http\Manager\RequestManager;
 use Marek\Toggable\Service\Client\ClientService;
 use Marek\Toggable\Service\Workspace\WorkspaceService;
 
@@ -53,10 +54,11 @@ class TogglFactory
 
         $httpClient = new HttpClient($guzzle, $authentication);
         $requestManager = new RequestManager($httpClient);
-        $clientService = new ClientService($requestManager);
-        $workspaceService = new WorkspaceService($requestManager);
-        $authenticationService = new AuthenticationService($requestManager);
-        $dashboardService = new DashboardService($requestManager);
+        $hydrator = new DataHydrator();
+        $clientService = new ClientService($requestManager, $hydrator);
+        $workspaceService = new WorkspaceService($requestManager, $hydrator);
+        $authenticationService = new AuthenticationService($requestManager, $hydrator);
+        $dashboardService = new DashboardService($requestManager, $hydrator);
 
         $toggl = new Toggl($clientService, $workspaceService, $authenticationService, $dashboardService);
 
