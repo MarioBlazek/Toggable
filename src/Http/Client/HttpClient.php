@@ -37,6 +37,14 @@ class HttpClient implements HttpClientInterface
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public function setToken(\Marek\Toggable\API\Security\TokenInterface $token)
+    {
+        $this->token = $token;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function send(RequestInterface $request)

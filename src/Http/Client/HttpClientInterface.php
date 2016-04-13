@@ -18,4 +18,11 @@ interface HttpClientInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function send(\Psr\Http\Message\RequestInterface $request);
+
+    /**
+     * Sets Authentication Token
+     *
+     * @param \Marek\Toggable\API\Security\TokenInterface $token
+     */
+    public function setToken(\Marek\Toggable\API\Security\TokenInterface $token);
 }
