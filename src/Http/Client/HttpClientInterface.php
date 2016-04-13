@@ -1,10 +1,10 @@
 <?php
 
-namespace Marek\Toggable\Http;
+namespace Marek\Toggable\Http\Client;
 
 /**
  * Interface HttpClientInterface
- * @package Marek\Toggable\Http
+ * @package Marek\Toggable\Http\Client
  */
 interface HttpClientInterface
 {

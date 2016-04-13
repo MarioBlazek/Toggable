@@ -1,16 +1,14 @@
 <?php
 
-namespace Marek\Toggable\Http;
+namespace Marek\Toggable\Http\Client;
 
-use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\RequestInterface;
 use Marek\Toggable\API\Http\Response\Error;
-use Marek\Toggable\API\Security\TokenInterface;
 
 /**
  * Class HttpClient
- * @package Marek\Toggable\Http
+ * @package Marek\Toggable\Http\Client
  */
 class HttpClient implements HttpClientInterface
 {
@@ -20,7 +18,7 @@ class HttpClient implements HttpClientInterface
     private $token;
 
     /**
-     * @var ClientInterface
+     * @var \GuzzleHttp\ClientInterface
      */
     private $client;
 
@@ -30,7 +28,7 @@ class HttpClient implements HttpClientInterface
      * @param \GuzzleHttp\ClientInterface $client
      * @param \Marek\Toggable\API\Security\TokenInterface $token
      */
-    public function __construct(ClientInterface $client, TokenInterface $token)
+    public function __construct(\GuzzleHttp\ClientInterface $client, \Marek\Toggable\API\Security\TokenInterface $token)
     {
         $this->token = $token;
         $this->client = $client;

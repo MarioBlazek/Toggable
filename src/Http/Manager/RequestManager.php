@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\Toggable\Http;
+namespace Marek\Toggable\Http\Manager;
 
 use Marek\Toggable\API\Http\Request\Request;
 use Marek\Toggable\API\Http\Response\Error;
@@ -9,21 +9,21 @@ use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 /**
  * Class RequestManager
- * @package Marek\Toggable\Http
+ * @package Marek\Toggable\Http\Manager
  */
 class RequestManager implements RequestManagerInterface
 {
     /**
-     * @var \Marek\Toggable\Http\HttpClientInterface
+     * @var \Marek\Toggable\Http\Client\HttpClientInterface
      */
     private $client;
 
     /**
      * RequestManager constructor.
      *
-     * @param \Marek\Toggable\Http\HttpClientInterface $client
+     * @param \Marek\Toggable\Http\Client\HttpClientInterface $client
      */
-    public function __construct(HttpClientInterface $client)
+    public function __construct(\Marek\Toggable\Http\Client\HttpClientInterface $client)
     {
         $this->client = $client;
     }

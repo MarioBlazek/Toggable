@@ -1,10 +1,10 @@
 <?php
 
-namespace Marek\Toggable\Http;
+namespace Marek\Toggable\Http\Manager;
 
 /**
  * Interface RequestManagerInterface
- * @package Marek\Toggable\Http
+ * @package Marek\Toggable\Http\Manager
  */
 interface RequestManagerInterface
 {
