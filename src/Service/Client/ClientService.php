@@ -16,30 +16,37 @@ use Marek\Toggable\API\Http\Request\Client\GetClientProjects as GetClientProject
 use Marek\Toggable\API\Http\Request\Client\GetClients as GetClientsRequest;
 use Marek\Toggable\API\Http\Request\Client\DeleteClient as DeleteClientRequest;
 use Marek\Toggable\API\Http\Response\Error;
-use Marek\Toggable\API\Toggl\ClientServiceInterface;
-use Marek\Toggable\Http\RequestManagerInterface;
-use Zend\Hydrator\ObjectProperty;
 
 /**
  * Class ClientService
  * @package Marek\Toggable\Service\Client
  */
-class ClientService implements ClientServiceInterface
+class ClientService implements \Marek\Toggable\API\Toggl\ClientServiceInterface
 {
 
     /**
-     * @var \Marek\Toggable\Http\RequestManagerInterface
+     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
      */
     private $requestManager;
 
     /**
+     * @var \Marek\Toggable\Hydrator\HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * ClientService constructor.
      *
-     * @param \Marek\Toggable\Http\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
      */
-    public function __construct(RequestManagerInterface $requestManager)
+    public function __construct(
+        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
+        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
+    )
     {
         $this->requestManager = $requestManager;
+        $this->hydrator = $hydrator;
     }
 
     /**
@@ -54,7 +61,7 @@ class ClientService implements ClientServiceInterface
             return $response;
         }
 
-        $clientResponse = (new ObjectProperty())->hydrate($response->body['data'], new ClientValue());
+        $clientResponse = $this->hydrator->hydrate($response->body['data'], new ClientValue());
 
         return new ClientResponse(array('client' => $clientResponse));
     }
@@ -73,7 +80,7 @@ class ClientService implements ClientServiceInterface
         $request = new GetClientDetailsRequest(array('clientId' => $clientId));
         $response = $this->requestManager->request($request);
 
-        $client = (new ObjectProperty())->hydrate($response->body, new ClientValue);
+        $client = $this->hydrator->hydrate($response->body, new ClientValue);
 
         return new ClientResponse(array('client' => $client));
     }
@@ -88,7 +95,7 @@ class ClientService implements ClientServiceInterface
 
         $clients = array();
         foreach($response->body as $client) {
-            $clients[] = (new ObjectProperty())->hydrate($client, new ClientValue);
+            $clients[] = $this->hydrator->hydrate($client, new ClientValue);
         }
 
         return new ClientsResponse(array('clients' => $clients));
@@ -109,7 +116,7 @@ class ClientService implements ClientServiceInterface
 
         $projects = array();
         foreach ($response as $project) {
-            $projects[] = (new ObjectProperty())->hydrate($project, new ProjectValue());
+            $projects[] = $this->hydrator->hydrate($project, new ProjectValue());
         }
 
         return new ProjectsResponse(array('projects' => $projects));
@@ -139,7 +146,7 @@ class ClientService implements ClientServiceInterface
             return $response;
         }
 
-        $client = (new ObjectProperty())->hydrate($response->body['data'], new ClientValue);
+        $client = $this->hydrator->hydrate($response->body['data'], new ClientValue);
 
         return new ClientResponse(array('client' => $client));
     }

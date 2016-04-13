@@ -7,31 +7,39 @@ use Marek\Toggable\API\Http\Request\Tag\CreateTag;
 use Marek\Toggable\API\Http\Request\Tag\DeleteTag;
 use Marek\Toggable\API\Http\Request\Tag\UpdateTag;
 use Marek\Toggable\API\Http\Response\Error;
-use Marek\Toggable\API\Toggl\TagServiceInterface;
 use Marek\Toggable\API\Toggl\Values\Tag\Tag;
-use Marek\Toggable\Http\RequestManagerInterface;
 use Marek\Toggable\API\Http\Response\Tag\Tag as TagResponse;
-use Zend\Hydrator\ObjectProperty;
+use Marek\Toggable\Hydrator\HydratorInterface;
 
 /**
  * Class TagService
  * @package Marek\Toggable\Service\Tag
  */
-class TagService implements TagServiceInterface
+class TagService implements \Marek\Toggable\API\Toggl\TagServiceInterface
 {
     /**
-     * @var \Marek\Toggable\Http\RequestManagerInterface
+     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
      */
     private $requestManager;
 
     /**
+     * @var \Marek\Toggable\Hydrator\HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * TagService constructor.
      *
-     * @param \Marek\Toggable\Http\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
      */
-    public function __construct(RequestManagerInterface $requestManager)
+    public function __construct(
+        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
+        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
+    )
     {
         $this->requestManager = $requestManager;
+        $this->hydrator = $hydrator;
     }
 
     /**
@@ -49,7 +57,7 @@ class TagService implements TagServiceInterface
             return $response;
         }
 
-        $tag = (new ObjectProperty())->hydrate($response->body['data'], new Tag());
+        $tag = $this->hydrator->hydrate($response->body['data'], new Tag());
 
         return new TagResponse(array(
             'tag' => $tag,
@@ -78,7 +86,7 @@ class TagService implements TagServiceInterface
             return $response;
         }
 
-        $tag = (new ObjectProperty())->hydrate($response->body['data'], new Tag());
+        $tag = $this->hydrator->hydrate($response->body['data'], new Tag());
 
         return new TagResponse(array(
             'tag' => $tag,
@@ -106,7 +114,7 @@ class TagService implements TagServiceInterface
             return $response;
         }
 
-        $tag = (new ObjectProperty())->hydrate($response->body['data'], new Tag());
+        $tag = $this->hydrator->hydrate($response->body['data'], new Tag());
 
         return new TagResponse(array(
             'tag' => $tag,

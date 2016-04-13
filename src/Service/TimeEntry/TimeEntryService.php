@@ -15,30 +15,37 @@ use Marek\Toggable\API\Http\Request\TimeEntry\UpdateTimeEntry;
 use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntry as TimeEntryResponse;
-use Marek\Toggable\API\Toggl\TimeEntryServiceInterface;
 use Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry;
-use Marek\Toggable\Http\RequestManagerInterface;
-use Zend\Hydrator\ObjectProperty;
 
 /**
  * Class TimeEntryService
  * @package Marek\Toggable\Service\TimeEntry
  */
-class TimeEntryService implements TimeEntryServiceInterface
+class TimeEntryService implements \Marek\Toggable\API\Toggl\TimeEntryServiceInterface
 {
     /**
-     * @var \Marek\Toggable\Http\RequestManagerInterface
+     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
      */
     private $requestManager;
 
     /**
+     * @var \Marek\Toggable\Hydrator\HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * TimeEntryService constructor.
      *
-     * @param \Marek\Toggable\Http\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
      */
-    public function __construct(RequestManagerInterface $requestManager)
+    public function __construct(
+        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
+        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
+    )
     {
         $this->requestManager = $requestManager;
+        $this->hydrator = $hydrator;
     }
 
     /**
@@ -56,7 +63,7 @@ class TimeEntryService implements TimeEntryServiceInterface
             return $response;
         }
 
-        $timeEntry = (new ObjectProperty())->hydrate($response->body['data'], new TimeEntry());
+        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
 
         return new TimeEntryResponse(array(
             'timeEntry' => $timeEntry,
@@ -78,7 +85,7 @@ class TimeEntryService implements TimeEntryServiceInterface
             return $response;
         }
 
-        $timeEntry = (new ObjectProperty())->hydrate($response->body['data'], new TimeEntry());
+        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
 
         return new TimeEntryResponse(array(
             'timeEntry' => $timeEntry,
@@ -106,7 +113,7 @@ class TimeEntryService implements TimeEntryServiceInterface
             return $response;
         }
 
-        $timeEntry = (new ObjectProperty())->hydrate($response->body['data'], new TimeEntry());
+        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
 
         return new TimeEntryResponse(array(
             'timeEntry' => $timeEntry,
@@ -134,7 +141,7 @@ class TimeEntryService implements TimeEntryServiceInterface
             return $response;
         }
 
-        $timeEntry = (new ObjectProperty())->hydrate($response->body['data'], new TimeEntry());
+        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
 
         return new TimeEntryResponse(array(
             'timeEntry' => $timeEntry,
@@ -154,7 +161,7 @@ class TimeEntryService implements TimeEntryServiceInterface
             return $response;
         }
 
-        $timeEntry = (new ObjectProperty())->hydrate($response->body['data'], new TimeEntry());
+        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
 
         return new TimeEntryResponse(array(
             'timeEntry' => $timeEntry,
@@ -183,7 +190,7 @@ class TimeEntryService implements TimeEntryServiceInterface
             return $response;
         }
 
-        $timeEntry = (new ObjectProperty())->hydrate($response->body['data'], new TimeEntry());
+        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
 
         return new TimeEntryResponse(array(
             'timeEntry' => $timeEntry,
@@ -228,7 +235,7 @@ class TimeEntryService implements TimeEntryServiceInterface
 
         $entries = array();
         foreach ($response->body as $entry) {
-            $entries[] = (new ObjectProperty())->hydrate($entry, new TimeEntry());
+            $entries[] = $this->hydrator->hydrate($entry, new TimeEntry());
         }
 
         return new TimeEntries(array(
@@ -255,7 +262,7 @@ class TimeEntryService implements TimeEntryServiceInterface
 
         $entries = array();
         foreach ($response->body['data'] as $entry) {
-            $entries[] = (new ObjectProperty())->hydrate($entry, new TimeEntry());
+            $entries[] = $this->hydrator->hydrate($entry, new TimeEntry());
         }
 
         return new TimeEntries(array(

@@ -7,31 +7,38 @@ use Marek\Toggable\API\Http\Request\Dashboard\GetDashboard;
 use Marek\Toggable\API\Http\Response\Dashboard\Dashboard as DashboardResponse;
 use Marek\Toggable\API\Toggl\Values\Dashboard\Dashboard;
 use Marek\Toggable\API\Http\Response\Error;
-use Marek\Toggable\API\Toggl\DashboardServiceInterface;
 use Marek\Toggable\API\Toggl\Values\Dashboard\Activity;
 use Marek\Toggable\API\Toggl\Values\Dashboard\MostActiveUser;
-use Marek\Toggable\Http\RequestManagerInterface;
-use Zend\Hydrator\ObjectProperty;
 
 /**
  * Class DashboardService
  * @package Marek\Toggable\Service\Dashboard
  */
-class DashboardService implements DashboardServiceInterface
+class DashboardService implements \Marek\Toggable\API\Toggl\DashboardServiceInterface
 {
     /**
-     * @var \Marek\Toggable\Http\RequestManagerInterface
+     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
      */
     private $requestManager;
 
     /**
+     * @var \Marek\Toggable\Hydrator\HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * DashboardService constructor.
      *
-     * @param \Marek\Toggable\Http\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
      */
-    public function __construct(RequestManagerInterface $requestManager)
+    public function __construct(
+        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
+        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
+    )
     {
         $this->requestManager = $requestManager;
+        $this->hydrator = $hydrator;
     }
 
     /**
@@ -55,16 +62,14 @@ class DashboardService implements DashboardServiceInterface
             return $response;
         }
 
-        $objectProperty = new ObjectProperty();
-
         $mostActiveUsers = array();
         foreach($response->body['most_active_user'] as $mostActiveUser) {
-            $mostActiveUsers[] = $objectProperty->hydrate($mostActiveUser, new MostActiveUser());
+            $mostActiveUsers[] = $this->hydrator->hydrate($mostActiveUser, new MostActiveUser());
         }
 
         $activities = array();
         foreach($response->body['activity'] as $activity) {
-            $activities[] = $objectProperty->hydrate($activity, new Activity());
+            $activities[] = $this->hydrator->hydrate($activity, new Activity());
         }
 
         $dashboard = new Dashboard(array(

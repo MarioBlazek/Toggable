@@ -23,31 +23,38 @@ use Marek\Toggable\API\Toggl\Values\Tag\Tag;
 use Marek\Toggable\API\Toggl\Values\Task\Task;
 use Marek\Toggable\API\Toggl\Values\User\User;
 use Marek\Toggable\API\Toggl\Values\Workspace\Workspace;
-use Marek\Toggable\API\Toggl\WorkspaceServiceInterface;
-use Marek\Toggable\Http\RequestManagerInterface;
 use Marek\Toggable\API\Toggl\Values\Activity;
-use Zend\Hydrator\ObjectProperty;
 use InvalidArgumentException;
 
 /**
  * Class WorkspaceService
  * @package Marek\Toggable\Service\Client
  */
-class WorkspaceService implements WorkspaceServiceInterface
+class WorkspaceService implements \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
 {
     /**
-     * @var \Marek\Toggable\Http\RequestManagerInterface
+     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
      */
     private $requestManager;
 
     /**
+     * @var \Marek\Toggable\Hydrator\HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * WorkspaceService constructor.
      *
-     * @param \Marek\Toggable\Http\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
      */
-    public function __construct(RequestManagerInterface $requestManager)
+    public function __construct(
+        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
+        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
+    )
     {
         $this->requestManager = $requestManager;
+        $this->hydrator = $hydrator;
     }
 
     /**
@@ -61,7 +68,7 @@ class WorkspaceService implements WorkspaceServiceInterface
         
         $workspaces = array();
         foreach($response->body as $workspace) {
-            $workspaces[] = (new ObjectProperty())->hydrate($workspace, new Workspace());
+            $workspaces[] = $this->hydrator->hydrate($workspace, new Workspace());
         }
 
         return new WorkspacesResponse(array('workspaces' => $workspaces));
@@ -84,7 +91,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $response = $this->requestManager->request($request);
 
-        $workspace = (new ObjectProperty())->hydrate($response->body['data'], new Workspace());
+        $workspace = $this->hydrator->hydrate($response->body['data'], new Workspace());
 
         return new WorkspaceResponse(array(
             'workspace' => $workspace,
@@ -110,7 +117,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $users = array();
         foreach($response->body as $user) {
-            $users[] = (new ObjectProperty())->hydrate($user, new User());
+            $users[] = $this->hydrator->hydrate($user, new User());
         }
 
         return new WorkspaceUsersResponse(array(
@@ -137,7 +144,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $clients = array();
         foreach($response->body as $client) {
-            $clients[] = (new ObjectProperty())->hydrate($client, new Client());
+            $clients[] = $this->hydrator->hydrate($client, new Client());
         }
 
         return new WorkspaceClientsResponse(array(
@@ -167,7 +174,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $projects = array();
         foreach($response->body as $project) {
-            $projects[] = (new ObjectProperty())->hydrate($project, new Project());
+            $projects[] = $this->hydrator->hydrate($project, new Project());
         }
 
         return new WorkspaceProjectsResponse(array(
@@ -201,7 +208,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $tasks = array();
         foreach($response->body as $task) {
-            $tasks[] = (new ObjectProperty())->hydrate($task, new Task());
+            $tasks[] = $this->hydrator->hydrate($task, new Task());
         }
 
         return new WorkspaceTasksResponse(array(
@@ -235,7 +242,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $tags = array();
         foreach($response->body as $tag) {
-            $tags[] = (new ObjectProperty())->hydrate($tag, new Tag());
+            $tags[] = $this->hydrator->hydrate($tag, new Tag());
         }
 
         return new WorkspaceTagsResponse(array(
@@ -261,7 +268,7 @@ class WorkspaceService implements WorkspaceServiceInterface
 
         $response = $this->requestManager->request($request);
 
-        $workspace = (new ObjectProperty())->hydrate($response->body['data'], new Workspace());
+        $workspace = $this->hydrator->hydrate($response->body['data'], new Workspace());
 
         return new WorkspaceResponse(array(
             'workspace' => $workspace,

@@ -5,8 +5,9 @@ namespace Marek\Toggable\Service\Authentication;
 use Marek\Toggable\API\Http\Request\Authentication\SessionCookie;
 use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Toggl\AuthenticationServiceInterface;
-use Marek\Toggable\Http\RequestManagerInterface;
+use Marek\Toggable\Http\Manager\RequestManagerInterface;
 use Marek\Toggable\API\Http\Response\Authentication\SessionCookie as SessionCookieResponse;
+use Marek\Toggable\Hydrator\HydratorInterface;
 
 /**
  * Class AuthenticationService
@@ -15,18 +16,28 @@ use Marek\Toggable\API\Http\Response\Authentication\SessionCookie as SessionCook
 class AuthenticationService implements AuthenticationServiceInterface
 {
     /**
-     * @var \Marek\Toggable\Http\RequestManagerInterface
+     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
      */
     private $requestManager;
 
     /**
+     * @var \Marek\Toggable\Hydrator\HydratorInterface
+     */
+    private $hydrator;
+
+    /**
      * AuthenticationService constructor.
      *
-     * @param \Marek\Toggable\Http\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
+     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
      */
-    public function __construct(RequestManagerInterface $requestManager)
+    public function __construct(
+        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
+        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
+    )
     {
         $this->requestManager = $requestManager;
+        $this->hydrator = $hydrator;
     }
 
     public function getSessionCookie()
