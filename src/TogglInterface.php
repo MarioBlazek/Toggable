@@ -24,7 +24,42 @@ interface TogglInterface
     public function getAuthenticationService();
 
     /**
+     * @return \Marek\Toggable\API\Toggl\WorkspaceUsersServiceInterface
+     */
+    public function getWorkspaceUsersService();
+
+    /**
      * @return \Marek\Toggable\API\Toggl\DashboardServiceInterface
      */
     public function getDashboardService();
+
+    /**
+     * @return \Marek\Toggable\API\Toggl\UserServiceInterface
+     */
+    public function getUserService();
+
+    /**
+     * @return \Marek\Toggable\API\Toggl\ProjectServiceInterface
+     */
+    public function getProjectService();
+
+    /**
+     * @return \Marek\Toggable\API\Toggl\ProjectUsersServiceInterface
+     */
+    public function getProjectUsersService();
+
+    /**
+     * @return \Marek\Toggable\API\Toggl\TagServiceInterface
+     */
+    public function getTagService();
+
+    /**
+     * @return \Marek\Toggable\API\Toggl\TaskServiceInterface
+     */
+    public function getTaskService();
+
+    /**
+     * @return \Marek\Toggable\API\Toggl\TimeEntryServiceInterface
+     */
+    public function getTimeEntryService();
 }
