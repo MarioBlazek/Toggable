@@ -9,39 +9,14 @@ use Marek\Toggable\API\Http\Request\Tag\UpdateTag;
 use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Toggl\Values\Tag\Tag;
 use Marek\Toggable\API\Http\Response\Tag\Tag as TagResponse;
-use Marek\Toggable\Hydrator\HydratorInterface;
+use Marek\Toggable\Service\AbstractService;
 
 /**
  * Class TagService
  * @package Marek\Toggable\Service\Tag
  */
-class TagService implements \Marek\Toggable\API\Toggl\TagServiceInterface
+class TagService extends AbstractService implements \Marek\Toggable\API\Toggl\TagServiceInterface
 {
-    /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
-     */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * TagService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
-    {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
-    }
-
     /**
      * @inheritDoc
      */

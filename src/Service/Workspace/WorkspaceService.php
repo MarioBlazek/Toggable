@@ -25,38 +25,14 @@ use Marek\Toggable\API\Toggl\Values\User\User;
 use Marek\Toggable\API\Toggl\Values\Workspace\Workspace;
 use Marek\Toggable\API\Toggl\Values\Activity;
 use InvalidArgumentException;
+use Marek\Toggable\Service\AbstractService;
 
 /**
  * Class WorkspaceService
  * @package Marek\Toggable\Service\Client
  */
-class WorkspaceService implements \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
+class WorkspaceService extends AbstractService implements \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
 {
-    /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
-     */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * WorkspaceService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
-    {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
-    }
-
     /**
      * {@inheritdoc}
      */

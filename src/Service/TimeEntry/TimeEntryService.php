@@ -16,38 +16,14 @@ use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntry as TimeEntryResponse;
 use Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry;
+use Marek\Toggable\Service\AbstractService;
 
 /**
  * Class TimeEntryService
  * @package Marek\Toggable\Service\TimeEntry
  */
-class TimeEntryService implements \Marek\Toggable\API\Toggl\TimeEntryServiceInterface
+class TimeEntryService extends AbstractService implements \Marek\Toggable\API\Toggl\TimeEntryServiceInterface
 {
-    /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
-     */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * TimeEntryService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
-    {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
-    }
-
     /**
      * @inheritDoc
      */

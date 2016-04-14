@@ -9,38 +9,14 @@ use Marek\Toggable\API\Toggl\Values\Dashboard\Dashboard;
 use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Toggl\Values\Dashboard\Activity;
 use Marek\Toggable\API\Toggl\Values\Dashboard\MostActiveUser;
+use Marek\Toggable\Service\AbstractService;
 
 /**
  * Class DashboardService
  * @package Marek\Toggable\Service\Dashboard
  */
-class DashboardService implements \Marek\Toggable\API\Toggl\DashboardServiceInterface
+class DashboardService extends AbstractService implements \Marek\Toggable\API\Toggl\DashboardServiceInterface
 {
-    /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
-     */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * DashboardService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
-    {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
-    }
-
     /**
      * @inheritDoc
      */

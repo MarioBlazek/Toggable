@@ -8,38 +8,14 @@ use Marek\Toggable\API\Toggl\AuthenticationServiceInterface;
 use Marek\Toggable\Http\Manager\RequestManagerInterface;
 use Marek\Toggable\API\Http\Response\Authentication\SessionCookie as SessionCookieResponse;
 use Marek\Toggable\Hydrator\HydratorInterface;
+use Marek\Toggable\Service\AbstractService;
 
 /**
  * Class AuthenticationService
  * @package Marek\Toggable\Service\Authentication
  */
-class AuthenticationService implements AuthenticationServiceInterface
+class AuthenticationService extends AbstractService implements AuthenticationServiceInterface
 {
-    /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
-     */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * AuthenticationService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
-    {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
-    }
-
     public function getSessionCookie()
     {
         $request = new SessionCookie();

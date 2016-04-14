@@ -2,34 +2,76 @@
 
 namespace Marek\Toggable\Service\WorkspaceUsers;
 
+use Marek\Toggable\Service\AbstractService;
+
 /**
  * Class WorkspaceUsersService
  * @package Marek\Toggable\Service\WorkspaceUsers
  */
-class WorkspaceUsersService implements \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
+class WorkspaceUsersService extends AbstractService implements \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
 {
     /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
+     * @inheritDoc
      */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * WorkspaceUsersService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
+    public function getWorkspaces()
     {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
+        // TODO: Implement getWorkspaces() method.
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorkspace($workspaceId)
+    {
+        // TODO: Implement getWorkspace() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorkspaceUsers($workspaceId)
+    {
+        // TODO: Implement getWorkspaceUsers() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorkspaceClients($workspaceId)
+    {
+        // TODO: Implement getWorkspaceClients() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorkspaceProjects($workspaceId, $active = \Marek\Toggable\API\Toggl\Values\Activity::ACTIVE, $actualHours = 'false', $onlyTemplates = 'false')
+    {
+        // TODO: Implement getWorkspaceProjects() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorkspaceTasks($workspaceId, $active = \Marek\Toggable\API\Toggl\Values\Activity::ACTIVE)
+    {
+        // TODO: Implement getWorkspaceTasks() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getWorkspaceTags($workspaceId)
+    {
+        // TODO: Implement getWorkspaceTags() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateWorkspace($workspaceId, \Marek\Toggable\API\Toggl\Values\Workspace\Workspace $workspace)
+    {
+        // TODO: Implement updateWorkspace() method.
+    }
+
 }

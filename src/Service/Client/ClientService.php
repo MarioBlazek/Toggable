@@ -16,39 +16,14 @@ use Marek\Toggable\API\Http\Request\Client\GetClientProjects as GetClientProject
 use Marek\Toggable\API\Http\Request\Client\GetClients as GetClientsRequest;
 use Marek\Toggable\API\Http\Request\Client\DeleteClient as DeleteClientRequest;
 use Marek\Toggable\API\Http\Response\Error;
+use Marek\Toggable\Service\AbstractService;
 
 /**
  * Class ClientService
  * @package Marek\Toggable\Service\Client
  */
-class ClientService implements \Marek\Toggable\API\Toggl\ClientServiceInterface
+class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl\ClientServiceInterface
 {
-
-    /**
-     * @var \Marek\Toggable\Http\Manager\RequestManagerInterface
-     */
-    private $requestManager;
-
-    /**
-     * @var \Marek\Toggable\Hydrator\HydratorInterface
-     */
-    private $hydrator;
-
-    /**
-     * ClientService constructor.
-     *
-     * @param \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager
-     * @param \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-     */
-    public function __construct(
-        \Marek\Toggable\Http\Manager\RequestManagerInterface $requestManager,
-        \Marek\Toggable\Hydrator\HydratorInterface $hydrator
-    )
-    {
-        $this->requestManager = $requestManager;
-        $this->hydrator = $hydrator;
-    }
-
     /**
      * {@inheritdoc}
      */

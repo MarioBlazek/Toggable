@@ -1,10 +1,13 @@
 <?php
 
 namespace Marek\Toggable\Service\Task;
+use Marek\Toggable\Service\AbstractService;
 
-use Marek\Toggable\API\Toggl\TaskServiceInterface;
-
-class TaskService implements TaskServiceInterface
+/**
+ * Class TaskService
+ * @package Marek\Toggable\Service\Task
+ */
+class TaskService extends AbstractService implements \Marek\Toggable\API\Toggl\TaskServiceInterface
 {
 
 }
