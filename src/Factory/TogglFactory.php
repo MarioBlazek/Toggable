@@ -6,6 +6,13 @@ use Marek\Toggable\Hydrator\DataHydrator;
 use Marek\Toggable\Service\Authentication\AuthenticationService;
 use Marek\Toggable\Service\Dashboard\DashboardService;
 use GuzzleHttp\Client;
+use Marek\Toggable\Service\Project\ProjectService;
+use Marek\Toggable\Service\ProjectUsers\ProjectUsersService;
+use Marek\Toggable\Service\Tag\TagService;
+use Marek\Toggable\Service\Task\TaskService;
+use Marek\Toggable\Service\TimeEntry\TimeEntryService;
+use Marek\Toggable\Service\User\UserService;
+use Marek\Toggable\Service\WorkspaceUsers\WorkspaceUsersService;
 use Marek\Toggable\Toggl;
 use Marek\Toggable\API\Security\UsernameAndPasswordToken;
 use Marek\Toggable\API\Security\ApiToken;
@@ -14,8 +21,21 @@ use Marek\Toggable\Http\Manager\RequestManager;
 use Marek\Toggable\Service\Client\ClientService;
 use Marek\Toggable\Service\Workspace\WorkspaceService;
 
+/**
+ * Class TogglFactory
+ * @package Marek\Toggable\Factory
+ */
 class TogglFactory
 {
+    /**
+     * Builds Toggl
+     *
+     * @param string $config
+     *
+     * @return \Marek\Toggable\Toggl
+     *
+     * @throws \InvalidArgumentException
+     */
     public static function buildToggable($config)
     {
         if (!file_exists($config)) {
@@ -55,12 +75,31 @@ class TogglFactory
         $httpClient = new HttpClient($guzzle, $authentication);
         $requestManager = new RequestManager($httpClient);
         $hydrator = new DataHydrator();
-        $clientService = new ClientService($requestManager, $hydrator);
-        $workspaceService = new WorkspaceService($requestManager, $hydrator);
         $authenticationService = new AuthenticationService($requestManager, $hydrator);
+        $clientService = new ClientService($requestManager, $hydrator);
         $dashboardService = new DashboardService($requestManager, $hydrator);
+        $projectService = new ProjectService($requestManager, $hydrator);
+        $projectUsersService = new ProjectUsersService($requestManager, $hydrator);
+        $tagService = new TagService($requestManager, $hydrator);
+        $taskService = new TaskService($requestManager, $hydrator);
+        $timeEntryService = new TimeEntryService($requestManager, $hydrator);
+        $userService = new UserService($requestManager, $hydrator);
+        $workspaceService = new WorkspaceService($requestManager, $hydrator);
+        $workspaceUsersService = new WorkspaceUsersService($requestManager, $hydrator);
 
-        $toggl = new Toggl($clientService, $workspaceService, $authenticationService, $dashboardService);
+        $toggl = new Toggl(
+            $authenticationService,
+            $clientService,
+            $dashboardService,
+            $projectService,
+            $projectUsersService,
+            $tagService,
+            $taskService,
+            $timeEntryService,
+            $userService,
+            $workspaceService,
+            $workspaceUsersService
+        );
 
         return $toggl;
     }
