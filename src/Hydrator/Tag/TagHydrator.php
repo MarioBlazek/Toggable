@@ -14,24 +14,12 @@ class TagHydrator extends BaseHydrator
     /**
      * {@inheritdoc}
      */
-    public function hydrate(array $data, $object)
+    public function canHydrate($object)
     {
-        if (!$object instanceof Tag) {
-            return $object;
+        if ($object instanceof Tag) {
+            return true;
         }
 
-        return $this->hydrator->hydrate($data, $object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($object)
-    {
-        if (!$object instanceof Tag) {
-            return $object;
-        }
-
-        return $this->hydrator->extract($object);
+        return false;
     }
 }

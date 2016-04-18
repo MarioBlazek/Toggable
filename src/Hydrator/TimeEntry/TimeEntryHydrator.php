@@ -14,24 +14,12 @@ class TimeEntryHydrator extends BaseHydrator
     /**
      * {@inheritdoc}
      */
-    public function hydrate(array $data, $object)
+    public function canHydrate($object)
     {
-        if (!$object instanceof TimeEntry) {
-            return $object;
+        if ($object instanceof TimeEntry) {
+            return true;
         }
 
-        return $this->hydrator->hydrate($data, $object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($object)
-    {
-        if (!$object instanceof TimeEntry) {
-            return $object;
-        }
-
-        return $this->hydrator->extract($object);
+        return false;
     }
 }

@@ -5,29 +5,21 @@ namespace Marek\Toggable\Hydrator\Project;
 use Marek\Toggable\API\Toggl\Values\Project\User;
 use Marek\Toggable\Hydrator\BaseHydrator;
 
+/**
+ * Class UserHydrator
+ * @package Marek\Toggable\Hydrator\Project
+ */
 class UserHydrator extends BaseHydrator
 {
     /**
      * {@inheritdoc}
      */
-    public function hydrate(array $data, $object)
+    public function canHydrate($object)
     {
-        if (!$object instanceof User) {
-            return $object;
+        if ($object instanceof User) {
+            return true;
         }
 
-        return $this->hydrator->hydrate($data, $object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($object)
-    {
-        if (!$object instanceof User) {
-            return $object;
-        }
-
-        return $this->hydrator->extract($object);
+        return false;
     }
 }

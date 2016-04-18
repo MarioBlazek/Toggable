@@ -14,24 +14,12 @@ class MostActiveUserHydrator extends BaseHydrator
     /**
      * {@inheritdoc}
      */
-    public function hydrate(array $data, $object)
+    public function canHydrate($object)
     {
-        if (!$object instanceof MostActiveUser) {
-            return $object;
+        if ($object instanceof MostActiveUser) {
+            return true;
         }
 
-        return $this->hydrator->hydrate($data, $object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($object)
-    {
-        if (!$object instanceof MostActiveUser) {
-            return $object;
-        }
-
-        return $this->hydrator->extract($object);
+        return false;
     }
 }

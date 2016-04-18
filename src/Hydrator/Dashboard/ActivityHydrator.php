@@ -14,24 +14,12 @@ class ActivityHydrator extends BaseHydrator
     /**
      * {@inheritdoc}
      */
-    public function hydrate(array $data, $object)
+    public function canHydrate($object)
     {
-        if (!$object instanceof Activity) {
-            return $object;
+        if ($object instanceof Activity) {
+            return true;
         }
 
-        return $this->hydrator->hydrate($data, $object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function extract($object)
-    {
-        if (!$object instanceof Activity) {
-            return $object;
-        }
-
-        return $this->hydrator->extract($object);
+        return false;
     }
 }

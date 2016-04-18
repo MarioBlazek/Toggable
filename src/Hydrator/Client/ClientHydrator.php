@@ -14,24 +14,12 @@ class ClientHydrator extends BaseHydrator
     /**
      * {@inheritdoc}
      */
-    public function extract($object)
+    public function canHydrate($object)
     {
-        if (!$object instanceof Client) {
-            return $object;
+        if ($object instanceof Client) {
+            return true;
         }
 
-        return $this->hydrator->extract($object);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hydrate(array $data, $object)
-    {
-        if (!$object instanceof Client) {
-            return $object;
-        }
-
-        return $this->hydrator->hydrate($data, $object);
+        return false;
     }
 }
