@@ -19,11 +19,6 @@ class GetClientProjects extends Request
     public $uri = 'clients/{client_id}/projects?active={is_active}';
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * @var int
      */
     public $clientId;

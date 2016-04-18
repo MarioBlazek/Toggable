@@ -14,9 +14,4 @@ class GetClients extends Request
      * @var string
      */
     public $uri = 'clients';
-
-    /**
-     * @var string
-     */
-    public $method = Request::GET;
 }

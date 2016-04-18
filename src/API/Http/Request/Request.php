@@ -4,6 +4,7 @@ namespace Marek\Toggable\API\Http\Request;
 
 use Marek\Toggable\API\Toggl\Values\ValueObject;
 use RuntimeException;
+use JsonSerializable;
 
 /**
  * Class Request
@@ -14,17 +15,39 @@ use RuntimeException;
  * @property-read array $data
  * @property-read array $headers
  */
-class Request extends ValueObject
+class Request extends ValueObject implements JsonSerializable
 {
+    /**
+     * HTTP GET method
+     */
     const GET = 'GET';
+
+    /**
+     * HTTP POST method
+     */
     const POST = 'POST';
+
+    /**
+     * HTTP PUT method
+     */
     const PUT = 'PUT';
+
+    /**
+     * HTTP DELETE method
+     */
     const DELETE = 'DELETE';
+
+    /**
+     * @var array
+     */
+    public $headers = array(
+        'Content-Type' => 'application/json',
+    );
 
     /**
      * @var string
      */
-    public $method;
+    public $method = Request::GET;
 
     /**
      * @var string
@@ -34,26 +57,12 @@ class Request extends ValueObject
     /**
      * @var array
      */
-    /**
-     * @var array
-     */
-    public $headers = array(
-        'Content-Type' => 'application/json',
-    );
+    public $data;
 
     /**
-     * @var bool
+     * @inheritDoc
      */
-    public $hasData = false;
-
-    /**
-     * Converts object to array
-     *
-     * @return array
-     *
-     * @throws RuntimeException
-     */
-    public function toArray()
+    function jsonSerialize()
     {
         throw new RuntimeException('Not implemented');
     }

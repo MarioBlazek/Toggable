@@ -41,7 +41,7 @@ interface ClientServiceInterface
      *
      * @return \Marek\Toggable\API\Http\Response\Project\Projects
      */
-    public function getClientProjects($clientId, $active = \Marek\Toggable\API\Toggl\Values\Client\Client::ACTIVE);
+    public function getClientProjects($clientId, $active = \Marek\Toggable\API\Toggl\Values\Activity::ACTIVE);
 
     /**
      * Updates Client

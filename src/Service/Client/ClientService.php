@@ -17,6 +17,7 @@ use Marek\Toggable\API\Http\Request\Client\GetClients as GetClientsRequest;
 use Marek\Toggable\API\Http\Request\Client\DeleteClient as DeleteClientRequest;
 use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\Service\AbstractService;
+use Marek\Toggable\API\Toggl\Values\Activity;
 
 /**
  * Class ClientService
@@ -29,7 +30,15 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
      */
     public function createClient(ClientValue $client)
     {
-        $request = new CreateClientRequest(array('client' => $client));
+
+        $client = $this->hydrator->extract($client);
+
+        $request = new CreateClientRequest(
+            array(
+                'data' => $client,
+            )
+        );
+
         $response = $this->requestManager->request($request);
 
         if ($response instanceof Error) {
@@ -52,10 +61,15 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
             );
         }
 
-        $request = new GetClientDetailsRequest(array('clientId' => $clientId));
+        $request = new GetClientDetailsRequest(
+            array(
+                'clientId' => $clientId,
+            )
+        );
+
         $response = $this->requestManager->request($request);
 
-        $client = $this->hydrator->hydrate($response->body, new ClientValue);
+        $client = $this->hydrator->hydrate($response->body['data'], new ClientValue);
 
         return new ClientResponse(array('client' => $client));
     }
@@ -79,7 +93,7 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
     /**
      * {@inheritdoc}
      */
-    public function getClientProjects($clientId, $active = Client::ACTIVE)
+    public function getClientProjects($clientId, $active = Activity::ACTIVE)
     {
         $request = new GetClientProjectsRequest(array(
             'clientId' => $clientId,
@@ -109,9 +123,11 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
             );
         }
 
+        $client = $this->hydrator->extract($client);
+
         $request = new UpdateClient(array(
             'clientId' => $clientId,
-            'client' => $client,
+            'data' => $client,
             )
         );
 

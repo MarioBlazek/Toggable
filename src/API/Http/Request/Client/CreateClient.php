@@ -21,20 +21,10 @@ class CreateClient extends Request
     public $method = Request::POST;
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Client\Client
-     */
-    public $client;
-
-    /**
-     * @var boolean
-     */
-    public $hasData = true;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray() 
+    public function jsonSerialize()
     {
-        return array('client' => $this->client->toArray());
+        return array('client' => $this->data);
     }
 }

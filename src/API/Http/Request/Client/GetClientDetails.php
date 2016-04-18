@@ -23,11 +23,6 @@ class GetClientDetails extends Request
     public $clientId;
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * GetClientDetailsRequest constructor.
      *
      * @param array $parameters
