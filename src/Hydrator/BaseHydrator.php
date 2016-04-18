@@ -4,13 +4,12 @@ namespace Marek\Toggable\Hydrator;
 
 use Marek\Toggable\Hydrator\Strategy\DateStrategy;
 use Zend\Hydrator\HydratorInterface as ZendHydratorInterface;
-use Zend\Hydrator\ObjectProperty;
 
 /**
- * Class DataHydrator
+ * Class BaseHydrator
  * @package Marek\Toggable\Hydrator
  */
-class DataHydrator implements HydratorInterface
+abstract class BaseHydrator implements HydratorInterface
 {
     /**
      * @var ZendHydratorInterface
