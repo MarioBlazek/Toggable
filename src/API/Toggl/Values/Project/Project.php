@@ -25,13 +25,10 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read int $color
  * @property-read float $rate
  * @property-read \DateTime $created_at
+ * @property-read \DateTime $server_deleted_at
  */
 class Project extends ValueObject
 {
-    const ACTIVE = 'true';
-    const INACTIVE = 'false';
-    const ACTIVE_AND_INACTIVE = 'both';
-
     /**
      * @var int
      */
@@ -116,4 +113,9 @@ class Project extends ValueObject
      * @var \DateTime
      */
     public $created_at;
+
+    /**
+     * @var \DateTime
+     */
+    public $server_deleted_at;
 }

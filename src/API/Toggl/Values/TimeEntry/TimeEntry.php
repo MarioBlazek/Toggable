@@ -9,10 +9,12 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @package Marek\Toggable\API\Toggl\Values\TimeEntry
  *
  * @property-read int $id
+ * @property-read int $uid
  * @property-read string $description
  * @property-read int $wid
  * @property-read int $pid
  * @property-read int $tid
+ * @property-read int $guid
  * @property-read boolean $billable
  * @property-read \DateTime $start
  * @property-read \DateTime $stop
@@ -20,7 +22,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read string $createdWith
  * @property-read \Marek\Toggable\API\Toggl\Values\Tag\Tag[] $tags
  * @property-read boolean $duronly
- * @property-read \DateTime $lastUpdatedAt
+ * @property-read \DateTime $at
  */
 class TimeEntry extends ValueObject
 {
@@ -28,6 +30,11 @@ class TimeEntry extends ValueObject
      * @var int
      */
     public $id;
+
+    /**
+     * @var int
+     */
+    public $uid;
 
     /**
      * @var string
@@ -54,6 +61,11 @@ class TimeEntry extends ValueObject
      * @var int
      */
     public $tid;
+
+    /**
+     * @var int
+     */
+    public $guid;
 
     /**
      * Available for pro workspaces
@@ -111,31 +123,6 @@ class TimeEntry extends ValueObject
      *
      * @var \DateTime
      */
-    public $lastUpdatedAt;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        $className = get_class($this);
-        $classProperties = get_class_vars($className);
-
-        $data =  array();
-        foreach ($classProperties as $propertyName => $propertyValue) {
-
-            if (!empty($this->$propertyName)) {
-
-                $data[$propertyName] = $this->$propertyName;
-
-            } else if ($this->$propertyName instanceof \DateTime) {
-
-                $data[$propertyName] = $this->$propertyName->format('c');
-
-            }
-        }
-
-        return $data;
-    }
+    public $at;
 }
 

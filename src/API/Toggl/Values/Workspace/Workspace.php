@@ -166,30 +166,5 @@ class Workspace extends ValueObject
      * @var boolean
      */
     public $business_tester;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function toArray()
-    {
-        $className = get_class($this);
-        $classProperties = get_class_vars($className);
-
-        $data =  array();
-        foreach ($classProperties as $propertyName => $propertyValue) {
-
-            if (!empty($this->$propertyName)) {
-
-                $data[$propertyName] = $this->$propertyName;
-
-            } else if ($this->$propertyName instanceof \DateTime) {
-
-                $data[$propertyName] = $this->$propertyName->format('c');
-
-            }
-        }
-
-        return $data;
-    }
 }
 

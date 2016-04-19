@@ -9,7 +9,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @package Marek\Toggable\API\Toggl\Values\User
  *
  * @property-read int $id
- * @property-read string $apiToken
+ * @property-read string $api_token
  * @property-read int $default_wid
  * @property-read string $fullname
  * @property-read string $email
@@ -42,6 +42,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read string $timezone
  * @property-read string $duration_format
  * @property-read string $obm
+ * @property-read boolean $used_next
  */
 class User extends ValueObject
 {
@@ -53,7 +54,7 @@ class User extends ValueObject
     /**
      * @var string
      */
-    public $apiToken;
+    public $api_token;
 
     /**
      * Default workspace id
@@ -240,4 +241,9 @@ class User extends ValueObject
      * @var string
      */
     public $obm;
+
+    /**
+     * @var boolean
+     */
+    public $used_next;
 }
