@@ -74,24 +74,14 @@ echo $client->name;
 
 ```php
 ...
-$client = new \Marek\Toggable\API\Toggl\Values\Client\Client(
-    array(
-        'name' => 'Very Big Company',
-        'wid' => 777,
-    )
-);
+/** @var \Marek\Toggable\API\Http\Response\Successful $response */
+$response = $clientService->deleteClient(123456789);
 
-/** @var \Marek\Toggable\API\Http\Response\Client\Client $response */
-$response = $clientService->createClient($client);
-/** @var \Marek\Toggable\API\Toggl\Values\Client\Client $client */
-$client = $response->client;
-
-echo $client->name;
 ```
 
 ##Get workspace clients##
 
-Retrieving workspace clients is documented here.
+Retrieving workspace clients is documented [here](workspaces.md).
 
 ##Get clients visible to user##
 
@@ -103,11 +93,18 @@ $response = $clientService->getClients();
 /** @var \Marek\Toggable\API\Toggl\Values\Client\Client $client */
 foreach ($response->clients as $client) {
     echo $client->name . "\n";
+}
 ```
 
 ##Get client projects##
 
 ```php
 ...
+/** @var \Marek\Toggable\API\Http\Response\Project\Projects $response */
+$response = $clientService->getClientProjects(123456789);
 
+/** @var \Marek\Toggable\API\Toggl\Values\Project\Project $project */
+foreach ($response->projects as $project) {
+    echo $project->name . "\n";
+}
 ```
