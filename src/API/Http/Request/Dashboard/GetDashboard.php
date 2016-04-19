@@ -18,11 +18,6 @@ class GetDashboard extends Request
     public $uri = 'dashboard/{workspace_id}';
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * @var int
      */
     public $workspaceId;

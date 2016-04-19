@@ -23,7 +23,8 @@ $dashboardService = $toggl->getDashboardService();
 
 ```php
 ...
-$response = $dashboardService->getDashboardData($workspaceId);
+/** @var \Marek\Toggable\API\Http\Response\Dashboard\Dashboard $response */
+$response = $dashboardService->getDashboardData(123456789);
 
 $dashboard = $response->dashboard;
 
