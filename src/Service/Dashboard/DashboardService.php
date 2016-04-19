@@ -39,13 +39,17 @@ class DashboardService extends AbstractService implements \Marek\Toggable\API\To
         }
 
         $mostActiveUsers = array();
-        foreach($response->body['most_active_user'] as $mostActiveUser) {
-            $mostActiveUsers[] = $this->hydrator->hydrate($mostActiveUser, new MostActiveUser());
+        if (!empty($response->body['most_active_user'])) {
+            foreach($response->body['most_active_user'] as $mostActiveUser) {
+                $mostActiveUsers[] = $this->hydrator->hydrate($mostActiveUser, new MostActiveUser());
+            }
         }
 
         $activities = array();
-        foreach($response->body['activity'] as $activity) {
-            $activities[] = $this->hydrator->hydrate($activity, new Activity());
+        if (!empty($response->body['activity'])) {
+            foreach ($response->body['activity'] as $activity) {
+                $activities[] = $this->hydrator->hydrate($activity, new Activity());
+            }
         }
 
         $dashboard = new Dashboard(array(

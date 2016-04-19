@@ -3,6 +3,7 @@
 namespace Marek\Toggable\Service\Client;
 
 use InvalidArgumentException;
+use Marek\Toggable\API\Exception\NotFoundException;
 use Marek\Toggable\API\Http\Request\Client\UpdateClient;
 use Marek\Toggable\API\Http\Response\Client\Client as ClientResponse;
 use Marek\Toggable\API\Http\Response\Client\Clients as ClientsResponse;
@@ -69,6 +70,10 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
 
         $response = $this->requestManager->request($request);
 
+        if (empty($response->body['data'])) {
+            throw new NotFoundException('client');
+        }
+
         $client = $this->hydrator->hydrate($response->body['data'], new ClientValue);
 
         return new ClientResponse(array('client' => $client));
@@ -81,6 +86,10 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
     {
         $request = new GetClientsRequest();
         $response = $this->requestManager->request($request);
+
+        if (empty($response->body)) {
+            throw new NotFoundException('clients');
+        }
 
         $clients = array();
         foreach($response->body as $client) {
@@ -103,13 +112,16 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
 
         $response = $this->requestManager->request($request);
 
+        if (empty($response->body)) {
+            throw new NotFoundException('client projects');
+        }
+
         $projects = array();
-        foreach ($response as $project) {
+        foreach ($response->body as $project) {
             $projects[] = $this->hydrator->hydrate($project, new ProjectValue());
         }
 
         return new ProjectsResponse(array('projects' => $projects));
-
     }
 
     /**

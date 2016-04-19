@@ -28,7 +28,7 @@ class UserService extends AbstractService implements \Marek\Toggable\API\Toggl\U
     public function getCurrentUserData($withRelatedData = false)
     {
         $request = new GetCurrentUser(array(
-            'withRelatedData' => $withRelatedData,
+            'relatedData' => $withRelatedData,
         ));
 
         $response = $this->requestManager->request($request);
@@ -43,46 +43,7 @@ class UserService extends AbstractService implements \Marek\Toggable\API\Toggl\U
 
         $user = $this->hydrator->hydrate($response->body['data'], new User());
 
-        $parameters = array(
-            'user' => $user,
-        );
-
-        if ($withRelatedData) {
-
-            if (!empty($response->body['data']['new_blog_post'])) {
-                $blogPost = $this->hydrator->hydrate($response->body['data']['new_blog_post'], new BlogPost());
-                $parameters['blogPost'] = $blogPost;
-            }
-
-            if (!empty($response->body['data']['time_entries'])) {
-                $timeEntry = $this->hydrator->hydrate($response->body['data']['time_entries'], new TimeEntry());
-                $parameters['timeEntry'] = $timeEntry;
-            }
-
-            if (!empty($response->body['data']['projects'])) {
-                $projects = $this->hydrator->hydrate($response->body['data']['projects'], new TimeEntry());
-                $parameters['projects'] = $projects;
-            }
-
-            if (!empty($response->body['data']['tags'])) {
-                $tags = $this->hydrator->hydrate($response->body['data']['tags'], new TimeEntry());
-                $parameters['tags'] = $tags;
-            }
-
-            if (!empty($response->body['data']['workspaces'])) {
-                $workspaces = $this->hydrator->hydrate($response->body['data']['workspaces'], new TimeEntry());
-                $parameters['workspaces'] = $workspaces;
-            }
-
-            if (!empty($response->body['data']['clients'])) {
-                $clients = $this->hydrator->hydrate($response->body['data']['clients'], new TimeEntry());
-                $parameters['clients'] = $clients;
-            }
-
-            return new UserWithRelatedData($parameters);
-        }
-
-        return new UserResponse($parameters);
+//        return new UserResponse($parameters);
     }
 
     /**
@@ -90,6 +51,8 @@ class UserService extends AbstractService implements \Marek\Toggable\API\Toggl\U
      */
     public function updateUser(\Marek\Toggable\API\Http\Response\Users\User $user)
     {
+        $user = $this->hydrator->extract($user);
+
         $request = new UpdateUser(array(
             'user' => $user,
         ));

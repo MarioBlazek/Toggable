@@ -8,7 +8,7 @@ use Marek\Toggable\Service\AbstractService;
  * Class WorkspaceUsersService
  * @package Marek\Toggable\Service\WorkspaceUsers
  */
-class WorkspaceUsersService extends AbstractService implements \Marek\Toggable\API\Toggl\WorkspaceServiceInterface
+class WorkspaceUsersService extends AbstractService implements \Marek\Toggable\API\Toggl\WorkspaceUsersServiceInterface
 {
     /**
      * @inheritDoc
@@ -73,5 +73,4 @@ class WorkspaceUsersService extends AbstractService implements \Marek\Toggable\A
     {
         // TODO: Implement updateWorkspace() method.
     }
-
 }

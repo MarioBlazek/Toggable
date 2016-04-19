@@ -23,6 +23,8 @@ interface ClientServiceInterface
      * @param int $clientId
      *
      * @return \Marek\Toggable\API\Http\Response\Client\Client
+     *
+     * @throws \Marek\Toggable\API\Exception\NotFoundException
      */
     public function getClientDetails($clientId);
 
@@ -30,6 +32,8 @@ interface ClientServiceInterface
      * Get list of clients available to the user
      *
      * @return \Marek\Toggable\API\Http\Response\Client\Clients
+     *
+     * @throws \Marek\Toggable\API\Exception\NotFoundException
      */
     public function getClients();
 
@@ -40,6 +44,8 @@ interface ClientServiceInterface
      * @param string $active
      *
      * @return \Marek\Toggable\API\Http\Response\Project\Projects
+     *
+     * @throws \Marek\Toggable\API\Exception\NotFoundException
      */
     public function getClientProjects($clientId, $active = \Marek\Toggable\API\Toggl\Values\Activity::ACTIVE);
 

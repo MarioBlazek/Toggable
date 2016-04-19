@@ -2,10 +2,11 @@
 
 namespace Marek\Toggable\Factory;
 
-use Marek\Toggable\Hydrator\DataHydrator;
+use Marek\Toggable\Http\Client\NativeHttpClient;
+use Marek\Toggable\Http\Manager\NativeRequestManager;
+use Marek\Toggable\Hydrator\HydratorFactory;
 use Marek\Toggable\Service\Authentication\AuthenticationService;
 use Marek\Toggable\Service\Dashboard\DashboardService;
-use GuzzleHttp\Client;
 use Marek\Toggable\Service\Project\ProjectService;
 use Marek\Toggable\Service\ProjectUsers\ProjectUsersService;
 use Marek\Toggable\Service\Tag\TagService;
@@ -67,14 +68,11 @@ class TogglFactory
             throw new \InvalidArgumentException('Please provide base URI.');
         }
 
-        $guzzle = new Client(array(
-                'base_uri' => $config['marek_toggable']['base_uri']
-            )
-        );
+        $nativeHttpClient = new NativeHttpClient($config['marek_toggable']['base_uri'], $authentication);
+        $requestManager = new NativeRequestManager($nativeHttpClient);
 
-        $httpClient = new HttpClient($guzzle, $authentication);
-        $requestManager = new RequestManager($httpClient);
-        $hydrator = new DataHydrator();
+        $hydrator = HydratorFactory::createHydrator();
+
         $authenticationService = new AuthenticationService($requestManager, $hydrator);
         $clientService = new ClientService($requestManager, $hydrator);
         $dashboardService = new DashboardService($requestManager, $hydrator);
@@ -83,6 +81,7 @@ class TogglFactory
         $tagService = new TagService($requestManager, $hydrator);
         $taskService = new TaskService($requestManager, $hydrator);
         $timeEntryService = new TimeEntryService($requestManager, $hydrator);
+
         $userService = new UserService($requestManager, $hydrator);
         $workspaceService = new WorkspaceService($requestManager, $hydrator);
         $workspaceUsersService = new WorkspaceUsersService($requestManager, $hydrator);

@@ -11,13 +11,13 @@ interface HttpClientInterface
     /**
      * Send Http request and returns response
      *
-     * @param \Psr\Http\Message\RequestInterface $request
+     * @param \Marek\Toggable\API\Http\Request\RequestInterface
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return \Marek\Toggable\API\Http\Client\HttpClientResponseInterface
      *
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Marek\Toggable\API\Exception\Http\BaseException
      */
-    public function send(\Psr\Http\Message\RequestInterface $request);
+    public function send(\Marek\Toggable\API\Http\Request\RequestInterface $request);
 
     /**
      * Sets Authentication Token
@@ -25,4 +25,11 @@ interface HttpClientInterface
      * @param \Marek\Toggable\API\Security\TokenInterface $token
      */
     public function setToken(\Marek\Toggable\API\Security\TokenInterface $token);
+
+    /**
+     * Sets SessionCookie
+     *
+     * @param \Marek\Toggable\API\Security\Cookie\SessionCookieInterface $cookie
+     */
+    public function setCookie(\Marek\Toggable\API\Security\Cookie\SessionCookieInterface $cookie);
 }

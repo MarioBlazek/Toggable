@@ -1,6 +1,7 @@
 <?php
 
 namespace Marek\Toggable\Service\ProjectUsers;
+
 use Marek\Toggable\Service\AbstractService;
 
 /**
