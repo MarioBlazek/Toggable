@@ -1,3 +1,9 @@
 # Toggable installation instructions
 
-Work in progress...
+### Use Composer
+
+Run the following from your website root folder to install Toggable:
+
+```
+$ composer require marioblazek/toggable
+```
