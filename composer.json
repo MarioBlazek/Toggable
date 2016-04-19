@@ -1,17 +1,24 @@
 {
     "name": "marioblazek/toggable",
     "description": "Toggable - Toggl API wrapper for PHP",
+    "type": "library",
+    "keywords": [
+        "toggl",
+        "time recording",
+        "tracking"
+    ],
+    "homepage": "https://github.com/MarioBlazek/Toggable",
+    "license": "GPLv2",
     "require": {
-        "guzzlehttp/guzzle": "~6.0",
         "zendframework/zend-hydrator": "~2.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.0"
     },
     "autoload": {
-	"psr-4": {
-	    "Marek\\Toggable\\": "src/"
-	}
+        "psr-4": {
+            "Marek\\Toggable\\": "src/"
+        }
     },
     "authors": [
         {
