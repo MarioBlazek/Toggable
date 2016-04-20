@@ -15,7 +15,7 @@ class TogglTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = __DIR__.'/../config.local.php';
+        $config = __DIR__.'/../config.php';
         $this->toggl = TogglFactory::buildToggable($config);
     }
 
