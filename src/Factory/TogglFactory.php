@@ -43,7 +43,7 @@ class TogglFactory
             throw new \InvalidArgumentException('Please provide configuration file.');
         }
 
-        $config = require_once($config);
+        $config = require($config);
 
         $authentication = null;
         if (!empty($config['marek_toggable']['security']['token'])) {
