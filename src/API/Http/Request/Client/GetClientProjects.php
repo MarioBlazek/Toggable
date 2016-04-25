@@ -38,6 +38,6 @@ class GetClientProjects extends Request
         parent::__construct($properties);
 
         $this->uri = str_replace('{client_id}', $this->clientId, $this->uri);
-        $this->uri = str_replace('{is_active}   ', $this->active, $this->uri);
+        $this->uri = str_replace('{is_active}', $this->active, $this->uri);
     }
 }
