@@ -1,0 +1,24 @@
+filter:
+    excluded_paths:
+        - 'tests/*'
+        - 'vendor/*'
+checks:
+    php: true
+        code_rating: true
+        duplication: true
+coding_style:
+    php:
+        indentation:
+            general:
+                size: 1
+        spaces:
+            around_operators:
+                concatenation: true
+build:
+    tests:
+        override:
+            -
+                command: 'phpunit --coverage-clover=coverage'
+                coverage:
+                    file: 'coverage'
+                    format: 'php-clover'
