@@ -4,13 +4,3 @@ filter:
         - 'vendor/*'
 checks:
     php: true
-        code_rating: true
-        duplication: true
-coding_style:
-    php:
-        indentation:
-            general:
-                size: 1
-        spaces:
-            around_operators:
-                concatenation: true
