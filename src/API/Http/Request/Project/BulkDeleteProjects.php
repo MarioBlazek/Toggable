@@ -8,7 +8,7 @@ use Marek\Toggable\API\Http\Request\Request;
  * Class BulkDeleteProjects
  * @package Marek\Toggable\API\Http\Request\Project
  *
- * @property-read \Marek\Toggable\API\Toggl\Values\Project\Project[] $projects
+ * @property-read array $projectsIds
  */
 class BulkDeleteProjects extends Request
 {
@@ -23,9 +23,9 @@ class BulkDeleteProjects extends Request
     public $method = Request::DELETE;
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Project\Project[]
+     * @var array
      */
-    public $projects;
+    public $projectsIds;
 
     /**
      * BulkDeleteProjects constructor.
@@ -36,12 +36,7 @@ class BulkDeleteProjects extends Request
     {
         parent::__construct($properties);
 
-        $projectIds = array();
-        foreach ($this->projects as $project) {
-            $projectIds[] = $project->id;
-        }
-
-        $projectIds = implode(',', $projectIds);
+        $projectIds = implode(',', $this->projectsIds);
 
         $this->uri = str_replace('{project_ids}', $projectIds, $this->uri);
     }

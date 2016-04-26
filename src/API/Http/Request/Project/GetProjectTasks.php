@@ -2,21 +2,14 @@
 
 namespace Marek\Toggable\API\Http\Request\Project;
 
-use Marek\Toggable\API\Http\Request\Request;
-
 /**
  * Class GetProjectTasks
  * @package Marek\Toggable\API\Http\Request\Project
  */
-class GetProjectTasks extends Request
+class GetProjectTasks extends GetProject
 {
     /**
      * @var string
      */
     public $uri = 'projects/{project_id}/tasks';
-
-    /**
-     * @var string
-     */
-    public $method = Request::GET;
 }

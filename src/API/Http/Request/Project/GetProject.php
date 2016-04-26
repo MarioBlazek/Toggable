@@ -23,11 +23,6 @@ class GetProject extends Request
     public $projectId;
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * GetProject constructor.
      *
      * @param array $properties
