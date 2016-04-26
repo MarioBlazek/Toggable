@@ -77,7 +77,7 @@ class Request extends ValueObject implements RequestInterface
     /**
      * @inheritDoc
      */
-    function jsonSerialize()
+    public function jsonSerialize()
     {
         throw new RuntimeException('Not implemented');
     }
