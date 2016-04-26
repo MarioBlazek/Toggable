@@ -17,7 +17,7 @@ class ProjectHydrator extends BaseHydrator
     public function canHydrate($object)
     {
         if ($object instanceof Project) {
-            return $object;
+            return true;
         }
 
         return false;
