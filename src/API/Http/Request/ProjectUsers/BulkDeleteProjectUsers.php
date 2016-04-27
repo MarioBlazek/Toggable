@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\Toggable\API\Http\Request\ProjectUser;
+namespace Marek\Toggable\API\Http\Request\ProjectUsers;
 
 use Marek\Toggable\API\Http\Request\Request;
 
@@ -8,7 +8,7 @@ use Marek\Toggable\API\Http\Request\Request;
  * Class BulkDeleteProjectUsers
  * @package Marek\Toggable\API\Http\Request\ProjectUser
  *
- * @property-read \Marek\Toggable\API\Toggl\Values\Project\User[] $projectUsers
+ * @property-read array $projectUserIds
  */
 class BulkDeleteProjectUsers extends Request
 {
@@ -18,9 +18,9 @@ class BulkDeleteProjectUsers extends Request
     public $uri = 'project_users/{project_user_ids}';
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Project\User[]
+     * @var array
      */
-    public $projectUsers;
+    public $projectUserIds;
 
     /**
      * @var string
@@ -36,12 +36,7 @@ class BulkDeleteProjectUsers extends Request
     {
         parent::__construct($properties);
 
-        $projectUserIds = array();
-        foreach ($this->projectUsers as $projectUser) {
-            $projectUserIds[] = $projectUser->id;
-        }
-
-        $projectUserIds = implode(',', $projectUserIds);
+        $projectUserIds = implode(',', $this->projectUserIds);
 
         $this->uri = str_replace('{project_user_ids}', $projectUserIds, $this->uri);
     }

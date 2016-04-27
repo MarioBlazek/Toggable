@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\Toggable\API\Http\Request\ProjectUser;
+namespace Marek\Toggable\API\Http\Request\ProjectUsers;
 
 use Marek\Toggable\API\Http\Request\Request;
 

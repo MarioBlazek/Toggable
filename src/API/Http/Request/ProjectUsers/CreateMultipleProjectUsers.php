@@ -1,6 +1,6 @@
 <?php
 
-namespace Marek\Toggable\API\Http\Request\ProjectUser;
+namespace Marek\Toggable\API\Http\Request\ProjectUsers;
 
 use Marek\Toggable\API\Http\Request\Request;
 
@@ -19,41 +19,15 @@ class CreateMultipleProjectUsers extends Request
     public $uri = 'project_users';
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Project\User[]
-     */
-    public $projectUsers;
-
-    /**
-     * @var \Marek\Toggable\API\Toggl\Values\Project\User
-     */
-    public $projectUser;
-
-    /**
      * @var string
      */
     public $method = Request::POST;
 
     /**
-     * @var boolean
-     */
-    public $data = true;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        $data = $this->projectUser->toArray();
-
-        $projectUserIds = array();
-        foreach ($this->projectUsers as $projectUser) {
-            $projectUserIds[] = $projectUser->id;
-        }
-
-        $projectUserIds = implode(',', $projectUserIds);
-
-        $data['uid'] = $projectUserIds;
-
-        return array('project_user' => $data);
+        return array('project_user' => $this->data);
     }
 }
