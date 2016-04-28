@@ -8,7 +8,7 @@ use Marek\Toggable\API\Http\Request\Request;
  * Class UpdateTag
  * @package Marek\Toggable\API\Http\Request\Tag
  * 
- * @property-read int $clientId
+ * @property-read int $tagId
  */
 class UpdateTag extends CreateTag
 {

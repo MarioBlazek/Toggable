@@ -7,8 +7,6 @@ use Marek\Toggable\API\Http\Request\Request;
 /**
  * Class CreateTag
  * @package Marek\Toggable\API\Http\Request\Tag
- *
- * @property-read \Marek\Toggable\API\Toggl\Values\Tag\Tag $tag
  */
 class CreateTag extends Request
 {
@@ -23,20 +21,10 @@ class CreateTag extends Request
     public $method = Request::POST;
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Tag\Tag
-     */
-    public $tag;
-
-    /**
-     * @var boolean
-     */
-    public $hasData = true;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return array('tag' => $this->tag->toArray());
+        return array('tag' => $this->data);
     }
 }
