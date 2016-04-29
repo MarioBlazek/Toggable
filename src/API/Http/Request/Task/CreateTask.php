@@ -7,8 +7,6 @@ use Marek\Toggable\API\Http\Request\Request;
 /**
  * Class CreateTask
  * @package Marek\Toggable\API\Http\Request\Task
- *
- * @property-read \Marek\Toggable\API\Toggl\Values\Task\Task $task
  */
 class CreateTask extends Request
 {
@@ -18,25 +16,15 @@ class CreateTask extends Request
     public $uri = 'tasks';
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Task\Task
-     */
-    public $task;
-
-    /**
      * @var string
      */
     public $method = Request::POST;
 
     /**
-     * @var boolean
-     */
-    public $hasData = true;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return array('task' => $this->task->toArray());
+        return array('task' => $this->data);
     }
 }

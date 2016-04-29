@@ -23,11 +23,6 @@ class GetTask extends Request
     public $taskId;
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * GetTask constructor.
      *
      * @param array $properties
