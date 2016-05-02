@@ -8,7 +8,7 @@ use Marek\Toggable\API\Http\Request\Request;
  * Class BulkUpdateTasks
  * @package Marek\Toggable\API\Http\Request\Task
  *
- * @property-read \Marek\Toggable\API\Toggl\Values\Task\Task[] $tasks
+ * @property-read array $taskIds
  */
 class BulkUpdateTasks extends Request
 {
@@ -18,9 +18,9 @@ class BulkUpdateTasks extends Request
     public $uri = 'tasks/{task_ids}';
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Task\Task[]
+     * @var array
      */
-    public $tasks;
+    public $taskIds;
 
     /**
      * @var string
@@ -36,13 +36,13 @@ class BulkUpdateTasks extends Request
     {
         parent::__construct($properties);
 
-        $taskIds = array();
-        foreach ($this->tasks as $task) {
-            $taskIds[] = $task->id;
-        }
-
-        $taskIds = implode(',', $taskIds);
+        $taskIds = implode(',', $this->taskIds);
 
         $this->uri = str_replace('{task_ids}', $taskIds, $this->uri);
+    }
+
+    public function jsonSerialize()
+    {
+        return array('task' => $this->data);
     }
 }
