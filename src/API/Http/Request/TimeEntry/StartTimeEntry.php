@@ -23,20 +23,10 @@ class StartTimeEntry extends Request
     public $method = Request::POST;
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry
-     */
-    public $timeEntry;
-
-    /**
-     * @var boolean
-     */
-    public $hasData = true;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return array('time_entry' => $this->timeEntry->toArray());
+        return array('time_entry' => $this->data);
     }
 }

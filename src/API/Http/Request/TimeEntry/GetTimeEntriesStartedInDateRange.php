@@ -19,11 +19,6 @@ class GetTimeEntriesStartedInDateRange extends Request
     public $uri = 'time_entries';
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * @var \DateTime
      */
     public $startDate;

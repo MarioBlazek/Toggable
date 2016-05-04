@@ -4,6 +4,12 @@ namespace Marek\Toggable\API\Http\Request\TimeEntry;
 
 use Marek\Toggable\API\Http\Request\Request;
 
+/**
+ * Class BulkUpdateTimeEntriesTags
+ * @package Marek\Toggable\API\Http\Request\TimeEntry
+ *
+ * @property-read array $timeEntryIds
+ */
 class BulkUpdateTimeEntriesTags extends Request
 {
     /**
@@ -17,24 +23,9 @@ class BulkUpdateTimeEntriesTags extends Request
     public $method = Request::PUT;
 
     /**
-     * @var string
+     * @var array
      */
-    public $tagAction;
-
-    /**
-     * @var \Marek\Toggable\API\Toggl\Values\Tag\Tag[]
-     */
-    public $tags;
-
-    /**
-     * @var \Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry[]
-     */
-    public $timeEntries;
-
-    /**
-     * @var boolean
-     */
-    public $hasData = true;
+    public $timeEntryIds;
 
     /**
      * BulkUpdateTimeEntriesTags constructor.
@@ -45,12 +36,7 @@ class BulkUpdateTimeEntriesTags extends Request
     {
         parent::__construct($properties);
 
-        $entryIds = array();
-        foreach ($this->timeEntries as $timeEntry) {
-            $entryIds[] = $timeEntry->id;
-        }
-
-        $entryIds = implode(',', $entryIds);
+        $entryIds = implode(',', $this->timeEntryIds);
 
         $this->uri = str_replace('{time_entry_ids}', $entryIds, $this->uri);
     }
@@ -58,8 +44,8 @@ class BulkUpdateTimeEntriesTags extends Request
     /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        // '{"time_entry":{"tags":["billed","productive"], "tag_action": "add"}}'
+        return array('time_entry' => $this->data);
     }
 }
