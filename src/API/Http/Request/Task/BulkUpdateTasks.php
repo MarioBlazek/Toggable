@@ -10,37 +10,16 @@ use Marek\Toggable\API\Http\Request\Request;
  *
  * @property-read array $taskIds
  */
-class BulkUpdateTasks extends Request
+class BulkUpdateTasks extends BulkDeleteTasks
 {
-    /**
-     * @var string
-     */
-    public $uri = 'tasks/{task_ids}';
-
-    /**
-     * @var array
-     */
-    public $taskIds;
-
     /**
      * @var string
      */
     public $method = Request::PUT;
 
     /**
-     * BulkUpdateTasks constructor.
-     *
-     * @param array $properties
+     * {@inheritdoc}
      */
-    public function __construct(array $properties)
-    {
-        parent::__construct($properties);
-
-        $taskIds = implode(',', $this->taskIds);
-
-        $this->uri = str_replace('{task_ids}', $taskIds, $this->uri);
-    }
-
     public function jsonSerialize()
     {
         return array('task' => $this->data);
