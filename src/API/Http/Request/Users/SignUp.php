@@ -23,22 +23,10 @@ class SignUp extends Request
     public $method = Request::POST;
 
     /**
-     * @var boolean
-     */
-    public $data = true;
-
-    /**
-     * @var \Marek\Toggable\API\Toggl\Values\User\SignUp
-     */
-    public $signUp;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return array(
-            'user' => $this->signUp->toArray(),
-        );
+        return array('user' => $this->data);
     }
 }

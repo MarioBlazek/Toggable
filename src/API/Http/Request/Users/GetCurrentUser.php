@@ -18,11 +18,6 @@ class GetCurrentUser extends Request
     public $uri = 'me';
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * @var boolean
      */
     public $relatedData = false;

@@ -21,22 +21,10 @@ class UpdateUser extends Request
     public $method = Request::PUT;
 
     /**
-     * @var boolean
-     */
-    public $hasData = true;
-
-    /**
-     * @var \Marek\Toggable\API\Toggl\Values\User\User
-     */
-    public $user;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return array(
-            'user' => $this->user->toArray(),
-        );
+        return array('user' => $this->data);
     }
 }
