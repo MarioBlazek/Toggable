@@ -6,7 +6,7 @@ namespace Marek\Toggable\API\Http\Request\Workspace;
  * Class WorkspaceTasks
  * @package Marek\Toggable\API\Http\Request\Workspace
  *
- * @property-read string $active
+ * @property-read boolean $active
  */
 class WorkspaceTasks extends Workspace
 {
@@ -16,9 +16,9 @@ class WorkspaceTasks extends Workspace
     public $uri = 'workspaces/{workspace_id}/tasks?active={active}';
 
     /**
-     * @var string
+     * @var boolean
      */
-    public $active = 'true';
+    public $active = true;
 
     /**
      * WorkspaceTasks constructor.
@@ -29,6 +29,10 @@ class WorkspaceTasks extends Workspace
     {
         parent::__construct($properties);
 
-        $this->uri = str_replace('{active}', $this->active, $this->uri);
+        if ($this->active === true) {
+            $this->uri = str_replace('{active}', 'true', $this->uri);
+        } else {
+            $this->uri = str_replace('{active}', 'false', $this->uri);
+        }
     }
 }

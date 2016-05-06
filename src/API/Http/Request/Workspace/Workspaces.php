@@ -14,9 +14,4 @@ class Workspaces extends Request
      * @var string
      */
     public $uri = 'workspaces';
-
-    /**
-     * @var string
-     */
-    public $method = Request::GET;
 }

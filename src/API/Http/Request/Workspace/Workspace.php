@@ -18,11 +18,6 @@ class Workspace extends Request
     public $uri = 'workspaces/{workspace_id}';
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * @var int
      */
     public $workspaceId;

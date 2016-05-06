@@ -6,9 +6,9 @@ namespace Marek\Toggable\API\Http\Request\Workspace;
  * Class WorkspaceProjects
  * @package Marek\Toggable\API\Http\Request\Workspace
  *
- * @property-read string $active
- * @property-read string $actualHours
- * @property-read string $onlyTemplates
+ * @property-read boolean $active
+ * @property-read boolean $actualHours
+ * @property-read boolean $onlyTemplates
  */
 class WorkspaceProjects extends Workspace
 {
@@ -18,19 +18,19 @@ class WorkspaceProjects extends Workspace
     public $uri = 'workspaces/{workspace_id}/projects?active={active}&actual_hours={actual_hours}&only_templates={only_templates}';
 
     /**
-     * @var string
+     * @var boolean
      */
-    public $active = 'true';
+    public $active = true;
 
     /**
-     * @var string
+     * @var boolean
      */
-    public $actualHours = 'false';
+    public $actualHours = false;
 
     /**
-     * @var string
+     * @var boolean
      */
-    public $onlyTemplates = 'false';
+    public $onlyTemplates = false;
 
     /**
      * WorkspaceProjects constructor.
@@ -41,8 +41,22 @@ class WorkspaceProjects extends Workspace
     {
         parent::__construct($properties);
 
-        $this->uri = str_replace('{active}', $this->active, $this->uri);
-        $this->uri = str_replace('{actual_hours}', $this->actualHours, $this->uri);
-        $this->uri = str_replace('{only_templates}', $this->onlyTemplates, $this->uri);
+        if ($this->active === true) {
+            $this->uri = str_replace('{active}', 'true', $this->uri);
+        } else {
+            $this->uri = str_replace('{active}', 'false', $this->uri);
+        }
+
+        if ($this->actualHours === true) {
+            $this->uri = str_replace('{actual_hours}', 'true', $this->uri);
+        } else {
+            $this->uri = str_replace('{actual_hours}', 'false', $this->uri);
+        }
+
+        if ($this->onlyTemplates === true) {
+            $this->uri = str_replace('{only_templates}', 'true', $this->uri);
+        } else {
+            $this->uri = str_replace('{only_templates}', 'false', $this->uri);
+        }
     }
 }
