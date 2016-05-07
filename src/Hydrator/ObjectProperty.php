@@ -42,7 +42,7 @@ class ObjectProperty extends \Zend\Hydrator\ObjectProperty
 
             $data[$name] = $this->extractValue($name, $value, $object);
 
-            if (!empty($data[$name])) {
+            if (!empty($data[$name]) || $data[$name] === false) {
                 $vars[$name] = $data[$name];
             }
         }

@@ -26,6 +26,7 @@ abstract class BaseHydrator implements HydratorInterface
         $this->hydrator->addStrategy('created_at', new DateStrategy());
         $this->hydrator->addStrategy('deleted_at', new DateStrategy());
         $this->hydrator->addStrategy('updated_at', new DateStrategy());
+        $this->hydrator->addStrategy('server_deleted_at', new DateStrategy());
         $this->hydrator->addStrategy('start', new DateStrategy());
         $this->hydrator->addStrategy('stop', new DateStrategy());
     }
