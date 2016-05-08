@@ -13,10 +13,10 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read int $pid
  * @property-read int $wid
  * @property-read int $uid
- * @property-read int $estimatedSeconds
+ * @property-read int $estimated_seconds
  * @property-read boolean $active
- * @property-read \DateTime $lastUpdatetAt
- * @property-read int $trackedSeconds
+ * @property-read \DateTime $at
+ * @property-read int $tracked_seconds
  */
 class Task extends ValueObject
 {
@@ -58,7 +58,7 @@ class Task extends ValueObject
      *
      * @var int
      */
-    public $estimatedSeconds;
+    public $estimated_seconds;
 
     /**
      * Whether the task is done or not
@@ -72,12 +72,12 @@ class Task extends ValueObject
      *
      * @var \DateTime
      */
-    public $lastUpdatetAt;
+    public $at;
 
     /**
      * Total time tracked (in seconds) for the task
      *
      * @var int
      */
-    public $trackedSeconds;
+    public $tracked_seconds;
 }
