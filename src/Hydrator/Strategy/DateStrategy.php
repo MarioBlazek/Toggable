@@ -17,7 +17,7 @@ class DateStrategy extends DefaultStrategy
     public function hydrate($value)
     {
         if (is_string($value)) {
-            $value = new DateTime();
+            $value = new DateTime($value);
         }
 
         return $value;
