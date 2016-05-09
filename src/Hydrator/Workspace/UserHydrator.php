@@ -2,7 +2,7 @@
 
 namespace Marek\Toggable\Hydrator\Workspace;
 
-use Marek\Toggable\API\Toggl\Values\User\User;
+use Marek\Toggable\API\Toggl\Values\Workspace\User;
 use Marek\Toggable\Hydrator\BaseHydrator;
 
 /**
