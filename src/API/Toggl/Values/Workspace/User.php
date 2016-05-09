@@ -12,7 +12,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read int $uid
  * @property-read boolean $admin
  * @property-read boolean $active
- * @property-read string $inviteUrl
+ * @property-read string $invite_url
  */
 class User extends ValueObject
 {
@@ -49,5 +49,5 @@ class User extends ValueObject
      *
      * @var string
      */
-    public $inviteUrl;
+    public $invite_url;
 }

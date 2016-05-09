@@ -20,7 +20,7 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read boolean $only_admins_see_team_dashboard
  * @property-read boolean $projects_billable_by_default
  * @property-read int $rounding
- * @property-read int $roundingMinutes
+ * @property-read int $rounding_minutes
  * @property-read \DateTime $at
  * @property-read string $logo_url
  * @property-read string $api_token

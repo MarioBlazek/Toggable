@@ -19,8 +19,8 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  * @property-read \DateTime $start
  * @property-read \DateTime $stop
  * @property-read int $duration
- * @property-read string $createdWith
- * @property-read \Marek\Toggable\API\Toggl\Values\Tag\Tag[] $tags
+ * @property-read string $created_with
+ * @property-read array $tags
  * @property-read boolean $duronly
  * @property-read \DateTime $at
  */
@@ -102,12 +102,12 @@ class TimeEntry extends ValueObject
      *
      * @var string
      */
-    public $createdWith;
+    public $created_with;
 
     /**
      * List of tag names
      *
-     * @var \Marek\Toggable\API\Toggl\Values\Tag\Tag[]
+     * @var array
      */
     public $tags;
 
