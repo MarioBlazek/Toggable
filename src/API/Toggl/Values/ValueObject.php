@@ -81,14 +81,4 @@ abstract class ValueObject
     {
         $this->__set($property, NULL);
     }
-
-    /**
-     * Converts properties to array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        throw new RuntimeException('Not implemented.');
-    }
 }
