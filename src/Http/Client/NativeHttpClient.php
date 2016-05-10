@@ -1,6 +1,7 @@
 <?php
 
 namespace Marek\Toggable\Http\Client;
+
 use Marek\Toggable\API\Exception\Http\NetworkException;
 use Marek\Toggable\API\Exception\Http\ServerException;
 use Marek\Toggable\API\Security\Cookie\SessionCookieInterface;

@@ -7,8 +7,6 @@ use Marek\Toggable\API\Http\Request\Request;
 /**
  * Class UpdateWorkspaceUser
  * @package Marek\Toggable\API\Http\Request\WorkspaceUsers
- *
- * @property-read \Marek\Toggable\API\Toggl\Values\Workspace\User $workspaceUser
  */
 class UpdateWorkspaceUser extends DeleteWorkspaceUser
 {
@@ -23,20 +21,10 @@ class UpdateWorkspaceUser extends DeleteWorkspaceUser
     public $method = Request::PUT;
 
     /**
-     * @var \Marek\Toggable\API\Toggl\Values\Workspace\User
-     */
-    public $workspaceUser;
-
-    /**
-     * @var boolean
-     */
-    public $data = true;
-
-    /**
      * {@inheritdoc}
      */
-    public function toArray()
+    public function jsonSerialize()
     {
-        return array('workspace_user' => $this->workspaceUser->toArray());
+        return array('workspace_user' => $this->data);
     }
 }

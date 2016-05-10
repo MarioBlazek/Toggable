@@ -18,11 +18,6 @@ class GetWorkspaceUsers extends Request
     public $uri = 'workspaces/{workspace_id}/workspace_users';
 
     /**
-     * @var string
-     */
-    public $method = Request::GET;
-
-    /**
      * @var int
      */
     public $workspaceId;
