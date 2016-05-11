@@ -1,8 +1,10 @@
 # Toggable - Toggl API wrapper for PHP
 
-[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/MarioBlazek/Toggable/master/LICENSE)
-[![Packagist](https://img.shields.io/packagist/dt/marioblazek/toggable.svg)](https://github.com/MarioBlazek/Toggable)
-[![Build Status](https://travis-ci.org/MarioBlazek/Toggable.svg?branch=master)](https://github.com/MarioBlazek/Toggable)
+[![Build Status](https://img.shields.io/travis/MarioBlazek/Toggable.svg?style=flat-square)](https://travis-ci.org/MarioBlazek/Toggable)
+[![Quality Score](https://img.shields.io/scrutinizer/g/MarioBlazek/Toggable.svg?style=flat-square)](https://scrutinizer-ci.com/g/MarioBlazek/Toggable)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/MarioBlazek/Toggable.svg?style=flat-square)](https://scrutinizer-ci.com/g/MarioBlazek/Toggable)
+[![Downloads](https://img.shields.io/packagist/dt/marioblazek/toggable.svg?style=flat-square)](https://packagist.org/packages/marioblazek/toggable)
+[![Latest stable](https://img.shields.io/packagist/v/marioblazek/toggable.svg?style=flat-square)](https://packagist.org/packages/marioblazek/toggable)
 
 Work in progress...
 
