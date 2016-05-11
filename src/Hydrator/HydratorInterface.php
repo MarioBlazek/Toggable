@@ -11,7 +11,7 @@ interface HydratorInterface
     /**
      * Extracts data from object
      *
-     * @param $object
+     * @param object $object
      *
      * @return array
      */
@@ -21,7 +21,7 @@ interface HydratorInterface
      * Hydrates array data to object
      *
      * @param array $data
-     * @param $object
+     * @param object $object
      *
      * @return $object
      */
@@ -30,7 +30,7 @@ interface HydratorInterface
     /**
      * Checks if given object can be hydrated/extracted by current hydrator
      *
-     * @param $object
+     * @param object $object
      *
      * @return boolean
      */

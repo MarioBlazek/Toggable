@@ -44,8 +44,7 @@ class TogglFactory
         }
 
         $config = require($config);
-
-        $authentication = null;
+        
         if (!empty($config['marek_toggable']['security']['token'])) {
 
             $authentication = new ApiToken($config['marek_toggable']['security']['token']);
