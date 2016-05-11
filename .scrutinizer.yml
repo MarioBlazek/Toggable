@@ -8,4 +8,3 @@ tools:
     sensiolabs_security_checker: true
 checks:
     php: true
-        code_rating: true
