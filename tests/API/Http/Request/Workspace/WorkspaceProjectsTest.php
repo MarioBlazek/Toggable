@@ -31,7 +31,19 @@ class WorkspaceProjectsTest extends \PHPUnit_Framework_TestCase
     public function testItGeneratesValidUri()
     {
         $this->assertEquals('workspaces/123/projects?active=true&actual_hours=true&only_templates=true', $this->request->getUri());
+
+        $request = new WorkspaceProjects(
+            array(
+                'workspaceId'   => 123,
+                'active'        => false,
+                'actualHours'   => false,
+                'onlyTemplates' => false,
+            )
+        );
+
+        $this->assertEquals('workspaces/123/projects?active=false&actual_hours=false&only_templates=false', $request->getUri());
     }
+
 
     public function testGetDataShouldReturnNull()
     {

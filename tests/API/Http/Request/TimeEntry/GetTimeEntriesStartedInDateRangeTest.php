@@ -51,6 +51,30 @@ class GetTimeEntriesStartedInDateRangeTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($uri, $this->request->getUri());
     }
 
+    public function testGetUriWhenEndDateIsNotSet()
+    {
+        $startDate = new \DateTime();
+
+        $request = new GetTimeEntriesStartedInDateRange(
+            array(
+                'startDate' => $startDate,
+            )
+        );
+
+        $queryString = '?start_date=' . $startDate->format('c') . '&end_date=' . $startDate->format('c');
+
+        $uri = urlencode('time_entries' . $queryString);
+
+        $this->assertEquals($uri, $request->getUri());
+    }
+
+    public function testUriWhenNoDatesArePassed()
+    {
+        $request = new GetTimeEntriesStartedInDateRange(array());
+
+        $this->assertEquals('time_entries', $request->getUri());
+    }
+
     public function testGetDataShouldReturnNull()
     {
         $this->assertNull($this->request->getData());

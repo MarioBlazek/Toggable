@@ -18,28 +18,20 @@ abstract class ValueObject
      * after object has been created.
      *
      * @param array $properties
+     *
+     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
      */
     public function __construct(array $properties = array())
     {
         foreach ($properties as $property => $value) {
-            $this->$property = $value;
+            if (property_exists($this, $property)) {
+                $this->$property = $value;
+            } else {
+                throw new PropertyNotFoundException($property, get_class($this));
+            }
         }
     }
 
-    /**
-     * @param $property
-     * @param $value
-     *
-     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
-     */
-    public function __set($property, $value)
-    {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        } else {
-            throw new PropertyNotFoundException($property, get_class($this));
-        }
-    }
 
     /**
      * @param $property
@@ -70,15 +62,5 @@ abstract class ValueObject
     public function __isset($property)
     {
         return property_exists($this, $property);
-    }
-
-    /**
-     * @param $property
-     *
-     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
-     */
-    public function __unset($property)
-    {
-        $this->__set($property, NULL);
     }
 }

@@ -29,6 +29,15 @@ class WorkspaceTasksTest extends \PHPUnit_Framework_TestCase
     public function testItGeneratesValidUri()
     {
         $this->assertEquals('workspaces/123/tasks?active=true', $this->request->getUri());
+
+        $request = new WorkspaceTasks(
+            array(
+                'workspaceId' => 123,
+                'active' => false,
+            )
+        );
+
+        $this->assertEquals('workspaces/123/tasks?active=false', $request->getUri());
     }
 
     public function testGetDataShouldReturnNull()

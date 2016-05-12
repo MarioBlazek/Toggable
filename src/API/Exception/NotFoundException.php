@@ -17,7 +17,7 @@ class NotFoundException extends Exception
      */
     public function __construct($what)
     {
-        $message = sprintf("No %s results returned from Toggl.", $what);
+        $message = sprintf("No %s results returned from Toggl", $what);
         parent::__construct($message);
     }
 }

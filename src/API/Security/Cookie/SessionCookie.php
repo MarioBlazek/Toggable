@@ -46,6 +46,4 @@ class SessionCookie implements SessionCookieInterface
     {
         return strval($this->cookie);
     }
-
-
 }

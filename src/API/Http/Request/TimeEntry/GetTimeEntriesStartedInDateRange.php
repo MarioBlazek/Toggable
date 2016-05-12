@@ -36,16 +36,15 @@ class GetTimeEntriesStartedInDateRange extends Request
     public function __construct(array $properties)
     {
         parent::__construct($properties);
-        $this->constructUrl();
     }
 
     /**
-     * Constructs query part of URL
+     * @inheritdoc
      */
-    protected function constructUrl()
+    public function getUri()
     {
         if (!$this->startDate instanceof \DateTime) {
-            return;
+            return $this->uri;
         }
 
         if (!$this->endDate instanceof \DateTime) {
@@ -54,6 +53,6 @@ class GetTimeEntriesStartedInDateRange extends Request
 
         $queryString = '?start_date=' . $this->startDate->format('c') . '&end_date=' . $this->endDate->format('c');
 
-        $this->uri = urlencode($this->uri . $queryString);
+        return urlencode($this->uri . $queryString);
     }
 }
