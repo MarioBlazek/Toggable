@@ -29,9 +29,7 @@ class WorkspaceTasks extends Workspace
     {
         parent::__construct($properties);
 
-        if ($this->active === true) {
-            $this->uri = str_replace('{active}', 'true', $this->uri);
-        } else {
+        if ($this->active === false) {
             $this->uri = str_replace('{active}', 'false', $this->uri);
         }
     }

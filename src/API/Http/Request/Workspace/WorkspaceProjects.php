@@ -41,22 +41,16 @@ class WorkspaceProjects extends Workspace
     {
         parent::__construct($properties);
 
-        if ($this->active === true) {
-            $this->uri = str_replace('{active}', 'true', $this->uri);
-        } else {
+        if ($this->active === false) {
             $this->uri = str_replace('{active}', 'false', $this->uri);
         }
 
         if ($this->actualHours === true) {
             $this->uri = str_replace('{actual_hours}', 'true', $this->uri);
-        } else {
-            $this->uri = str_replace('{actual_hours}', 'false', $this->uri);
         }
 
         if ($this->onlyTemplates === true) {
             $this->uri = str_replace('{only_templates}', 'true', $this->uri);
-        } else {
-            $this->uri = str_replace('{only_templates}', 'false', $this->uri);
         }
     }
 }
