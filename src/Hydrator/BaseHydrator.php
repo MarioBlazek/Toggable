@@ -4,7 +4,6 @@ namespace Marek\Toggable\Hydrator;
 
 use Marek\Toggable\Hydrator\Strategy\BlogPostStrategy;
 use Marek\Toggable\Hydrator\Strategy\DateStrategy;
-use Zend\Hydrator\HydratorInterface as ZendHydratorInterface;
 
 /**
  * Class BaseHydrator
@@ -13,7 +12,7 @@ use Zend\Hydrator\HydratorInterface as ZendHydratorInterface;
 abstract class BaseHydrator implements HydratorInterface
 {
     /**
-     * @var ZendHydratorInterface
+     * @var HydratorInterface
      */
     protected $hydrator;
 

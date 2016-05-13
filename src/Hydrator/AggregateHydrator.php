@@ -31,6 +31,8 @@ class AggregateHydrator implements HydratorInterface
                 return $hydrator->extract($object);
             }
         }
+
+        return $object;
     }
 
     /**
@@ -43,6 +45,8 @@ class AggregateHydrator implements HydratorInterface
                 return $hydrator->hydrate($data, $object);
             }
         }
+
+        return $data;
     }
 
     /**

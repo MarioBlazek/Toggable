@@ -18,7 +18,7 @@ class DateStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testInstanceOf()
     {
-        $this->assertInstanceOf('Zend\Hydrator\Strategy\StrategyInterface', $this->strategy);
+        $this->assertInstanceOf('Marek\Toggable\Hydrator\StrategyInterface', $this->strategy);
     }
 
     public function testHydrate()

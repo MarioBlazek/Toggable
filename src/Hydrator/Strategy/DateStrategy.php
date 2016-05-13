@@ -2,14 +2,14 @@
 
 namespace Marek\Toggable\Hydrator\Strategy;
 
-use Zend\Hydrator\Strategy\DefaultStrategy;
 use DateTime;
+use Marek\Toggable\Hydrator\StrategyInterface;
 
 /**
  * Class DateStrategy
  * @package Marek\Toggable\Hydrator\Strategy
  */
-class DateStrategy extends DefaultStrategy
+class DateStrategy implements StrategyInterface
 {
     /**
      * {@inheritdoc}

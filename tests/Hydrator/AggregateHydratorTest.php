@@ -87,4 +87,49 @@ class AggregateHydratorTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEquals(new \stdClass(), $result);
     }
+
+    public function testItShouldReturnPassedDataIfNoAvailableHydratorsFound()
+    {
+        $hydrator1 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
+        $hydrator1->method('canHydrate')
+            ->willReturn(false);
+        $hydrator1->expects($this->never())
+            ->method('hydrate');
+
+        $hydrator2 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
+        $hydrator2->method('canHydrate')
+            ->willReturn(false);
+        $hydrator2->expects($this->never())
+            ->method('hydrate');
+
+        $this->hydrator->add($hydrator1);
+        $this->hydrator->add($hydrator2);
+
+        $result = $this->hydrator->hydrate(array(1, 2, 3), new \stdClass());
+
+        $this->assertSame(array(1, 2, 3), $result);
+    }
+
+    public function testItShouldReturnPassedObjectIfNoAvailableHydratorsFound()
+    {
+        $object = new \stdClass();
+        $hydrator1 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
+        $hydrator1->method('canHydrate')
+            ->willReturn(false);
+        $hydrator1->expects($this->never())
+            ->method('hydrate');
+
+        $hydrator2 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
+        $hydrator2->method('canHydrate')
+            ->willReturn(false);
+        $hydrator2->expects($this->never())
+            ->method('hydrate');
+
+        $this->hydrator->add($hydrator1);
+        $this->hydrator->add($hydrator2);
+
+        $result = $this->hydrator->extract($object);
+
+        $this->assertSame($object, $result);
+    }
 }

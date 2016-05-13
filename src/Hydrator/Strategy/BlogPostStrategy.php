@@ -3,13 +3,13 @@
 namespace Marek\Toggable\Hydrator\Strategy;
 
 use Marek\Toggable\API\Toggl\Values\User\BlogPost;
-use Zend\Hydrator\Strategy\DefaultStrategy;
+use Marek\Toggable\Hydrator\StrategyInterface;
 
 /**
  * Class BlogPostStrategy
  * @package Marek\Toggable\Hydrator\Strategy
  */
-class BlogPostStrategy extends DefaultStrategy
+class BlogPostStrategy implements StrategyInterface
 {
     /**
      * {@inheritdoc}

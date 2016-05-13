@@ -13,5 +13,5 @@ class Notification extends ValueObject
     /**
      * @var string
      */
-    public $message;
+    protected $message;
 }

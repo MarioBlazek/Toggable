@@ -16,11 +16,4 @@ interface RequestManagerInterface
      * @return \Marek\Toggable\API\Http\Response\Response
      */
     public function request(\Marek\Toggable\API\Http\Request\Request $request);
-
-    /**
-     * Returns HttpClient instance
-     * 
-     * @return \Marek\Toggable\Http\Client\HttpClientInterface
-     */
-    public function getHttpClient();
 }

@@ -6,9 +6,29 @@ use Marek\Toggable\Factory\TogglFactory;
 
 class TogglFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testItReturnsToggl()
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testItThrowsExceptionsIfPassedArgumentIsNotAnArray()
     {
-        $config = 'config.php';
+        $config = 'config';
+        $toggl = TogglFactory::buildToggable($config);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testItThrowsExceptionIfSecurityConfigurationIsNotValid()
+    {
+        $config = array(
+            'marek_toggable' => array(
+                'base_uri' => 'https://www.toggl.com/api/v8/',
+                'security' => array(
+                    'test' => 'test',
+                ),
+            ),
+        );
+
         $toggl = TogglFactory::buildToggable($config);
 
         $this->assertInstanceOf('Marek\Toggable\TogglInterface', $toggl);
@@ -16,9 +36,51 @@ class TogglFactoryTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage('Please provide base URI.')
      */
-    public function testItThrowsExceptionIfNoConfigurationFile()
+    public function testItThrowsExceptionIfBaseUriIsNotProvided()
     {
-        $toggl = TogglFactory::buildToggable('no_file.php');
+        $config = array(
+            'marek_toggable' => array(
+                'base_uri' => '',
+                'security' => array(
+                    'token' => 'some_token',
+                ),
+            ),
+        );
+
+        $toggl = TogglFactory::buildToggable($config);
+        $this->assertInstanceOf('Marek\Toggable\TogglInterface', $toggl);
+    }
+
+    public function testValidConfigurationWithToken()
+    {
+        $config = array(
+            'marek_toggable' => array(
+                'base_uri' => 'https://www.toggl.com/api/v8/',
+                'security' => array(
+                    'token' => 'some_token',
+                ),
+            ),
+        );
+
+        $toggl = TogglFactory::buildToggable($config);
+        $this->assertInstanceOf('Marek\Toggable\TogglInterface', $toggl);
+    }
+
+    public function testValidConfigurationWithUsernameAndPassword()
+    {
+        $config = array(
+            'marek_toggable' => array(
+                'base_uri' => 'https://www.toggl.com/api/v8/',
+                'security' => array(
+                    'username' => 'some_username',
+                    'password' => 'some_password',
+                ),
+            ),
+        );
+
+        $toggl = TogglFactory::buildToggable($config);
+        $this->assertInstanceOf('Marek\Toggable\TogglInterface', $toggl);
     }
 }

@@ -31,7 +31,7 @@ class TogglFactory
     /**
      * Builds Toggl
      *
-     * @param string $config
+     * @param array $config
      *
      * @return \Marek\Toggable\Toggl
      *
@@ -39,11 +39,9 @@ class TogglFactory
      */
     public static function buildToggable($config)
     {
-        if (!file_exists($config)) {
-            throw new \InvalidArgumentException('Please provide configuration file.');
+        if (!is_array($config)) {
+            throw new \InvalidArgumentException('Please provide valid configuration.');
         }
-
-        $config = require($config);
         
         if (!empty($config['marek_toggable']['security']['token'])) {
 
@@ -67,8 +65,8 @@ class TogglFactory
             throw new \InvalidArgumentException('Please provide base URI.');
         }
 
-        $nativeHttpClient = new NativeHttpClient($config['marek_toggable']['base_uri'], $authentication);
-        $requestManager = new NativeRequestManager($nativeHttpClient);
+        $nativeHttpClient = new NativeHttpClient();
+        $requestManager = new NativeRequestManager($nativeHttpClient, $authentication, $config['marek_toggable']['base_uri']);
 
         $hydrator = HydratorFactory::createHydrator();
 
