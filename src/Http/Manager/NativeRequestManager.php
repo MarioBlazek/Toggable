@@ -2,8 +2,11 @@
 
 namespace Marek\Toggable\Http\Manager;
 
+use Marek\Toggable\API\Exception\Http\NetworkException;
+use Marek\Toggable\API\Exception\Http\ServerException;
 use Marek\Toggable\API\Http\Response\Response;
 use InvalidArgumentException;
+use Marek\Toggable\Http\Parser\HttpResponseParserInterface;
 
 /**
  * Class NativeRequestManager
@@ -25,17 +28,23 @@ class NativeRequestManager implements RequestManagerInterface
      * @var string
      */
     private $uri;
+    /**
+     * @var \Marek\Toggable\Http\Parser\HttpResponseParserInterface
+     */
+    private $parser;
 
     /**
      * NativeRequestManager constructor.
      *
      * @param \Marek\Toggable\Http\Client\HttpClientInterface $client
      * @param \Marek\Toggable\API\Security\TokenInterface $token
+     * @param \Marek\Toggable\Http\Parser\HttpResponseParserInterface $parser
      * @param string $uri
      */
     public function __construct(
         \Marek\Toggable\Http\Client\HttpClientInterface $client,
         \Marek\Toggable\API\Security\TokenInterface $token,
+        \Marek\Toggable\Http\Parser\HttpResponseParserInterface $parser,
         $uri
     )
     {
@@ -48,6 +57,7 @@ class NativeRequestManager implements RequestManagerInterface
             );
         }
         $this->uri = $uri;
+        $this->parser = $parser;
     }
 
     /**
@@ -77,13 +87,6 @@ class NativeRequestManager implements RequestManagerInterface
 
         $data = $this->client->send($uri, $opts);
 
-        var_dump(json_decode($data['data'], true));die;
-        if (empty($data)) {
-            throw new \Exception;
-        }
-
-        if ($data['data'] === false) {
-            throw new \Exception;
-        }
+        return $this->parser->parse($data);
     }
 }

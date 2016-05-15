@@ -15,6 +15,8 @@ interface HttpClientInterface
      * @param array $options
      *
      * @return array
+     *
+     * @throws \Marek\Toggable\API\Exception\Http\BaseException
      */
     public function send($uri, $options);
 }

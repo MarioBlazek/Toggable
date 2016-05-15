@@ -4,6 +4,7 @@ namespace Marek\Toggable\Factory;
 
 use Marek\Toggable\Http\Client\NativeHttpClient;
 use Marek\Toggable\Http\Manager\NativeRequestManager;
+use Marek\Toggable\Http\Parser\ResponseParser;
 use Marek\Toggable\Hydrator\HydratorFactory;
 use Marek\Toggable\Service\Authentication\AuthenticationService;
 use Marek\Toggable\Service\Dashboard\DashboardService;
@@ -66,7 +67,8 @@ class TogglFactory
         }
 
         $nativeHttpClient = new NativeHttpClient();
-        $requestManager = new NativeRequestManager($nativeHttpClient, $authentication, $config['marek_toggable']['base_uri']);
+        $parser = new ResponseParser();
+        $requestManager = new NativeRequestManager($nativeHttpClient, $authentication, $parser ,$config['marek_toggable']['base_uri']);
 
         $hydrator = HydratorFactory::createHydrator();
 
