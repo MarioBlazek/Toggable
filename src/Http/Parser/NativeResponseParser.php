@@ -5,10 +5,10 @@ namespace Marek\Toggable\Http\Parser;
 use Marek\Toggable\API\Http\Response\Response;
 
 /**
- * Class ResponseParser
+ * Class NativeResponseParser
  * @package Marek\Toggable\Http\Parser
  */
-class ResponseParser implements HttpResponseParserInterface
+class NativeResponseParser implements HttpResponseParserInterface
 {
     /**
      * @inheritDoc
