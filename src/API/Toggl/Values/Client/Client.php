@@ -22,40 +22,40 @@ class Client extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var int
      */
-    public $guid;
+    protected $guid;
 
     /**
      * @var int
      */
-    public $wid;
+    protected $wid;
 
     /**
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 
     /**
      * @var string
      */
-    public $notes;
+    protected $notes;
 
     /**
      * @var float
      */
-    public $hrate;
+    protected $hrate;
 
     /**
      * @var string
      */
-    public $cur;
+    protected $cur;
 }

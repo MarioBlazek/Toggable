@@ -35,136 +35,136 @@ class Workspace extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * The name of the workspace
      *
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * Profile
      *
      * @var int
      */
-    public $profile;
+    protected $profile;
 
     /**
      * If it's a pro workspace or not. Shows if someone is paying for the workspace or not
      *
      * @var boolean
      */
-    public $premium;
+    protected $premium;
 
     /**
      * Shows whether currently requesting user has admin access to the workspace
      *
      * @var boolean
      */
-    public $admin;
+    protected $admin;
 
     /**
      * Default hourly rate for workspace, won't be shown to non-admins if the only_admins_see_billable_rates flag is set to true
      *
      * @var float
      */
-    public $default_hourly_rate;
+    protected $default_hourly_rate;
 
     /**
      * Default currency for workspace
      *
      * @var string
      */
-    public $default_currency;
+    protected $default_currency;
 
     /**
      * Whether only the admins can create projects or everybody
      *
      * @var boolean
      */
-    public $only_admins_may_create_projects;
+    protected $only_admins_may_create_projects;
 
     /**
      * Whether only the admins can see billable rates or everybody
      *
      * @var boolean
      */
-    public $only_admins_see_billable_rates;
+    protected $only_admins_see_billable_rates;
 
     /**
      * Only admins see team dashboard
      *
      * @var boolean
      */
-    public $only_admins_see_team_dashboard;
+    protected $only_admins_see_team_dashboard;
 
     /**
      * Projects billable by default
      *
      * @var boolean
      */
-    public $projects_billable_by_default;
+    protected $projects_billable_by_default;
 
     /**
      * Type of rounding
      *
      * @var int
      */
-    public $rounding;
+    protected $rounding;
 
     /**
      * Round up to nearest minute
      *
      * @var int
      */
-    public $rounding_minutes;
+    protected $rounding_minutes;
 
     /**
      * Timestamp that indicates the time workspace was last updated
      *
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 
     /**
      * URL pointing to the logo
      *
      * @var string
      */
-    public $logo_url;
+    protected $logo_url;
 
     /**
      * API token
      *
      * @var string
      */
-    public $api_token;
+    protected $api_token;
 
     /**
      * @var boolean
      */
-    public $ical_enabled;
+    protected $ical_enabled;
 
     /**
      * @var string
      */
-    public $ical_url;
+    protected $ical_url;
 
     /**
      * @var string
      */
-    public $subscription;
+    protected $subscription;
 
     /**
      * @var boolean
      */
-    public $campaign;
+    protected $campaign;
 
     /**
      * @var boolean
      */
-    public $business_tester;
+    protected $business_tester;
 }
 

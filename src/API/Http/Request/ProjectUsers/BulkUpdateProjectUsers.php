@@ -13,7 +13,7 @@ class BulkUpdateProjectUsers extends BulkDeleteProjectUsers
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

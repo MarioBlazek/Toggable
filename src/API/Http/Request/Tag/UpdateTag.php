@@ -15,17 +15,17 @@ class UpdateTag extends CreateTag
     /**
      * @var string
      */
-    public $uri = 'tags/{tag_id}';
+    protected $uri = 'tags/{tag_id}';
 
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * @var int
      */
-    public $tagId;
+    protected $tagId;
 
     /**
      * UpdateTag constructor.

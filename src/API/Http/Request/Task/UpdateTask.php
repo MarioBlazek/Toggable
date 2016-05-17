@@ -13,7 +13,7 @@ class UpdateTask extends GetTask
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

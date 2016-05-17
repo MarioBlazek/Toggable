@@ -13,12 +13,12 @@ class CreateTag extends Request
     /**
      * @var string
      */
-    public $uri = 'tags';
+    protected $uri = 'tags';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

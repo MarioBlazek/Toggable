@@ -13,12 +13,12 @@ class CreateTimeEntry extends Request
     /**
      * @var string
      */
-    public $uri = 'time_entries';
+    protected $uri = 'time_entries';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

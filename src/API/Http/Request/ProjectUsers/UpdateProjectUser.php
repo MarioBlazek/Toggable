@@ -13,7 +13,7 @@ class UpdateProjectUser extends DeleteProjectUser
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

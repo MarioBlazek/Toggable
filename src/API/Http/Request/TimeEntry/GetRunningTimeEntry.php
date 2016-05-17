@@ -13,10 +13,10 @@ class GetRunningTimeEntry extends Request
     /**
      * @var string
      */
-    public $uri = 'time_entries/current';
+    protected $uri = 'time_entries/current';
 
     /**
      * @var string
      */
-    public $method = Request::GET;
+    protected $method = Request::GET;
 }

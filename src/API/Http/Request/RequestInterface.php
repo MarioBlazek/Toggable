@@ -9,6 +9,26 @@ namespace Marek\Toggable\API\Http\Request;
 interface RequestInterface extends \JsonSerializable
 {
     /**
+     * HTTP GET method
+     */
+    const GET = 'GET';
+
+    /**
+     * HTTP POST method
+     */
+    const POST = 'POST';
+
+    /**
+     * HTTP PUT method
+     */
+    const PUT = 'PUT';
+
+    /**
+     * HTTP DELETE method
+     */
+    const DELETE = 'DELETE';
+    
+    /**
      * Returns HTTP method
      *
      * @return string

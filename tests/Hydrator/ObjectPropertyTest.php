@@ -25,13 +25,6 @@ class ObjectPropertyTest extends \PHPUnit_Framework_TestCase
         $this->hydrator->extract('thisIsNotAnObject');
     }
 
-    public function testCanExtractFromStdClass()
-    {
-        $object = new \stdClass();
-        $object->foo = 'bar';
-        $this->assertSame(['foo' => 'bar'], $this->hydrator->extract($object));
-    }
-
     /**
      * @expectedException \BadMethodCallException
      */

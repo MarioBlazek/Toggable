@@ -13,5 +13,5 @@ class DeleteTimeEntry extends GetTimeEntry
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 }

@@ -15,12 +15,12 @@ class GetCurrentUser extends Request
     /**
      * @var string
      */
-    public $uri = 'me';
+    protected $uri = 'me';
 
     /**
      * @var boolean
      */
-    public $relatedData = false;
+    protected $relatedData = false;
 
     /**
      * GetCurrentUser constructor.

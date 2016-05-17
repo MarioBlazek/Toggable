@@ -13,7 +13,7 @@ class UpdateClient extends GetClientDetails
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

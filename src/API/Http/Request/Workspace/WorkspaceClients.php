@@ -11,5 +11,5 @@ class WorkspaceClients extends Workspace
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/clients';
+    protected $uri = 'workspaces/{workspace_id}/clients';
 }

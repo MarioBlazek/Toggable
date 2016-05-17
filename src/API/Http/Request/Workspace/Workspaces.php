@@ -13,5 +13,5 @@ class Workspaces extends Request
     /**
      * @var string
      */
-    public $uri = 'workspaces';
+    protected $uri = 'workspaces';
 }

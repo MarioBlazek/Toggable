@@ -35,6 +35,5 @@ class NotificationTest extends \PHPUnit_Framework_TestCase
     public function testIsSet()
     {
         $this->assertTrue(isset($this->valueObject->message));
-        $this->assertFalse(isset($this->valueObject->test));
     }
 }

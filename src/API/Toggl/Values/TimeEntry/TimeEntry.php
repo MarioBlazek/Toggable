@@ -29,64 +29,64 @@ class TimeEntry extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var int
      */
-    public $uid;
+    protected $uid;
 
     /**
      * @var string
      */
-    public $description;
+    protected $description;
 
     /**
      * Workspace ID
      *
      * @var int
      */
-    public $wid;
+    protected $wid;
 
     /**
      * Project ID
      *
      * @var int
      */
-    public $pid;
+    protected $pid;
 
     /**
      * Task ID
      *
      * @var int
      */
-    public $tid;
+    protected $tid;
 
     /**
      * @var int
      */
-    public $guid;
+    protected $guid;
 
     /**
      * Available for pro workspaces
      *
      * @var boolean
      */
-    public $billable = false;
+    protected $billable = false;
 
     /**
      * Time entry start time (ISO 8601 date and time)
      *
      * @var \DateTime
      */
-    public $start;
+    protected $start;
 
     /**
      * Time entry stop time (ISO 8601 date and time)
      *
      * @var \DateTime
      */
-    public $stop;
+    protected $stop;
 
     /**
      * Time entry duration in seconds.
@@ -95,34 +95,34 @@ class TimeEntry extends ValueObject
      *
      * @var int
      */
-    public $duration;
+    protected $duration;
 
     /**
      * The name of your client app
      *
      * @var string
      */
-    public $created_with;
+    protected $created_with;
 
     /**
      * List of tag names
      *
      * @var array
      */
-    public $tags;
+    protected $tags;
 
     /**
      * Should Toggl show the start and stop time of this time entry?
      *
      * @var boolean
      */
-    public $duronly;
+    protected $duronly;
 
     /**
      * Timestamp that is sent in the response, indicates the time item was last updated
      *
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 }
 

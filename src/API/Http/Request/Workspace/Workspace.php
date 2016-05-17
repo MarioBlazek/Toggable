@@ -15,12 +15,12 @@ class Workspace extends Request
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}';
+    protected $uri = 'workspaces/{workspace_id}';
 
     /**
      * @var int
      */
-    public $workspaceId;
+    protected $workspaceId;
 
     /**
      * Workspace constructor.

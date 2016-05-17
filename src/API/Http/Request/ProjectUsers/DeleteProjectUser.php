@@ -15,17 +15,17 @@ class DeleteProjectUser extends Request
     /**
      * @var string
      */
-    public $uri = 'project_users/{project_user_id}';
+    protected $uri = 'project_users/{project_user_id}';
 
     /**
      * @var int
      */
-    public $projectUserId;
+    protected $projectUserId;
 
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 
     /**
      * DeleteProjectUser constructor.

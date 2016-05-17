@@ -11,5 +11,5 @@ class GetProjectTasks extends GetProject
     /**
      * @var string
      */
-    public $uri = 'projects/{project_id}/tasks';
+    protected $uri = 'projects/{project_id}/tasks';
 }

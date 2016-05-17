@@ -16,10 +16,10 @@ class BlogPost extends ValueObject
     /**
      * @var string
      */
-    public $title;
+    protected $title;
 
     /**
      * @var string
      */
-    public $url;
+    protected $url;
 }

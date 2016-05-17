@@ -21,33 +21,33 @@ class User extends ValueObject
      *
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * User id of the workspace user
      *
      * @var int
      */
-    public $uid;
+    protected $uid;
 
     /**
      * If user is workspace admin
      *
      * @var boolean
      */
-    public $admin;
+    protected $admin;
 
     /**
      * If the workspace user has accepted the invitation to this workspace
      *
      * @var boolean
      */
-    public $active;
+    protected $active;
 
     /**
      * If user has not accepted the invitation the url for accepting his/her invitation is sent when the request is made by workspace_admin
      *
      * @var string
      */
-    public $invite_url;
+    protected $invite_url;
 }

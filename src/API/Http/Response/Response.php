@@ -10,24 +10,18 @@ use Marek\Toggable\API\Toggl\Values\ValueObject;
  *
  * @property-read int $statusCode
  * @property-read array $body
- * @property-read string $cookie
  */
 class Response extends ValueObject implements ResponseInterface
 {
     /**
      * @var int
      */
-    public $statusCode;
+    protected $statusCode;
 
     /**
      * @var array
      */
-    public $body;
-
-    /**
-     * @var string
-     */
-    public $cookie;
+    protected $body;
 
     /**
      * @inheritDoc
@@ -43,13 +37,5 @@ class Response extends ValueObject implements ResponseInterface
     public function getStatusCode()
     {
         return $this->statusCode;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCookie()
-    {
-        return $this->cookie;
     }
 }

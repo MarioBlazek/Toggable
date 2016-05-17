@@ -15,17 +15,17 @@ class StopTimeEntry extends Request
     /**
      * @var string
      */
-    public $uri = 'time_entries/{time_entry_id}/stop';
+    protected $uri = 'time_entries/{time_entry_id}/stop';
 
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * @var int
      */
-    public $timeEntryId;
+    protected $timeEntryId;
 
     /**
      * StopTimeEntry constructor.

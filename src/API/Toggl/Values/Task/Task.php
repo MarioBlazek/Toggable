@@ -23,61 +23,61 @@ class Task extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * The name of the task
      *
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * Project ID for the task
      *
      * @var int
      */
-    public $pid;
+    protected $pid;
 
     /**
      * Workspace ID, where the task will be saved
      *
      * @var int
      */
-    public $wid;
+    protected $wid;
 
     /**
      * User ID, to whom the task is assigned to
      *
      * @var int
      */
-    public $uid;
+    protected $uid;
 
     /**
      * Estimated duration of task in seconds
      *
      * @var int
      */
-    public $estimated_seconds;
+    protected $estimated_seconds;
 
     /**
      * Whether the task is done or not
      *
      * @var boolean
      */
-    public $active = true;
+    protected $active = true;
 
     /**
      * Timestamp that is sent in the response for PUT, indicates the time task was last updated
      *
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 
     /**
      * Total time tracked (in seconds) for the task
      *
      * @var int
      */
-    public $tracked_seconds;
+    protected $tracked_seconds;
 }

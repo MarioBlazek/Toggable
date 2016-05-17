@@ -15,12 +15,12 @@ class GetTask extends Request
     /**
      * @var string
      */
-    public $uri = 'tasks/{task_id}';
+    protected $uri = 'tasks/{task_id}';
 
     /**
      * @var int
      */
-    public $taskId;
+    protected $taskId;
 
     /**
      * GetTask constructor.

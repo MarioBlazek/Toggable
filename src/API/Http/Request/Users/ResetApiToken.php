@@ -13,10 +13,10 @@ class ResetApiToken extends Request
     /**
      * @var string
      */
-    public $uri = 'reset_token';
+    protected $uri = 'reset_token';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 }

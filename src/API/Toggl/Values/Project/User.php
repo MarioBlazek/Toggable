@@ -22,54 +22,54 @@ class User extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * Project ID
      *
      * @var int
      */
-    public $pid;
+    protected $pid;
 
     /**
      * User ID, who is added to the project
      *
      * @var int
      */
-    public $uid;
+    protected $uid;
 
     /**
      * Workspace ID, where the project belongs to
      *
      * @var int
      */
-    public $wid;
+    protected $wid;
 
     /**
      * Admin rights for this project
      *
      * @var boolean
      */
-    public $manager = false;
+    protected $manager = false;
 
     /**
      * Hourly rate for the project user (float, not-required, only for pro workspaces) in the currency of the project's client or in workspace default currency.
      *
      * @var float
      */
-    public $rate;
+    protected $rate;
 
     /**
      * Indicates when the project user was last updated
      *
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 
     /**
      * Full name of the user, who is added to the project
      *
      * @var string
      */
-    public $fullname;
+    protected $fullname;
 }

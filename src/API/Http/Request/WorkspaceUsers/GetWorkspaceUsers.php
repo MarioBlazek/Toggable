@@ -15,12 +15,12 @@ class GetWorkspaceUsers extends Request
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/workspace_users';
+    protected $uri = 'workspaces/{workspace_id}/workspace_users';
 
     /**
      * @var int
      */
-    public $workspaceId;
+    protected $workspaceId;
 
     /**
      * GetWorkspaceUsers constructor.

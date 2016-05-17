@@ -3,7 +3,9 @@
 namespace Marek\Toggable\Factory;
 
 use Marek\Toggable\Http\Client\NativeHttpClient;
+use Marek\Toggable\Http\Converter\NativeArgumentsConverter;
 use Marek\Toggable\Http\Manager\NativeRequestManager;
+use Marek\Toggable\Http\Parser\NativeResponseParser;
 use Marek\Toggable\Http\Parser\ResponseParser;
 use Marek\Toggable\Hydrator\HydratorFactory;
 use Marek\Toggable\Service\Authentication\AuthenticationService;
@@ -18,8 +20,6 @@ use Marek\Toggable\Service\WorkspaceUsers\WorkspaceUsersService;
 use Marek\Toggable\Toggl;
 use Marek\Toggable\API\Security\UsernameAndPasswordToken;
 use Marek\Toggable\API\Security\ApiToken;
-use Marek\Toggable\Http\Client\HttpClient;
-use Marek\Toggable\Http\Manager\RequestManager;
 use Marek\Toggable\Service\Client\ClientService;
 use Marek\Toggable\Service\Workspace\WorkspaceService;
 
@@ -66,9 +66,10 @@ class TogglFactory
             throw new \InvalidArgumentException('Please provide base URI.');
         }
 
-        $nativeHttpClient = new NativeHttpClient();
-        $parser = new ResponseParser();
-        $requestManager = new NativeRequestManager($nativeHttpClient, $authentication, $parser ,$config['marek_toggable']['base_uri']);
+        $argumentConverter = new NativeArgumentsConverter();
+        $responseParser = new NativeResponseParser();
+        $nativeHttpClient = new NativeHttpClient($config['marek_toggable']['base_uri'], $authentication, $argumentConverter, $responseParser);
+        $requestManager = new NativeRequestManager($nativeHttpClient);
 
         $hydrator = HydratorFactory::createHydrator();
 

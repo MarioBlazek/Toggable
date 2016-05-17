@@ -16,10 +16,10 @@ class Dashboard extends ValueObject
     /**
      * @var Activity[]
      */
-    public $activity;
+    protected $activity;
 
     /**
      * @var MostActiveUser[]
      */
-    public $mostActiveUser;
+    protected $mostActiveUser;
 }

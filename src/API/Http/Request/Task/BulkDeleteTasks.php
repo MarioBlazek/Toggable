@@ -15,17 +15,17 @@ class BulkDeleteTasks extends Request
     /**
      * @var string
      */
-    public $uri = 'tasks/{task_ids}';
+    protected $uri = 'tasks/{task_ids}';
 
     /**
      * @var array
      */
-    public $taskIds;
+    protected $taskIds;
 
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 
     /**
      * BulkDeleteTasks constructor.

@@ -18,12 +18,12 @@ class MostActiveUser extends ValueObject
      *
      * @var int
      */
-    public $user_id;
+    protected $user_id;
 
     /**
      * Sum of time entry durations that have been created during last 7 days
      *
      * @var int
      */
-    public $duration;
+    protected $duration;
 }

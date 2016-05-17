@@ -13,5 +13,5 @@ class DeleteTask extends GetTask
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 }

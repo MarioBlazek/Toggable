@@ -23,10 +23,4 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response = new Response(array('statusCode' => '404'));
         $this->assertEquals('404', $response->getStatusCode());
     }
-
-    public function testGetCookie()
-    {
-        $response = new Response(array('cookie' => 'dhauhdiuahisahdhgafydfaytd'));
-        $this->assertEquals('dhauhdiuahisahdhgafydfaytd', $response->getCookie());
-    }
 }

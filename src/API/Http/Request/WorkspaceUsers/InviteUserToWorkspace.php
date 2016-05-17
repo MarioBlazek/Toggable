@@ -11,7 +11,7 @@ class InviteUserToWorkspace extends GetWorkspaceUsers
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/invite';
+    protected $uri = 'workspaces/{workspace_id}/invite';
 
     /**
      * {@inheritdoc}

@@ -13,5 +13,5 @@ class DeleteClient extends GetClientDetails
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 }

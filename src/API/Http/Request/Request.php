@@ -12,51 +12,23 @@ use RuntimeException;
  * @property-read string $method
  * @property-read string $uri
  * @property-read array $data
- * @property-read array $headers
  */
 class Request extends ValueObject implements RequestInterface
 {
     /**
-     * HTTP GET method
+     * @var string
      */
-    const GET = 'GET';
-
-    /**
-     * HTTP POST method
-     */
-    const POST = 'POST';
-
-    /**
-     * HTTP PUT method
-     */
-    const PUT = 'PUT';
-
-    /**
-     * HTTP DELETE method
-     */
-    const DELETE = 'DELETE';
-
-    /**
-     * @var array
-     */
-    public $headers = array(
-        'Content-Type' => 'application/json',
-    );
+    protected $method = Request::GET;
 
     /**
      * @var string
      */
-    public $method = Request::GET;
-
-    /**
-     * @var string
-     */
-    public $uri;
+    protected $uri;
 
     /**
      * @var array
      */
-    public $data;
+    protected $data;
 
     /**
      * @inheritDoc

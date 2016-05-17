@@ -13,12 +13,12 @@ class CreateProject extends Request
     /**
      * @var string
      */
-    public $uri = 'projects';
+    protected $uri = 'projects';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

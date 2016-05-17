@@ -11,5 +11,5 @@ class WorkspaceUsers extends Workspace
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/users';
+    protected $uri = 'workspaces/{workspace_id}/users';
 }

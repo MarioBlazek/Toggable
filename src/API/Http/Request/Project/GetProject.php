@@ -15,12 +15,12 @@ class GetProject extends Request
     /**
      * @var string
      */
-    public $uri = 'projects/{project_id}';
+    protected $uri = 'projects/{project_id}';
 
     /**
      * @var int
      */
-    public $projectId;
+    protected $projectId;
 
     /**
      * GetProject constructor.

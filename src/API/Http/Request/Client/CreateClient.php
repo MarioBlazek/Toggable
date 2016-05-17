@@ -13,12 +13,12 @@ class CreateClient extends Request
     /**
      * @var string
      */
-    public $uri = 'clients';
+    protected $uri = 'clients';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

@@ -13,5 +13,5 @@ class DeleteProject extends GetProject
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 }

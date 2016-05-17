@@ -2,3 +2,6 @@
 /vendor/
 /composer.lock
 /config.local.php
+/.DS_Store
+/test.php
+/coverage/

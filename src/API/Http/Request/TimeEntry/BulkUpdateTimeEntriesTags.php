@@ -15,17 +15,17 @@ class BulkUpdateTimeEntriesTags extends Request
     /**
      * @var string
      */
-    public $uri = 'time_entries/{time_entry_ids}';
+    protected $uri = 'time_entries/{time_entry_ids}';
 
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * @var array
      */
-    public $timeEntryIds;
+    protected $timeEntryIds;
 
     /**
      * BulkUpdateTimeEntriesTags constructor.

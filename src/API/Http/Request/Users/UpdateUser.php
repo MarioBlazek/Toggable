@@ -13,12 +13,12 @@ class UpdateUser extends Request
     /**
      * @var string
      */
-    public $uri = 'me';
+    protected $uri = 'me';
 
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

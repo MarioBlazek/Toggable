@@ -3,7 +3,6 @@
 namespace Marek\Toggable\API\Toggl\Values;
 
 use Marek\Toggable\API\Exception\PropertyNotFoundException;
-use RuntimeException;
 
 /**
  * Class ValueObject
@@ -39,28 +38,49 @@ abstract class ValueObject
      * @return mixed
      *
      * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
+     * @throws \Marek\Toggable\API\Exception\PropertyReadOnlyException
      */
     public function __get($property)
     {
         if (property_exists($this, $property)) {
+
             return $this->$property;
+
         }
         throw new PropertyNotFoundException($property, get_class($this));
     }
 
     /**
-     * Magic isset function handling isset() to non public properties.
+     * @param $property
+     * @param $value
      *
-     * Returns true for all (public/)protected/private properties.
+     * @return mixed
      *
-     * @ignore This method is for internal use
+     * @throws \Marek\Toggable\API\Exception\PropertyNotFoundException
+     * @throws \Marek\Toggable\API\Exception\PropertyReadOnlyException
+     */
+    public function __set($property, $value)
+    {
+        if (property_exists($this, $property)) {
+
+            $this->$property = $value;
+
+        } else {
+
+            throw new PropertyNotFoundException($property, get_class($this));
+
+        }
+    }
+
+    /**
+     * Magic isset function handling isset() to non public properties
      *
-     * @param string $property Name of the property
+     * @param string $property
      *
-     * @return bool
+     * @return boolean
      */
     public function __isset($property)
     {
-        return property_exists($this, $property);
+        return !empty($this->$property);
     }
 }

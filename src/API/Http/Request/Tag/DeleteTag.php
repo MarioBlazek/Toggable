@@ -15,17 +15,17 @@ class DeleteTag extends Request
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 
     /**
      * @var string
      */
-    public $uri = 'tags/{tag_id}';
+    protected $uri = 'tags/{tag_id}';
 
     /**
      * @var int
      */
-    public $tagId;
+    protected $tagId;
 
     /**
      * UpdateTag constructor.

@@ -24,50 +24,50 @@ class Subscription extends ValueObject
     /**
      * @var int
      */
-    public $workspace_id;
+    protected $workspace_id;
 
     /**
      * @var \DateTime
      */
-    public $deleted_at;
+    protected $deleted_at;
 
     /**
      * @var \DateTime
      */
-    public $created_at;
+    protected $created_at;
 
     /**
      * @var \DateTime
      */
-    public $updated_at;
+    protected $updated_at;
 
     /**
      * @var boolean
      */
-    public $vat_valid;
+    protected $vat_valid;
 
     /**
      * @var \DateTime
      */
-    public $vat_validated_at;
+    protected $vat_validated_at;
 
     /**
      * @var \DateTime
      */
-    public $vat_invalid_accepted_at;
+    protected $vat_invalid_accepted_at;
 
     /**
      * @var string
      */
-    public $vat_invalid_accepted_by;
+    protected $vat_invalid_accepted_by;
 
     /**
      * @var string
      */
-    public $description;
+    protected $description;
 
     /**
      * @var boolean
      */
-    public $vat_applicable;
+    protected $vat_applicable;
 }

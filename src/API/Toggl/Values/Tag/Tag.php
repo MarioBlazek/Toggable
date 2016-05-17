@@ -19,29 +19,29 @@ class Tag extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var int
      */
-    public $guid;
+    protected $guid;
 
     /**
      * The name of the tag
      *
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * Workspace ID, where the tag will be used
      *
      * @var int
      */
-    public $wid;
+    protected $wid;
 
     /**
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 }

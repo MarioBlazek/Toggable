@@ -22,7 +22,7 @@ class ObjectProperty implements HydratorInterface, StrategyEnabledInterface
     protected $strategies;
 
     /**
-     * Initializes a new instance of this class.
+     * ObjectProperty constructor.
      */
     public function __construct()
     {
@@ -40,19 +40,18 @@ class ObjectProperty implements HydratorInterface, StrategyEnabledInterface
             );
         }
 
-        $data = get_object_vars($object);
+        $properties = $this->getObjectProperties($object);
 
-        $vars = array();
-        foreach ($data as $name => $value) {
+        $data = array();
+        foreach ($properties as $name => $value) {
 
-            $data[$name] = $this->extractValue($name, $value);
-
-            if (!empty($data[$name]) || $data[$name] === false) {
-                $vars[$name] = $data[$name];
+            if (!empty($object->$name) || $object->$name === false) {
+                $data[$name] = $this->extractValue($name, $object->$name);
             }
+
         }
 
-        return $vars;
+        return $data;
     }
 
     /**
@@ -66,19 +65,7 @@ class ObjectProperty implements HydratorInterface, StrategyEnabledInterface
             );
         }
 
-        $reflection = new ReflectionClass($object);
-
-        $properties = $reflection->getProperties(
-            ReflectionProperty::IS_PRIVATE
-            + ReflectionProperty::IS_PROTECTED
-            + ReflectionProperty::IS_PUBLIC
-        );
-
-        $props = array();
-        /** @var ReflectionProperty $property */
-        foreach ($properties as $property) {
-            $props[$property->getName()] = true;
-        }
+        $props = $this->getObjectProperties($object);
 
         foreach ($data as $name => $value) {
 
@@ -139,8 +126,8 @@ class ObjectProperty implements HydratorInterface, StrategyEnabledInterface
     /**
      * Converts a value for extraction. If no strategy exists the plain value is returned.
      *
-     * @param  string $name  The name of the strategy to use.
-     * @param  mixed  $value  The value that should be converted.
+     * @param string $name
+     * @param mixed $value
      *
      * @return mixed
      */
@@ -150,14 +137,15 @@ class ObjectProperty implements HydratorInterface, StrategyEnabledInterface
             $strategy = $this->getStrategy($name);
             $value = $strategy->extract($value);
         }
+
         return $value;
     }
 
     /**
      * Converts a value for hydration. If no strategy exists the plain value is returned.
      *
-     * @param string $name The name of the strategy to use.
-     * @param mixed $value The value that should be converted.
+     * @param string $name
+     * @param mixed $value
      *
      * @return mixed
      */
@@ -167,6 +155,32 @@ class ObjectProperty implements HydratorInterface, StrategyEnabledInterface
             $strategy = $this->getStrategy($name);
             $value = $strategy->hydrate($value);
         }
+
         return $value;
+    }
+
+    /**
+     * Return list of object properties
+     *
+     * @param object $object
+     *
+     * @return array
+     */
+    protected function getObjectProperties($object)
+    {
+        $reflection = new ReflectionClass($object);
+
+        $properties = $reflection->getProperties(
+            ReflectionProperty::IS_PRIVATE
+            + ReflectionProperty::IS_PROTECTED
+        );
+
+        $props = array();
+        /** @var ReflectionProperty $property */
+        foreach ($properties as $property) {
+            $props[$property->getName()] = true;
+        }
+
+        return $props;
     }
 }

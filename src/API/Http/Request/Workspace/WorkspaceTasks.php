@@ -13,12 +13,12 @@ class WorkspaceTasks extends Workspace
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/tasks?active={active}';
+    protected $uri = 'workspaces/{workspace_id}/tasks?active={active}';
 
     /**
      * @var boolean
      */
-    public $active = true;
+    protected $active = true;
 
     /**
      * WorkspaceTasks constructor.

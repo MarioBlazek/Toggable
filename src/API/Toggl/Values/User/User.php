@@ -49,201 +49,201 @@ class User extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      */
-    public $api_token;
+    protected $api_token;
 
     /**
      * Default workspace id
      *
      * @var int
      */
-    public $default_wid;
+    protected $default_wid;
 
     /**
      * @var string
      */
-    public $fullname;
+    protected $fullname;
 
     /**
      * Email
      *
      * @var string
      */
-    public $email;
+    protected $email;
 
     /**
      * @var string
      */
-    public $jquery_timeofday_format;
+    protected $jquery_timeofday_format;
 
     /**
      * @var string
      */
-    public $jquery_date_format;
+    protected $jquery_date_format;
 
     /**
      * @var string
      */
-    public $timeofday_format;
+    protected $timeofday_format;
 
     /**
      * @var string
      */
-    public $date_format;
+    protected $date_format;
 
     /**
      * Whether start and stop time are saved on time entry
      *
      * @var boolean
      */
-    public $store_start_and_stop_time;
+    protected $store_start_and_stop_time;
 
     /**
      * Integer 0-6, Sunday=0
      *
      * @var int
      */
-    public $beginning_of_week;
+    protected $beginning_of_week;
 
     /**
      * User's language
      *
      * @var string
      */
-    public $language;
+    protected $language;
 
     /**
      * Url with the user's profile picture
      *
      * @var string
      */
-    public $image_url;
+    protected $image_url;
 
     /**
      * Should a piechart be shown on the sidebar
      *
      * @var boolean
      */
-    public $sidebar_piechart;
+    protected $sidebar_piechart;
 
     /**
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 
     /**
      * @var \DateTime
      */
-    public $created_at;
+    protected $created_at;
 
     /**
      * @var int
      */
-    public $retention;
+    protected $retention;
 
     /**
      * @var boolean
      */
-    public $record_timeline;
+    protected $record_timeline;
 
     /**
      * @var boolean
      */
-    public $render_timeline;
+    protected $render_timeline;
 
     /**
      * @var boolean
      */
-    public $timeline_enabled;
+    protected $timeline_enabled;
 
     /**
      * @var boolean
      */
-    public $timeline_experiment;
+    protected $timeline_experiment;
 
     /**
      * @var boolean
      */
-    public $manual_mode;
+    protected $manual_mode;
 
     /**
      * @var boolean
      */
-    public $should_upgrade;
+    protected $should_upgrade;
 
     /**
      * @var boolean
      */
-    public $achievements_enabled;
+    protected $achievements_enabled;
 
     /**
      * @var boolean
      */
-    public $invitation;
+    protected $invitation;
 
     /**
      * An object with toggl blog post title and link
      *
      * @var \Marek\Toggable\API\Toggl\Values\User\BlogPost
      */
-    public $new_blog_post;
+    protected $new_blog_post;
 
     /**
      * Toggl can send newsletters over e-mail to the user
      *
      * @var boolean
      */
-    public $send_product_emails;
+    protected $send_product_emails;
 
     /**
      * If user receives weekly report
      *
      * @var boolean
      */
-    public $send_weekly_report;
+    protected $send_weekly_report;
 
     /**
      * Email user about long-running (more than 8 hours) tasks
      *
      * @var boolean
      */
-    public $send_timer_notifications;
+    protected $send_timer_notifications;
 
     /**
      * Google signin enabled
      *
      * @var boolean
      */
-    public $openid_enabled;
+    protected $openid_enabled;
 
     /**
      * Timezone user has set on the "My profile" page ( IANA TZ timezones )
      *
      * @var string
      */
-    public $timezone;
+    protected $timezone;
 
     /**
      * @var \Marek\Toggable\API\Toggl\Values\User\BlogPost
      */
-    public $last_blog_entry;
+    protected $last_blog_entry;
 
     /**
      * @var string
      */
-    public $duration_format;
+    protected $duration_format;
 
     /**
      * @var string
      */
-    public $obm;
+    protected $obm;
 
     /**
      * @var boolean
      */
-    public $used_next;
+    protected $used_next;
 }

@@ -15,5 +15,5 @@ class Client extends ValueObject
     /**
      * @var \Marek\Toggable\API\Toggl\Values\Client\Client
      */
-    public $client;
+    protected $client;
 }

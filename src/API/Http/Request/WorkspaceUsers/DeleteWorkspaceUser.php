@@ -15,17 +15,17 @@ class DeleteWorkspaceUser extends Request
     /**
      * @var string
      */
-    public $uri = 'workspace_users/{workspace_user_id}';
+    protected $uri = 'workspace_users/{workspace_user_id}';
 
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 
     /**
      * @var int
      */
-    public $workspaceUserId;
+    protected $workspaceUserId;
 
     /**
      * DeleteWorkspaceUser constructor.

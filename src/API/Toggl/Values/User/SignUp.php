@@ -16,10 +16,10 @@ class SignUp extends ValueObject
     /**
      * @var string
      */
-    public $email;
+    protected $email;
 
     /**
      * @var string
      */
-    public $password;
+    protected $password;
 }

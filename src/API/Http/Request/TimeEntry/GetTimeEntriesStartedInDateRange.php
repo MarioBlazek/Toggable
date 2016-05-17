@@ -16,17 +16,17 @@ class GetTimeEntriesStartedInDateRange extends Request
     /**
      * @var string
      */
-    public $uri = 'time_entries';
+    protected $uri = 'time_entries';
 
     /**
      * @var \DateTime
      */
-    public $startDate;
+    protected $startDate;
 
     /**
      * @var \DateTime
      */
-    public $endDate;
+    protected $endDate;
 
     /**
      * GetTimeEntriesInDateRange constructor.

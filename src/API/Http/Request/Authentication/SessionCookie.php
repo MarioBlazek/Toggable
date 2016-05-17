@@ -13,10 +13,10 @@ class SessionCookie extends Request
     /**
      * @var string
      */
-    public $uri = 'sessions';
+    protected $uri = 'sessions';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 }

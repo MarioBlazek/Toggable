@@ -16,12 +16,12 @@ class CreateMultipleProjectUsers extends Request
     /**
      * @var string
      */
-    public $uri = 'project_users';
+    protected $uri = 'project_users';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

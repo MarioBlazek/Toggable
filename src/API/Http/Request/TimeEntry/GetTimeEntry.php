@@ -13,10 +13,10 @@ class GetTimeEntry extends StopTimeEntry
     /**
      * @var string
      */
-    public $uri = 'time_entries/{time_entry_id}';
+    protected $uri = 'time_entries/{time_entry_id}';
 
     /**
      * @var string
      */
-    public $method = Request::GET;
+    protected $method = Request::GET;
 }

@@ -15,22 +15,22 @@ class WorkspaceProjects extends Workspace
     /**
      * @var string
      */
-    public $uri = 'workspaces/{workspace_id}/projects?active={active}&actual_hours={actual_hours}&only_templates={only_templates}';
+    protected $uri = 'workspaces/{workspace_id}/projects?active={active}&actual_hours={actual_hours}&only_templates={only_templates}';
 
     /**
      * @var boolean
      */
-    public $active = true;
+    protected $active = true;
 
     /**
      * @var boolean
      */
-    public $actualHours = false;
+    protected $actualHours = false;
 
     /**
      * @var boolean
      */
-    public $onlyTemplates = false;
+    protected $onlyTemplates = false;
 
     /**
      * WorkspaceProjects constructor.

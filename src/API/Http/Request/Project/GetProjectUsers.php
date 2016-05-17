@@ -11,5 +11,5 @@ class GetProjectUsers extends GetProject
     /**
      * @var string
      */
-    public $uri = 'projects/{project_id}/project_users';
+    protected $uri = 'projects/{project_id}/project_users';
 }

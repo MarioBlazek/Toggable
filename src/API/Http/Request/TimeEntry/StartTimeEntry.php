@@ -15,12 +15,12 @@ class StartTimeEntry extends Request
     /**
      * @var string
      */
-    public $uri = 'time_entries/start';
+    protected $uri = 'time_entries/start';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

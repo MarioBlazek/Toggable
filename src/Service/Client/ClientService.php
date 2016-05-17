@@ -3,12 +3,10 @@
 namespace Marek\Toggable\Service\Client;
 
 use InvalidArgumentException;
-use Marek\Toggable\API\Exception\NotFoundException;
 use Marek\Toggable\API\Http\Request\Client\UpdateClient;
 use Marek\Toggable\API\Http\Response\Client\Client as ClientResponse;
 use Marek\Toggable\API\Http\Response\Client\Clients as ClientsResponse;
 use Marek\Toggable\API\Http\Response\Project\Projects as ProjectsResponse;
-use Marek\Toggable\API\Http\Response\Successful as SuccessfulResponse;
 use Marek\Toggable\API\Toggl\Values\Project\Project as ProjectValue;
 use Marek\Toggable\API\Toggl\Values\Client\Client as ClientValue;
 use Marek\Toggable\API\Http\Request\Client\CreateClient as CreateClientRequest;
@@ -16,7 +14,6 @@ use Marek\Toggable\API\Http\Request\Client\GetClientDetails as GetClientDetailsR
 use Marek\Toggable\API\Http\Request\Client\GetClientProjects as GetClientProjectsRequest;
 use Marek\Toggable\API\Http\Request\Client\GetClients as GetClientsRequest;
 use Marek\Toggable\API\Http\Request\Client\DeleteClient as DeleteClientRequest;
-use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\Service\AbstractService;
 use Marek\Toggable\API\Toggl\Values\Activity;
 
@@ -31,24 +28,19 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
      */
     public function createClient(ClientValue $client)
     {
-
-        $client = $this->hydrator->extract($client);
-
         $request = new CreateClientRequest(
             array(
-                'data' => $client,
+                'data' => $this->extractDataFromObject($client),
             )
         );
 
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $clientResponse = $this->hydrator->hydrate($response->body['data'], new ClientValue());
-
-        return new ClientResponse(array('client' => $clientResponse));
+        return new ClientResponse(
+            array(
+                'client' => $this->hydrateDataFromArrayToObject($response, new ClientValue()),
+            )
+        );
     }
 
     /**
@@ -68,15 +60,13 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
             )
         );
 
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
-        if (empty($response->body['data'])) {
-            throw new NotFoundException('client');
-        }
-
-        $client = $this->hydrator->hydrate($response->body['data'], new ClientValue);
-
-        return new ClientResponse(array('client' => $client));
+        return new ClientResponse(
+            array(
+                'client' => $this->hydrateDataFromArrayToObject($response, new ClientValue())
+            )
+        );
     }
 
     /**
@@ -85,18 +75,19 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
     public function getClients()
     {
         $request = new GetClientsRequest();
-        $response = $this->requestManager->request($request);
 
-        if (empty($response->body)) {
-            throw new NotFoundException('clients');
-        }
+        $response = $this->delegate($request);
 
         $clients = array();
         foreach($response->body as $client) {
             $clients[] = $this->hydrator->hydrate($client, new ClientValue);
         }
 
-        return new ClientsResponse(array('clients' => $clients));
+        return new ClientsResponse(
+            array(
+                'clients' => $clients,
+            )
+        );
     }
 
     /**
@@ -110,11 +101,7 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
             )
         );
 
-        $response = $this->requestManager->request($request);
-
-        if (empty($response->body)) {
-            throw new NotFoundException('client projects');
-        }
+        $response = $this->delegate($request);
 
         $projects = array();
         foreach ($response->body as $project) {
@@ -135,23 +122,19 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
             );
         }
 
-        $client = $this->hydrator->extract($client);
-
         $request = new UpdateClient(array(
-            'clientId' => $clientId,
-            'data' => $client,
+                'clientId' => $clientId,
+                'data' => $this->extractDataFromObject($client),
             )
         );
 
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $client = $this->hydrator->hydrate($response->body['data'], new ClientValue);
-
-        return new ClientResponse(array('client' => $client));
+        return new ClientResponse(
+            array(
+                'client' => $this->hydrateDataFromArrayToObject($response, new ClientValue()),
+            )
+        );
     }
 
     /**
@@ -166,12 +149,7 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
         }
 
         $request = new DeleteClientRequest(array('clientId' => $clientId));
-        $response = $this->requestManager->request($request);
 
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        return new SuccessfulResponse();
+        return $this->delegate($request);
     }
 }

@@ -15,12 +15,12 @@ class GetDashboard extends Request
     /**
      * @var string
      */
-    public $uri = 'dashboard/{workspace_id}';
+    protected $uri = 'dashboard/{workspace_id}';
 
     /**
      * @var int
      */
-    public $workspaceId;
+    protected $workspaceId;
 
     /**
      * GetDashboard constructor.

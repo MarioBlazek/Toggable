@@ -15,17 +15,17 @@ class BulkDeleteProjectUsers extends Request
     /**
      * @var string
      */
-    public $uri = 'project_users/{project_user_ids}';
+    protected $uri = 'project_users/{project_user_ids}';
 
     /**
      * @var array
      */
-    public $projectUserIds;
+    protected $projectUserIds;
 
     /**
      * @var string
      */
-    public $method = Request::DELETE;
+    protected $method = Request::DELETE;
 
     /**
      * BulkDeleteProjectUsers constructor.

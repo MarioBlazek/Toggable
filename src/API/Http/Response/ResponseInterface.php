@@ -21,11 +21,4 @@ interface ResponseInterface
      * @return int
      */
     public function getStatusCode();
-
-    /**
-     * Returns cookie
-     * 
-     * @return string
-     */
-    public function getCookie();
 }

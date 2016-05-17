@@ -13,7 +13,7 @@ class UpdateTimeEntry extends GetTimeEntry
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

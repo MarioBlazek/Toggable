@@ -17,7 +17,7 @@ class NativeResponseParser implements HttpResponseParserInterface
     {
         $body = json_decode($data['data'], true);
 
-        $statusCode = empty($data['metadata']['wrapper_data'][0]) ? 0 : $data['metadata']['wrapper_data'][0];
+        sscanf($data['metadata'][0], 'HTTP/%*d.%*d %d', $statusCode);
 
         return new Response(
             array(

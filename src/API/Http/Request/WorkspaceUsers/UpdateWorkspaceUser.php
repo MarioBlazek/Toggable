@@ -13,12 +13,12 @@ class UpdateWorkspaceUser extends DeleteWorkspaceUser
     /**
      * @var string
      */
-    public $uri = 'workspace_users/{workspace_user_id}';
+    protected $uri = 'workspace_users/{workspace_user_id}';
 
     /**
      * @var string
      */
-    public $method = Request::PUT;
+    protected $method = Request::PUT;
 
     /**
      * {@inheritdoc}

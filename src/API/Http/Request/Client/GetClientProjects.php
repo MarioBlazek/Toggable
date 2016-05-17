@@ -16,17 +16,17 @@ class GetClientProjects extends Request
     /**
      * @var string
      */
-    public $uri = 'clients/{client_id}/projects?active={is_active}';
+    protected $uri = 'clients/{client_id}/projects?active={is_active}';
 
     /**
      * @var int
      */
-    public $clientId;
+    protected $clientId;
 
     /**
      * @var string
      */
-    public $active;
+    protected $active;
 
     /**
      * GetClientProjectsRequest constructor.

@@ -13,5 +13,5 @@ class GetClients extends Request
     /**
      * @var string
      */
-    public $uri = 'clients';
+    protected $uri = 'clients';
 }

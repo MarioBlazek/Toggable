@@ -15,12 +15,12 @@ class GetClientDetails extends Request
     /**
      * @var string
      */
-    public $uri = 'clients/{client_id}';
+    protected $uri = 'clients/{client_id}';
 
     /**
      * @var int
      */
-    public $clientId;
+    protected $clientId;
 
     /**
      * GetClientDetailsRequest constructor.

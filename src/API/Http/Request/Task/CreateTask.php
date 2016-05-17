@@ -13,12 +13,12 @@ class CreateTask extends Request
     /**
      * @var string
      */
-    public $uri = 'tasks';
+    protected $uri = 'tasks';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

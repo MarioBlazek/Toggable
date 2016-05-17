@@ -15,12 +15,12 @@ class SignUp extends Request
     /**
      * @var string
      */
-    public $uri = 'signups';
+    protected $uri = 'signups';
 
     /**
      * @var string
      */
-    public $method = Request::POST;
+    protected $method = Request::POST;
 
     /**
      * {@inheritdoc}

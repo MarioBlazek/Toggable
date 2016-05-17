@@ -22,14 +22,14 @@ class Activity extends ValueObject
      *
      * @var int
      */
-    public $user_id;
+    protected $user_id;
 
     /**
      *  Project ID (ID is 0 if time entry doesn't have project connected to it)
      *
      * @var int
      */
-    public $project_id;
+    protected $project_id;
 
     /**
      * Time entry duration in seconds.
@@ -38,27 +38,27 @@ class Activity extends ValueObject
      *
      * @var  int
      */
-    public $duration;
+    protected $duration;
 
     /**
      * Description property is not present if time entry description is empty
      *
      * @var string
      */
-    public $description;
+    protected $description;
 
     /**
      * Time entry stop time (ISO 8601 date and time. Stop property is not present when time entry is still running)
      *
      * @var \DateTime
      */
-    public $stop;
+    protected $stop;
 
     /**
      * Task id, if applicable
      *
      * @var int
      */
-    public $tid;
+    protected $tid;
 }
 

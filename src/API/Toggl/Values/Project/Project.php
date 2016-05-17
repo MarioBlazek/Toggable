@@ -32,90 +32,90 @@ class Project extends ValueObject
     /**
      * @var int
      */
-    public $id;
+    protected $id;
 
     /**
      * @var string
      */
-    public $name;
+    protected $name;
 
     /**
      * @var int
      */
-    public $wid;
+    protected $wid;
 
     /**
      * @var int
      */
-    public $guid;
+    protected $guid;
 
     /**
      * @var int
      */
-    public $cid;
+    protected $cid;
 
     /**
      * @var boolean
      */
-    public $active = true;
+    protected $active;
 
     /**
      * @var boolean
      */
-    public $is_private = true;
+    protected $is_private = true;
 
     /**
      * @var boolean
      */
-    public $template;
+    protected $template;
 
     /**
      * @var int
      */
-    public $template_id;
+    protected $template_id;
 
     /**
      * @var boolean
      */
-    public $billable = true;
+    protected $billable;
 
     /**
      * @var int
      */
-    public $actual_hours;
+    protected $actual_hours;
 
     /**
      * @var boolean
      */
-    public $auto_estimates = false;
+    protected $auto_estimates = false;
 
     /**
      * @var int
      */
-    public $estimated_hours;
+    protected $estimated_hours;
 
     /**
      * @var \DateTime
      */
-    public $at;
+    protected $at;
 
     /**
      * @var int
      */
-    public $color;
+    protected $color;
 
     /**
      * @var float
      */
-    public $rate;
+    protected $rate;
 
     /**
      * @var \DateTime
      */
-    public $created_at;
+    protected $created_at;
 
     /**
      * @var \DateTime
      */
-    public $server_deleted_at;
+    protected $server_deleted_at;
 }
