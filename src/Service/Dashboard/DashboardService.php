@@ -32,11 +32,7 @@ class DashboardService extends AbstractService implements \Marek\Toggable\API\To
             'workspaceId' => $workspaceId,
         ));
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
+        $response = $this->delegate($request);
 
         $mostActiveUsers = array();
         if (!empty($response->body['most_active_user'])) {
