@@ -6,7 +6,6 @@ use Marek\Toggable\API\Http\Response\Dashboard\Dashboard;
 use Marek\Toggable\API\Http\Response\Response;
 use Marek\Toggable\Http\Manager\NativeRequestManager;
 use Marek\Toggable\Hydrator\AggregateHydrator;
-use Marek\Toggable\Hydrator\Dashboard\MostActiveUserHydrator;
 use Marek\Toggable\Service\Dashboard\DashboardService;
 
 class DashboardServiceTest extends \PHPUnit_Framework_TestCase
@@ -17,8 +16,11 @@ class DashboardServiceTest extends \PHPUnit_Framework_TestCase
             array(
                 'statusCode' => 200,
                 'body' => array(
-                    'data' => array(
-                        'Test'
+                    'most_active_user' => array(
+                        array('test'),
+                    ),
+                    'activity' => array(
+                        array('test'),
                     ),
                 ),
             )
