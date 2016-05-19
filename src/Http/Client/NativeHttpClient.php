@@ -77,7 +77,7 @@ class NativeHttpClient implements HttpClientInterface
 
         $stream = @fopen($this->data['uri'], 'r', false, $context);
 
-        if ($stream == false) {
+        if ($stream === false) {
             return array();
         }
 

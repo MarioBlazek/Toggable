@@ -8,7 +8,7 @@
         "tracking"
     ],
     "homepage": "https://github.com/MarioBlazek/Toggable",
-    "license": "GPLv2",
+    "license": "GPL-2.0",
     "require-dev": {
         "phpunit/phpunit": "^5.0"
     },
