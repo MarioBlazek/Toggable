@@ -22,21 +22,19 @@ class TagService extends AbstractService implements \Marek\Toggable\API\Toggl\Ta
      */
     public function createTag(\Marek\Toggable\API\Toggl\Values\Tag\Tag $tag)
     {
-        $request = new CreateTag(array(
-            'tag' => $tag,
-        ));
+        $request = new CreateTag(
+            array(
+                'data' => $this->extractDataFromObject($tag),
+            )
+        );
 
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $tag = $this->hydrator->hydrate($response->body['data'], new Tag());
-
-        return new TagResponse(array(
-            'tag' => $tag,
-        ));
+        return new TagResponse(
+            array(
+                'tag' => $this->hydrateDataFromArrayToObject($response, new Tag()),
+            )
+        );
     }
 
     /**
@@ -50,22 +48,20 @@ class TagService extends AbstractService implements \Marek\Toggable\API\Toggl\Ta
             );
         }
 
-        $request = new UpdateTag(array(
-            'tagId' => $tagId,
-            'tag' => $tag,
-        ));
+        $request = new UpdateTag(
+            array(
+                'tagId' => $tagId,
+                'data' => $this->extractDataFromObject($tag),
+            )
+        );
 
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $tag = $this->hydrator->hydrate($response->body['data'], new Tag());
-
-        return new TagResponse(array(
-            'tag' => $tag,
-        ));
+        return new TagResponse(
+            array(
+                'tag' => $this->hydrateDataFromArrayToObject($response, new Tag()),
+            )
+        );
     }
 
     /**
@@ -79,20 +75,12 @@ class TagService extends AbstractService implements \Marek\Toggable\API\Toggl\Ta
             );
         }
 
-        $request = new DeleteTag(array(
-            'tagId' => $tagId,
-        ));
+        $request = new DeleteTag(
+            array(
+                'tagId' => $tagId,
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $tag = $this->hydrator->hydrate($response->body['data'], new Tag());
-
-        return new TagResponse(array(
-            'tag' => $tag,
-        ));
+        return $this->delegate($request);
     }
 }
