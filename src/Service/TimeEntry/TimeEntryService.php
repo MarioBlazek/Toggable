@@ -174,11 +174,15 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function bulkUpdateTimeEntriesTags(array $timeEntries, array $tags, $tagAction = \Marek\Toggable\API\Toggl\Values\TagAction::ADD)
     {
+        $data = array(
+            'tags' => $tags,
+            'tag_action' => $tagAction
+        );
+
         $request = new BulkUpdateTimeEntriesTags(
             array(
-                'timeEntries'   => $timeEntries,
-                'tags'          => $tags,
-                'tagAction'     => $tagAction,
+                'timeEntryIds'   => $timeEntries,
+                'data'           => $data,
             )
         );
 

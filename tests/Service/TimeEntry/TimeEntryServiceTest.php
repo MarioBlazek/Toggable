@@ -4,6 +4,7 @@ namespace Marek\Toggable\Tests\Service\TimeEntry;
 
 use Marek\Toggable\API\Http\Response\Response;
 use Marek\Toggable\API\Http\Response\ResponseInterface;
+use Marek\Toggable\API\Toggl\Values\TagAction;
 use Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry;
 use Marek\Toggable\Http\Manager\NativeRequestManager;
 use Marek\Toggable\Hydrator\TimeEntry\TimeEntryHydrator;
@@ -368,13 +369,6 @@ class TimeEntryServiceTest extends \PHPUnit_Framework_TestCase
 
     public function testDeleteTimeEntry()
     {
-        $data = array(
-            'id' => 123,
-            'description' => 'Test description',
-        );
-
-        $timeEntry = new TimeEntry($data);
-
         $response = new Response(
             array(
                 'statusCode' => 200,
@@ -425,5 +419,98 @@ class TimeEntryServiceTest extends \PHPUnit_Framework_TestCase
         $timeEntryService = new TimeEntryService($requestManager, $hydrator);
 
         $timeEntryService->deleteTimeEntry('test');
+    }
+
+    public function testGetTimeEntriesStartedInDateRange()
+    {
+        $data = array(
+            'id' => 123,
+            'description' => 'Test description',
+        );
+
+        $timeEntry = new TimeEntry($data);
+
+        $response = new Response(
+            array(
+                'statusCode' => 200,
+                'body' => array(
+                    'data' => array(
+                        'Test'
+                    ),
+                ),
+            )
+        );
+
+        $requestManager = $this->getMockBuilder(NativeRequestManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('request'))
+            ->getMock();
+
+        $requestManager->expects($this->once())
+            ->method('request')
+            ->willReturn($response);
+
+        $hydrator = $this->getMockBuilder(TimeEntryHydrator::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('hydrate', 'extract'))
+            ->getMock();
+
+        $hydrator->expects($this->any())
+            ->method('hydrate')
+            ->willReturn($timeEntry);
+
+
+        $timeEntryService = new TimeEntryService($requestManager, $hydrator);
+
+        $response = $timeEntryService->getTimeEntriesStartedInDateRange(new \DateTime('-1 day'), new \DateTime());
+
+        $this->assertInstanceOf(\Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries::class, $response);
+    }
+
+    public function testBulkUpdateTimeEntriesTags()
+    {
+        $timeEntryIds = array(112, 344, 435, 546);
+        $tags = array('tag1', 'tag2', 'tag3');
+
+        $data = array(
+            'id' => 123,
+            'description' => 'Test description',
+        );
+
+        $response = new Response(
+            array(
+                'statusCode' => 200,
+                'body' => array(
+                    'data' => array(
+                        $data,
+                        $data,
+                    ),
+                ),
+            )
+        );
+
+        $requestManager = $this->getMockBuilder(NativeRequestManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('request'))
+            ->getMock();
+
+        $requestManager->expects($this->once())
+            ->method('request')
+            ->willReturn($response);
+
+        $hydrator = $this->getMockBuilder(TimeEntryHydrator::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('hydrate', 'extract'))
+            ->getMock();
+
+        $hydrator->expects($this->any())
+            ->method('hydrate');
+
+
+        $timeEntryService = new TimeEntryService($requestManager, $hydrator);
+
+        $response = $timeEntryService->bulkUpdateTimeEntriesTags($timeEntryIds, $tags, TagAction::ADD);
+
+        $this->assertInstanceOf(\Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries::class, $response);
     }
 }
