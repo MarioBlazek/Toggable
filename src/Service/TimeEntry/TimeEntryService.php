@@ -201,11 +201,7 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
     }
 
     /**
-     * Response helper method
-     *
-     * @param \Marek\Toggable\API\Http\Request\RequestInterface $request
-     *
-     * @return \Marek\Toggable\API\Http\Response\TimeEntry\TimeEntry
+     * @inheritdoc
      */
     protected function delegateHydrateAndReturnResponse(RequestInterface $request)
     {

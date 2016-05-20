@@ -83,4 +83,16 @@ abstract class AbstractService
 
         return $response;
     }
+
+    /**
+     * Response helper method
+     *
+     * @param \Marek\Toggable\API\Http\Request\RequestInterface $request
+     *
+     * @return \Marek\Toggable\API\Toggl\Values\ValueObject
+     */
+    protected function delegateHydrateAndReturnResponse(\Marek\Toggable\API\Http\Request\RequestInterface $request)
+    {
+        throw new \RuntimeException('Method not implented');
+    }
 }
