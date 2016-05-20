@@ -40,14 +40,18 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
     {
         $request = new WorkspacesRequest();
 
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
         
         $workspaces = array();
         foreach($response->body as $workspace) {
             $workspaces[] = $this->hydrator->hydrate($workspace, new Workspace());
         }
 
-        return new WorkspacesResponse(array('workspaces' => $workspaces));
+        return new WorkspacesResponse(
+            array(
+                'workspaces' => $workspaces,
+            )
+        );
     }
 
     /**
@@ -55,23 +59,21 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getWorkspace($workspaceId)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new WorkspaceRequest(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+            )
+        );
 
-        $request = new WorkspaceRequest(array(
-            'workspaceId' => $workspaceId,
-        ));
-
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
         $workspace = $this->hydrator->hydrate($response->body['data'], new Workspace());
 
-        return new WorkspaceResponse(array(
-            'workspace' => $workspace,
-        ));
+        return new WorkspaceResponse(
+            array(
+                'workspace' => $workspace,
+            )
+        );
     }
 
     /**
@@ -79,26 +81,24 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getWorkspaceUsers($workspaceId)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new WorkspaceUsersRequest(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+            )
+        );
 
-        $request = new WorkspaceUsersRequest(array(
-            'workspaceId' => $workspaceId,
-        ));
-
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
         $users = array();
         foreach($response->body as $user) {
             $users[] = $this->hydrator->hydrate($user, new User());
         }
 
-        return new WorkspaceUsersResponse(array(
-            'users' => $users,
-        ));
+        return new WorkspaceUsersResponse(
+            array(
+                'users' => $users,
+            )
+        );
     }
 
     /**
@@ -106,26 +106,24 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getWorkspaceClients($workspaceId)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new WorkspaceClientsRequest(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+            )
+        );
 
-        $request = new WorkspaceClientsRequest(array(
-            'workspaceId' => $workspaceId,
-        ));
-
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
         $clients = array();
         foreach($response->body as $client) {
             $clients[] = $this->hydrator->hydrate($client, new Client());
         }
 
-        return new WorkspaceClientsResponse(array(
-            'clients' => $clients,
-        ));
+        return new WorkspaceClientsResponse(
+            array(
+                'clients' => $clients,
+            )
+        );
     }
 
     /**
@@ -133,29 +131,27 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getWorkspaceProjects($workspaceId, $active = Activity::ACTIVE, $actualHours = 'false', $onlyTemplates = 'false')
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new WorkspaceProjectsRequest(
+            array(
+                'workspaceId'   => $this->validate($workspaceId),
+                'active'        => $active,
+                'actualHours'   => $actualHours,
+                'onlyTemplates' => $onlyTemplates,
+            )
+        );
 
-        $request = new WorkspaceProjectsRequest(array(
-            'workspaceId'   => $workspaceId,
-            'active'        => $active,
-            'actualHours'   => $actualHours,
-            'onlyTemplates' => $onlyTemplates,
-        ));
-
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
         $projects = array();
         foreach($response->body as $project) {
             $projects[] = $this->hydrator->hydrate($project, new Project());
         }
 
-        return new WorkspaceProjectsResponse(array(
-            'projects' => $projects,
-        ));
+        return new WorkspaceProjectsResponse(
+            array(
+                'projects' => $projects,
+            )
+        );
     }
 
     /**
@@ -163,34 +159,25 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getWorkspaceTasks($workspaceId, $active = Activity::ACTIVE)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new WorkspaceTasksRequest(
+            array(
+                'workspaceId'   => $this->validate($workspaceId),
+                'active'        => $active,
+            )
+        );
 
-        $request = new WorkspaceTasksRequest(array(
-            'workspaceId'   => $workspaceId,
-            'active'        => $active,
-        ));
-
-        $response = $this->requestManager->request($request);
-
-        if (empty($response->body)) {
-            return new WorkspaceTasksResponse(array(
-                'tasks' => null,
-            ));
-        }
+        $response = $this->delegate($request);
 
         $tasks = array();
         foreach($response->body as $task) {
             $tasks[] = $this->hydrator->hydrate($task, new Task());
         }
 
-        return new WorkspaceTasksResponse(array(
-            'tasks' => $tasks,
-            'statusCode' => $response->statusCode,
-        ));
+        return new WorkspaceTasksResponse(
+            array(
+                'tasks' => $tasks,
+            )
+        );
     }
 
     /**
@@ -198,32 +185,24 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getWorkspaceTags($workspaceId)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new WorkspaceTagsRequest(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+            )
+        );
 
-        $request = new WorkspaceTagsRequest(array(
-            'workspaceId' => $workspaceId,
-        ));
-
-        $response = $this->requestManager->request($request);
-
-        if (empty($response->body)) {
-            return new WorkspaceTagsResponse(array(
-                'tags' => null,
-            ));
-        }
+        $response = $this->delegate($request);
 
         $tags = array();
         foreach($response->body as $tag) {
             $tags[] = $this->hydrator->hydrate($tag, new Tag());
         }
 
-        return new WorkspaceTagsResponse(array(
-            'tags' => $tags,
-        ));
+        return new WorkspaceTagsResponse(
+            array(
+                'tags' => $tags,
+            )
+        );
     }
 
     /**
@@ -231,23 +210,21 @@ class WorkspaceService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function updateWorkspace($workspaceId, Workspace $workspace)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
+        $request = new UpdateWorkspace(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+                'data' => $this->extractDataFromObject($workspace),
+            )
+        );
 
-        $request = new UpdateWorkspace(array(
-            'workspaceId' => $workspaceId,
-            'workspace' => $workspace,
-        ));
-
-        $response = $this->requestManager->request($request);
+        $response = $this->delegate($request);
 
         $workspace = $this->hydrator->hydrate($response->body['data'], new Workspace());
 
-        return new WorkspaceResponse(array(
-            'workspace' => $workspace,
-        ));
+        return new WorkspaceResponse(
+            array(
+                'workspace' => $workspace,
+            )
+        );
     }
 }
