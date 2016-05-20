@@ -3,6 +3,7 @@
 namespace Marek\Toggable\Service\TimeEntry;
 
 use InvalidArgumentException;
+use Marek\Toggable\API\Http\Request\RequestInterface;
 use Marek\Toggable\API\Http\Request\TimeEntry\BulkUpdateTimeEntriesTags;
 use Marek\Toggable\API\Http\Request\TimeEntry\CreateTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\DeleteTimeEntry;
@@ -12,7 +13,6 @@ use Marek\Toggable\API\Http\Request\TimeEntry\GetTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\StartTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\StopTimeEntry;
 use Marek\Toggable\API\Http\Request\TimeEntry\UpdateTimeEntry;
-use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntries;
 use Marek\Toggable\API\Http\Response\TimeEntry\TimeEntry as TimeEntryResponse;
 use Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry;
@@ -29,21 +29,13 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function createTimeEntry(\Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry $timeEntry)
     {
-        $request = new CreateTimeEntry(array(
-            'timeEntry' => $timeEntry,
-        ));
+        $request = new CreateTimeEntry(
+            array(
+                'data' => $this->extractDataFromObject($timeEntry),
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
-
-        return new TimeEntryResponse(array(
-            'timeEntry' => $timeEntry,
-        ));
+      return $this->delegateHydrateAndReturnResponse($request);
     }
 
     /**
@@ -51,21 +43,13 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function startTimeEntry(\Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry $timeEntry)
     {
-        $request = new StartTimeEntry(array(
-            'timeEntry' => $timeEntry,
-        ));
+        $request = new StartTimeEntry(
+            array(
+                'data' => $this->extractDataFromObject($timeEntry),
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
-
-        return new TimeEntryResponse(array(
-            'timeEntry' => $timeEntry,
-        ));
+        return $this->delegateHydrateAndReturnResponse($request);
     }
 
     /**
@@ -79,21 +63,13 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
             );
         }
 
-        $request = new StopTimeEntry(array(
-            'timeEntryId' => $timeEntryId,
-        ));
+        $request = new StopTimeEntry(
+            array(
+                'timeEntryId' => $timeEntryId,
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
-
-        return new TimeEntryResponse(array(
-            'timeEntry' => $timeEntry,
-        ));
+        return $this->delegateHydrateAndReturnResponse($request);
     }
 
     /**
@@ -107,21 +83,13 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
             );
         }
 
-        $request = new GetTimeEntry(array(
-            'timeEntryId' => $timeEntryId,
-        ));
+        $request = new GetTimeEntry(
+            array(
+                'timeEntryId' => $timeEntryId,
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
-
-        return new TimeEntryResponse(array(
-            'timeEntry' => $timeEntry,
-        ));
+        return $this->delegateHydrateAndReturnResponse($request);
     }
 
     /**
@@ -131,17 +99,7 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
     {
         $request = new GetRunningTimeEntry();
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
-
-        return new TimeEntryResponse(array(
-            'timeEntry' => $timeEntry,
-        ));
+        return $this->delegateHydrateAndReturnResponse($request);
     }
 
     /**
@@ -155,22 +113,14 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
             );
         }
 
-        $request = new UpdateTimeEntry(array(
-            'timeEntryId'   => $timeEntryId,
-            'timeEntry'     => $timeEntry,
-        ));
+        $request = new UpdateTimeEntry(
+            array(
+                'timeEntryId'   => $timeEntryId,
+                'data'          => $this->extractDataFromObject($timeEntry),
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
-
-        $timeEntry = $this->hydrator->hydrate($response->body['data'], new TimeEntry());
-
-        return new TimeEntryResponse(array(
-            'timeEntry' => $timeEntry,
-        ));
+        return $this->delegateHydrateAndReturnResponse($request);
     }
 
     /**
@@ -184,13 +134,13 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
             );
         }
 
-        $request = new DeleteTimeEntry(array(
-            'timeEntryId'   => $timeEntryId,
-        ));
+        $request = new DeleteTimeEntry(
+            array(
+                'timeEntryId'   => $timeEntryId,
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        return $response;
+        return $this->delegate($request);
     }
 
     /**
@@ -198,25 +148,25 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getTimeEntriesStartedInDateRange(\DateTime $startDate, \DateTime $endDate)
     {
-        $request = new GetTimeEntriesStartedInDateRange(array(
-            'startDate' => $startDate,
-            'endDate'   => $endDate,
-        ));
+        $request = new GetTimeEntriesStartedInDateRange(
+            array(
+                'startDate' => $startDate,
+                'endDate'   => $endDate,
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
+        $response = $this->delegate($request);
 
         $entries = array();
         foreach ($response->body as $entry) {
             $entries[] = $this->hydrator->hydrate($entry, new TimeEntry());
         }
 
-        return new TimeEntries(array(
-            'timeEntries' => $entries,
-        ));
+        return new TimeEntries(
+            array(
+                'timeEntries' => $entries,
+            )
+        );
     }
 
     /**
@@ -224,25 +174,43 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function bulkUpdateTimeEntriesTags(array $timeEntries, array $tags, $tagAction = \Marek\Toggable\API\Toggl\Values\TagAction::ADD)
     {
-        $request = new BulkUpdateTimeEntriesTags(array(
-            'timeEntries'   => $timeEntries,
-            'tags'          => $tags,
-            'tagAction'     => $tagAction,
-        ));
+        $request = new BulkUpdateTimeEntriesTags(
+            array(
+                'timeEntries'   => $timeEntries,
+                'tags'          => $tags,
+                'tagAction'     => $tagAction,
+            )
+        );
 
-        $response = $this->requestManager->request($request);
-
-        if ($response instanceof Error) {
-            return $response;
-        }
+        $response = $this->delegate($request);
 
         $entries = array();
         foreach ($response->body['data'] as $entry) {
             $entries[] = $this->hydrator->hydrate($entry, new TimeEntry());
         }
 
-        return new TimeEntries(array(
-            'timeEntries' => $entries,
-        ));
+        return new TimeEntries(
+            array(
+                'timeEntries' => $entries,
+            )
+        );
+    }
+
+    /**
+     * Response helper method
+     *
+     * @param \Marek\Toggable\API\Http\Request\RequestInterface $request
+     *
+     * @return \Marek\Toggable\API\Http\Response\TimeEntry\TimeEntry
+     */
+    protected function delegateHydrateAndReturnResponse(RequestInterface $request)
+    {
+        $response = $this->delegate($request);
+
+        return new TimeEntryResponse(
+            array(
+                'timeEntry' => $this->hydrateDataFromArrayToObject($response, new TimeEntry()),
+            )
+        );
     }
 }
