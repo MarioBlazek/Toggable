@@ -2,7 +2,6 @@
 
 namespace Marek\Toggable\Service\TimeEntry;
 
-use InvalidArgumentException;
 use Marek\Toggable\API\Http\Request\RequestInterface;
 use Marek\Toggable\API\Http\Request\TimeEntry\BulkUpdateTimeEntriesTags;
 use Marek\Toggable\API\Http\Request\TimeEntry\CreateTimeEntry;
@@ -57,15 +56,9 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function stopTimeEntry($timeEntryId)
     {
-        if (empty($timeEntryId) || !is_int($timeEntryId)) {
-            throw new InvalidArgumentException(
-                sprintf('$timeEntryId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new StopTimeEntry(
             array(
-                'timeEntryId' => $timeEntryId,
+                'timeEntryId' => $this->validate($timeEntryId),
             )
         );
 
@@ -77,15 +70,9 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getTimeEntry($timeEntryId)
     {
-        if (empty($timeEntryId) || !is_int($timeEntryId)) {
-            throw new InvalidArgumentException(
-                sprintf('$timeEntryId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new GetTimeEntry(
             array(
-                'timeEntryId' => $timeEntryId,
+                'timeEntryId' => $this->validate($timeEntryId),
             )
         );
 
@@ -107,15 +94,9 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function updateTimeEntry($timeEntryId, \Marek\Toggable\API\Toggl\Values\TimeEntry\TimeEntry $timeEntry)
     {
-        if (empty($timeEntryId) || !is_int($timeEntryId)) {
-            throw new InvalidArgumentException(
-                sprintf('$timeEntryId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new UpdateTimeEntry(
             array(
-                'timeEntryId'   => $timeEntryId,
+                'timeEntryId'   => $this->validate($timeEntryId),
                 'data'          => $this->extractDataFromObject($timeEntry),
             )
         );
@@ -128,15 +109,9 @@ class TimeEntryService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function deleteTimeEntry($timeEntryId)
     {
-        if (empty($timeEntryId) || !is_int($timeEntryId)) {
-            throw new InvalidArgumentException(
-                sprintf('$timeEntryId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new DeleteTimeEntry(
             array(
-                'timeEntryId'   => $timeEntryId,
+                'timeEntryId'   => $this->validate($timeEntryId),
             )
         );
 

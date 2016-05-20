@@ -2,11 +2,9 @@
 
 namespace Marek\Toggable\Service\Dashboard;
 
-use InvalidArgumentException;
 use Marek\Toggable\API\Http\Request\Dashboard\GetDashboard;
 use Marek\Toggable\API\Http\Response\Dashboard\Dashboard as DashboardResponse;
 use Marek\Toggable\API\Toggl\Values\Dashboard\Dashboard;
-use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Toggl\Values\Dashboard\Activity;
 use Marek\Toggable\API\Toggl\Values\Dashboard\MostActiveUser;
 use Marek\Toggable\Service\AbstractService;
@@ -22,15 +20,11 @@ class DashboardService extends AbstractService implements \Marek\Toggable\API\To
      */
     public function getDashboardData($workspaceId)
     {
-        if (empty($workspaceId) || !is_int($workspaceId)) {
-            throw new InvalidArgumentException(
-                sprintf('$workspaceId argument not provided in %s', get_class($this))
-            );
-        }
-
-        $request = new GetDashboard(array(
-            'workspaceId' => $workspaceId,
-        ));
+        $request = new GetDashboard(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+            )
+        );
 
         $response = $this->delegate($request);
 
@@ -48,13 +42,17 @@ class DashboardService extends AbstractService implements \Marek\Toggable\API\To
             }
         }
 
-        $dashboard = new Dashboard(array(
-            'activity' => $activities,
-            'mostActiveUser' => $mostActiveUsers,
-        ));
+        $dashboard = new Dashboard(
+            array(
+                'activity' => $activities,
+                'mostActiveUser' => $mostActiveUsers,
+            )
+        );
 
-        return new DashboardResponse(array(
-            'dashboard' => $dashboard,
-        ));
+        return new DashboardResponse(
+            array(
+                'dashboard' => $dashboard,
+            )
+        );
     }
 }

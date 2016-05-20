@@ -42,15 +42,9 @@ class TagService extends AbstractService implements \Marek\Toggable\API\Toggl\Ta
      */
     public function updateTag($tagId, \Marek\Toggable\API\Toggl\Values\Tag\Tag $tag)
     {
-        if (empty($tagId) || !is_int($tagId)) {
-            throw new InvalidArgumentException(
-                sprintf('$tagId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new UpdateTag(
             array(
-                'tagId' => $tagId,
+                'tagId' => $this->validate($tagId),
                 'data' => $this->extractDataFromObject($tag),
             )
         );
@@ -69,15 +63,9 @@ class TagService extends AbstractService implements \Marek\Toggable\API\Toggl\Ta
      */
     public function deleteTag($tagId)
     {
-        if (empty($tagId) || !is_int($tagId)) {
-            throw new InvalidArgumentException(
-                sprintf('$tagId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new DeleteTag(
             array(
-                'tagId' => $tagId,
+                'tagId' => $this->validate($tagId),
             )
         );
 

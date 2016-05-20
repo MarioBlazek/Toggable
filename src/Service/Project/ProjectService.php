@@ -22,15 +22,9 @@ class ProjectService extends AbstractService implements \Marek\Toggable\API\Togg
      */
     public function getProjectData($projectId)
     {
-        if (empty($projectId) || !is_int($projectId)) {
-            throw new InvalidArgumentException(
-                sprintf('$projectId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new GetProject(
             array(
-                'projectId' => $projectId,
+                'projectId' => $this->validate($projectId),
             )
         );
 
@@ -70,15 +64,9 @@ class ProjectService extends AbstractService implements \Marek\Toggable\API\Togg
      */
     public function deleteProject($projectId)
     {
-        if (empty($projectId) || !is_int($projectId)) {
-            throw new InvalidArgumentException(
-                sprintf('$projectId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new DeleteProject(
             array(
-                'projectId' => $projectId,
+                'projectId' => $this->validate($projectId),
             )
         );
 

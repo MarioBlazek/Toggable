@@ -4,6 +4,7 @@ namespace Marek\Toggable\Service;
 
 use Marek\Toggable\API\Exception\NotFoundException;
 use Marek\Toggable\API\Http\Response\Response;
+use InvalidArgumentException;
 
 /**
  * Class AbstractService
@@ -94,5 +95,25 @@ abstract class AbstractService
     protected function delegateHydrateAndReturnResponse(\Marek\Toggable\API\Http\Request\RequestInterface $request)
     {
         throw new \RuntimeException('Method not implented');
+    }
+
+    /**
+     * Validates input
+     *
+     * @param mixed $id
+     *
+     * @return mixed
+     *
+     * @throws InvalidArgumentException
+     */
+    protected function validate($id)
+    {
+        if (empty($id) || !is_int($id)) {
+            throw new InvalidArgumentException(
+                sprintf('$id argument not provided in %s', get_class($this))
+            );
+        }
+
+        return $id;
     }
 }

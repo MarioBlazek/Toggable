@@ -2,7 +2,6 @@
 
 namespace Marek\Toggable\Service\Client;
 
-use InvalidArgumentException;
 use Marek\Toggable\API\Http\Request\Client\UpdateClient;
 use Marek\Toggable\API\Http\Response\Client\Client as ClientResponse;
 use Marek\Toggable\API\Http\Response\Client\Clients as ClientsResponse;
@@ -48,15 +47,9 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
      */
     public function getClientDetails($clientId)
     {
-        if (empty($clientId) || !is_int($clientId)) {
-            throw new InvalidArgumentException(
-                sprintf('$clientId argument not provided in %s', get_class($this))
-            );
-        }
-
         $request = new GetClientDetailsRequest(
             array(
-                'clientId' => $clientId,
+                'clientId' => $this->validate($clientId),
             )
         );
 
@@ -95,9 +88,10 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
      */
     public function getClientProjects($clientId, $active = Activity::ACTIVE)
     {
-        $request = new GetClientProjectsRequest(array(
-            'clientId' => $clientId,
-            'active' => $active,
+        $request = new GetClientProjectsRequest(
+            array(
+                'clientId' => $this->validate($clientId),
+                'active' => $active,
             )
         );
 
@@ -116,14 +110,9 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
      */
     public function updateClient($clientId, ClientValue $client)
     {
-        if (empty($clientId) || !is_int($clientId)) {
-            throw new InvalidArgumentException(
-                sprintf('$clientId argument not provided in %s', get_class($this))
-            );
-        }
-
-        $request = new UpdateClient(array(
-                'clientId' => $clientId,
+        $request = new UpdateClient(
+            array(
+                'clientId' => $this->validate($clientId),
                 'data' => $this->extractDataFromObject($client),
             )
         );
@@ -142,13 +131,11 @@ class ClientService extends AbstractService implements \Marek\Toggable\API\Toggl
      */
     public function deleteClient($clientId)
     {
-        if (empty($clientId) || !is_int($clientId)) {
-            throw new InvalidArgumentException(
-                sprintf('$clientId argument not provided in %s', get_class($this))
-            );
-        }
-
-        $request = new DeleteClientRequest(array('clientId' => $clientId));
+        $request = new DeleteClientRequest(
+            array(
+                'clientId' => $this->validate($clientId),
+            )
+        );
 
         return $this->delegate($request);
     }
