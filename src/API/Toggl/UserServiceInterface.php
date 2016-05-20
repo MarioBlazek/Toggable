@@ -20,11 +20,11 @@ interface UserServiceInterface
     /**
      * Update user
      *
-     * @param \Marek\Toggable\API\Http\Response\Users\User $user
+     * @param \Marek\Toggable\API\Toggl\Values\User\User $user
      *
      * @return \Marek\Toggable\API\Http\Response\Users\User
      */
-    public function updateUser(\Marek\Toggable\API\Http\Response\Users\User $user);
+    public function updateUser(\Marek\Toggable\API\Toggl\Values\User\User $user);
 
     /**
      * Resets API token and returns new one

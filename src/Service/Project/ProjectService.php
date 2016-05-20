@@ -3,13 +3,17 @@
 namespace Marek\Toggable\Service\Project;
 
 use InvalidArgumentException;
+use Marek\Toggable\API\Http\Request\Project\BulkDeleteProjects;
 use Marek\Toggable\API\Http\Request\Project\CreateProject;
 use Marek\Toggable\API\Http\Request\Project\DeleteProject;
 use Marek\Toggable\API\Http\Request\Project\GetProject;
+use Marek\Toggable\API\Http\Request\Project\GetProjectUsers;
 use Marek\Toggable\API\Http\Request\Project\UpdateProject;
 use Marek\Toggable\API\Http\Response\Project\Project as ProjectResponse;
+use Marek\Toggable\API\Http\Response\ProjectUsers\ProjectUser;
 use Marek\Toggable\API\Toggl\Values\Project\Project;
 use Marek\Toggable\Service\AbstractService;
+use Marek\Toggable\API\Http\Response\ProjectUsers\ProjectUsers as ProjectUsersResponse;
 
 /**
  * Class ProjectService
@@ -76,22 +80,48 @@ class ProjectService extends AbstractService implements \Marek\Toggable\API\Togg
     /**
      * @inheritDoc
      */
-    public function getProjectUsers($projectId) {
-        // TODO: Implement getProjectUsers() method.
+    public function getProjectUsers($projectId)
+    {
+        $request = new GetProjectUsers(
+            array(
+                'projectId' => $this->validate($projectId),
+            )
+        );
+
+        $response = $this->delegate($request);
+
+        $projectUsers = array();
+        foreach ($response->body as $projectUser) {
+            $projectUsers[] = $this->hydrator->hydrate($projectUser, new ProjectUser());
+        }
+
+        return new ProjectUsersResponse(
+            array(
+                'projectUsers' => $projectUsers,
+            )
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public function getProjectTasks($projectId) {
-        // TODO: Implement getProjectTasks() method.
+    public function getProjectTasks($projectId)
+    {
+        throw new \RuntimeException('Not implemented');
     }
 
     /**
      * @inheritDoc
      */
-    public function deleteMultipleProjects(array $projectIds) {
-        // TODO: Implement deleteMultipleProjects() method.
+    public function deleteMultipleProjects(array $projectIds)
+    {
+        $request = new BulkDeleteProjects(
+            array(
+                'projectsIds' => $projectIds,
+            )
+        );
+
+        return $this->delegate($request);
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace Marek\Toggable\Tests\Service\Project;
 
+use Marek\Toggable\API\Http\Response\ProjectUsers\ProjectUsers;
 use Marek\Toggable\API\Http\Response\Response;
+use Marek\Toggable\API\Http\Response\ResponseInterface;
 use Marek\Toggable\API\Toggl\Values\Project\Project;
 use Marek\Toggable\Http\Manager\NativeRequestManager;
 use Marek\Toggable\Hydrator\Project\ProjectHydrator;
@@ -237,5 +239,126 @@ class ProjectServiceTest extends \PHPUnit_Framework_TestCase
         $projectService = new ProjectService($requestManager, $hydrator);
 
         $projectService->deleteProject('test');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetProjectUsersWithException()
+    {
+        $requestManager = $this->getMockBuilder(NativeRequestManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('request'))
+            ->getMock();
+
+        $hydrator = $this->getMockBuilder(ProjectHydrator::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('hydrate', 'extract'))
+            ->getMock();
+
+        $projectService = new ProjectService($requestManager, $hydrator);
+
+        $projectService->getProjectUsers('test');
+    }
+
+    public function testGetProjectUsers()
+    {
+        $data = array(
+            'wid' => 123456,
+            'name' => 'Test name',
+        );
+
+        $project = new Project($data);
+
+        $response = new Response(
+            array(
+                'statusCode' => 200,
+                'body' => array(
+                    'data' => array(
+                        'Test'
+                    ),
+                ),
+            )
+        );
+
+        $requestManager = $this->getMockBuilder(NativeRequestManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('request'))
+            ->getMock();
+
+        $requestManager->expects($this->once())
+            ->method('request')
+            ->willReturn($response);
+
+        $hydrator = $this->getMockBuilder(ProjectHydrator::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('hydrate'))
+            ->getMock();
+
+        $hydrator->expects($this->any())
+            ->method('hydrate')
+            ->willReturn($project);
+
+        $projectService = new ProjectService($requestManager, $hydrator);
+
+        $response = $projectService->getProjectUsers(123);
+
+        $this->assertInstanceOf(ProjectUsers::class, $response);
+    }
+
+    public function testDeleteMultipleProjects()
+    {
+        $data = array(123, 456, 789);
+
+        $response = new Response(
+            array(
+                'statusCode' => 200,
+                'body' => array(
+                    'data' => array(
+                        'Test'
+                    ),
+                ),
+            )
+        );
+
+        $requestManager = $this->getMockBuilder(NativeRequestManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('request'))
+            ->getMock();
+
+        $requestManager->expects($this->once())
+            ->method('request')
+            ->willReturn($response);
+
+        $hydrator = $this->getMockBuilder(ProjectHydrator::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('hydrate', 'extract'))
+            ->getMock();
+
+        $projectService = new ProjectService($requestManager, $hydrator);
+
+        $response = $projectService->deleteMultipleProjects($data);
+
+        $this->assertInstanceOf(ResponseInterface::class, $response);
+    }
+
+    /**
+     * @expectedException \RuntimeException
+     */
+    public function testGetProjectTasks()
+    {
+        $requestManager = $this->getMockBuilder(NativeRequestManager::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('request'))
+            ->getMock();
+
+        $hydrator = $this->getMockBuilder(ProjectHydrator::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('hydrate', 'extract'))
+            ->getMock();
+
+        $projectService = new ProjectService($requestManager, $hydrator);
+
+        $projectService->getProjectTasks(123);
     }
 }
