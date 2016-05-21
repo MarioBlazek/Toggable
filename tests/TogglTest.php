@@ -15,8 +15,18 @@ class TogglTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = require __DIR__.'/../config.php';
-        $this->toggl = TogglFactory::buildToggable($config);
+
+        $config = array(
+            'marek_toggable' => array(
+                'base_uri' => 'https://www.toggl.com/api/v8/',
+                'security' => array(
+                    'token' => 'tok3n',
+                ),
+            ),
+        );
+
+        $factory = new TogglFactory($config);
+        $this->toggl = $factory->build();
     }
 
     public function testInstanceOf()

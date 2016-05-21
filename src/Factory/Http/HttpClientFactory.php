@@ -33,8 +33,7 @@ class HttpClientFactory implements FactoryInterface
      */
     public function __construct($config, TokenInterface $token)
     {
-        if (empty($config['marek_toggable']['base_uri']))
-        {
+        if (empty($config['marek_toggable']['base_uri'])) {
             throw new InvalidArgumentException('Please provide base URI.');
         }
         $this->uri = $config['marek_toggable']['base_uri'];
@@ -46,10 +45,10 @@ class HttpClientFactory implements FactoryInterface
      */
     public function build()
     {
-        if (!filter_var($this->uri, FILTER_VALIDATE_URL)) {
-            throw new InvalidArgumentException('Please provide valid base URI.');
+        if (filter_var($this->uri, FILTER_VALIDATE_URL)) {
+            return new NativeHttpClient($this->uri, $this->token, new NativeArgumentsConverter(), new NativeResponseParser());
         }
 
-        return new NativeHttpClient($this->uri, $this->token, new NativeArgumentsConverter(), new NativeResponseParser());
+        throw new InvalidArgumentException('Please provide valid base URI.');
     }
 }

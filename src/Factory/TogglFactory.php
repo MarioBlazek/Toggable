@@ -50,11 +50,8 @@ class TogglFactory implements FactoryInterface
      * TogglFactory constructor.
      *
      * @param array $config
-     * @param \Marek\Toggable\Factory\FactoryInterface $authentication
-     * @param \Marek\Toggable\Factory\FactoryInterface $http
-     * @param \Marek\Toggable\Factory\FactoryInterface $hydrator
      */
-    public function __construct($config, FactoryInterface $authentication, FactoryInterface $http, FactoryInterface $hydrator)
+    public function __construct($config)
     {
         if (!is_array($config) || empty($config)) {
             throw new InvalidArgumentException('Please provide valid configuration.');

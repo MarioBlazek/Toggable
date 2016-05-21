@@ -36,15 +36,15 @@ class AuthenticationFactory implements FactoryInterface
      */
     public function build()
     {
-        if (!empty($config['marek_toggable']['security']['token'])) {
+        if (!empty($this->config['marek_toggable']['security']['token'])) {
 
-            return new ApiToken($config['marek_toggable']['security']['token']);
+            return new ApiToken($this->config['marek_toggable']['security']['token']);
 
-        } else if (!empty($config['marek_toggable']['security']['username']) && !empty($config['marek_toggable']['security']['password'])) {
+        } else if (!empty($this->config['marek_toggable']['security']['username']) && !empty($this->config['marek_toggable']['security']['password'])) {
 
             return new UsernameAndPasswordToken(
-                $config['marek_toggable']['security']['username'],
-                $config['marek_toggable']['security']['password']
+                $this->config['marek_toggable']['security']['username'],
+                $this->config['marek_toggable']['security']['password']
             );
 
         } else {
