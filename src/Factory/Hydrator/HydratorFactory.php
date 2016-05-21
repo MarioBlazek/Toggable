@@ -1,7 +1,9 @@
 <?php
 
-namespace Marek\Toggable\Hydrator;
+namespace Marek\Toggable\Factory\Hydrator;
 
+use Marek\Toggable\Factory\FactoryInterface;
+use Marek\Toggable\Hydrator\AggregateHydrator;
 use Marek\Toggable\Hydrator\Client\ClientHydrator;
 use Marek\Toggable\Hydrator\Dashboard\ActivityHydrator;
 use Marek\Toggable\Hydrator\Dashboard\MostActiveUserHydrator;
@@ -17,16 +19,14 @@ use Marek\Toggable\Hydrator\Workspace\WorkspaceHydrator;
 
 /**
  * Class HydratorFactory
- * @package Marek\Toggable\Hydrator
+ * @package Marek\Toggable\Factory\Hydrator
  */
-class HydratorFactory
+class HydratorFactory implements FactoryInterface
 {
     /**
-     * Creates aggregate hydrator
-     *
-     * @return \Marek\Toggable\Hydrator\AggregateHydrator
+     * @inheritDoc
      */
-    public static function createHydrator()
+    public function build()
     {
         $aggregateHydrator = new AggregateHydrator();
         $aggregateHydrator->add(new ClientHydrator());

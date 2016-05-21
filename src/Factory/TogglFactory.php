@@ -2,13 +2,13 @@
 
 namespace Marek\Toggable\Factory;
 
-use Marek\Toggable\Http\Client\NativeHttpClient;
-use Marek\Toggable\Http\Converter\NativeArgumentsConverter;
+use Marek\Toggable\Factory\Authentication\AuthenticationFactory;
+use Marek\Toggable\Factory\Http\HttpClientFactory;
+use InvalidArgumentException;
+use Marek\Toggable\Factory\Hydrator\HydratorFactory;
 use Marek\Toggable\Http\Manager\NativeRequestManager;
-use Marek\Toggable\Http\Parser\NativeResponseParser;
-use Marek\Toggable\Http\Parser\ResponseParser;
-use Marek\Toggable\Hydrator\HydratorFactory;
 use Marek\Toggable\Service\Authentication\AuthenticationService;
+use Marek\Toggable\Service\Client\ClientService;
 use Marek\Toggable\Service\Dashboard\DashboardService;
 use Marek\Toggable\Service\Project\ProjectService;
 use Marek\Toggable\Service\ProjectUsers\ProjectUsersService;
@@ -16,62 +16,66 @@ use Marek\Toggable\Service\Tag\TagService;
 use Marek\Toggable\Service\Task\TaskService;
 use Marek\Toggable\Service\TimeEntry\TimeEntryService;
 use Marek\Toggable\Service\User\UserService;
+use Marek\Toggable\Service\Workspace\WorkspaceService;
 use Marek\Toggable\Service\WorkspaceUsers\WorkspaceUsersService;
 use Marek\Toggable\Toggl;
-use Marek\Toggable\API\Security\UsernameAndPasswordToken;
-use Marek\Toggable\API\Security\ApiToken;
-use Marek\Toggable\Service\Client\ClientService;
-use Marek\Toggable\Service\Workspace\WorkspaceService;
 
 /**
  * Class TogglFactory
  * @package Marek\Toggable\Factory
  */
-class TogglFactory
+class TogglFactory implements FactoryInterface
 {
     /**
-     * Builds Toggl
+     * @var \Marek\Toggable\Factory\FactoryInterface
+     */
+    private $authentication;
+
+    /**
+     * @var \Marek\Toggable\Factory\FactoryInterface
+     */
+    private $http;
+
+    /**
+     * @var \Marek\Toggable\Factory\FactoryInterface
+     */
+    private $hydrator;
+
+    /**
+     * @var array
+     */
+    private $config;
+
+    /**
+     * TogglFactory constructor.
      *
      * @param array $config
-     *
-     * @return \Marek\Toggable\Toggl
-     *
-     * @throws \InvalidArgumentException
+     * @param \Marek\Toggable\Factory\FactoryInterface $authentication
+     * @param \Marek\Toggable\Factory\FactoryInterface $http
+     * @param \Marek\Toggable\Factory\FactoryInterface $hydrator
      */
-    public static function buildToggable($config)
+    public function __construct($config, FactoryInterface $authentication, FactoryInterface $http, FactoryInterface $hydrator)
     {
-        if (!is_array($config)) {
-            throw new \InvalidArgumentException('Please provide valid configuration.');
+        if (!is_array($config) || empty($config)) {
+            throw new InvalidArgumentException('Please provide valid configuration.');
         }
-        
-        if (!empty($config['marek_toggable']['security']['token'])) {
+        $this->config = $config;
 
-            $authentication = new ApiToken($config['marek_toggable']['security']['token']);
+        $this->authentication = new AuthenticationFactory($config);
+        $this->http = new HttpClientFactory($config, $this->authentication->build());
+        $this->hydrator = new HydratorFactory();
 
-        } else if (!empty($config['marek_toggable']['security']['username']) && !empty($config['marek_toggable']['security']['password'])) {
+    }
 
-            $authentication = new UsernameAndPasswordToken(
-                $config['marek_toggable']['security']['username'],
-                $config['marek_toggable']['security']['password']
-            );
-
-        } else {
-
-            throw new \InvalidArgumentException('Please provide security configuration.');
-
-        }
-
-        if (empty($config['marek_toggable']['base_uri']))
-        {
-            throw new \InvalidArgumentException('Please provide base URI.');
-        }
-
-        $argumentConverter = new NativeArgumentsConverter();
-        $responseParser = new NativeResponseParser();
-        $nativeHttpClient = new NativeHttpClient($config['marek_toggable']['base_uri'], $authentication, $argumentConverter, $responseParser);
+    /**
+     * @inheritDoc
+     */
+    public function build()
+    {
+        $nativeHttpClient = $this->http->build();
         $requestManager = new NativeRequestManager($nativeHttpClient);
 
-        $hydrator = HydratorFactory::createHydrator();
+        $hydrator = $this->hydrator->build();
 
         $authenticationService = new AuthenticationService($requestManager, $hydrator);
         $clientService = new ClientService($requestManager, $hydrator);
@@ -86,7 +90,7 @@ class TogglFactory
         $workspaceService = new WorkspaceService($requestManager, $hydrator);
         $workspaceUsersService = new WorkspaceUsersService($requestManager, $hydrator);
 
-        $toggl = new Toggl(
+        return new Toggl(
             $authenticationService,
             $clientService,
             $dashboardService,
@@ -99,7 +103,5 @@ class TogglFactory
             $workspaceService,
             $workspaceUsersService
         );
-
-        return $toggl;
     }
 }
