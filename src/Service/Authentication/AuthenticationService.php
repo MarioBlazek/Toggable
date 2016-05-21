@@ -39,6 +39,6 @@ class AuthenticationService extends AbstractService implements AuthenticationSer
 
     public function destroySession()
     {
-        // TODO: Implement destroySession() method.
+        throw new \RuntimeException('Not implemented');
     }
 }

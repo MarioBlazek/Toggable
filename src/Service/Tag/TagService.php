@@ -2,11 +2,9 @@
 
 namespace Marek\Toggable\Service\Tag;
 
-use InvalidArgumentException;
 use Marek\Toggable\API\Http\Request\Tag\CreateTag;
 use Marek\Toggable\API\Http\Request\Tag\DeleteTag;
 use Marek\Toggable\API\Http\Request\Tag\UpdateTag;
-use Marek\Toggable\API\Http\Response\Error;
 use Marek\Toggable\API\Toggl\Values\Tag\Tag;
 use Marek\Toggable\API\Http\Response\Tag\Tag as TagResponse;
 use Marek\Toggable\Service\AbstractService;

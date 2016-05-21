@@ -6,7 +6,6 @@ use ReflectionClass;
 use ReflectionProperty;
 use ArrayObject;
 use BadMethodCallException;
-use InvalidArgumentException;
 
 /**
  * Class ObjectProperty

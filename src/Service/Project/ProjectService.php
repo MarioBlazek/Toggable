@@ -2,7 +2,6 @@
 
 namespace Marek\Toggable\Service\Project;
 
-use InvalidArgumentException;
 use Marek\Toggable\API\Http\Request\Project\BulkDeleteProjects;
 use Marek\Toggable\API\Http\Request\Project\CreateProject;
 use Marek\Toggable\API\Http\Request\Project\DeleteProject;

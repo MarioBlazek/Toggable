@@ -40,11 +40,6 @@ class NativeHttpClient implements HttpClientInterface
     private $data;
 
     /**
-     * @var
-     */
-    private $response;
-
-    /**
      * NativeHttpClient constructor.
      *
      * @param string $uri

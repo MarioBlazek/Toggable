@@ -24,7 +24,6 @@ use Marek\Toggable\API\Toggl\Values\Task\Task;
 use Marek\Toggable\API\Toggl\Values\User\User;
 use Marek\Toggable\API\Toggl\Values\Workspace\Workspace;
 use Marek\Toggable\API\Toggl\Values\Activity;
-use InvalidArgumentException;
 use Marek\Toggable\Service\AbstractService;
 
 /**
