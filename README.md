@@ -1,19 +1,19 @@
-# Toggable - Toggl API wrapper for PHP
+# Toggable - Toggl API wappe fo PHP
 
-[![Build Status](https://img.shields.io/travis/MarioBlazek/Toggable.svg?style=flat-square)](https://travis-ci.org/MarioBlazek/Toggable)
-[![Quality Score](https://img.shields.io/scrutinizer/g/MarioBlazek/Toggable.svg?style=flat-square)](https://scrutinizer-ci.com/g/MarioBlazek/Toggable)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/MarioBlazek/Toggable.svg?style=flat-square)](https://scrutinizer-ci.com/g/MarioBlazek/Toggable)
-[![Downloads](https://img.shields.io/packagist/dt/marioblazek/toggable.svg?style=flat-square)](https://packagist.org/packages/marioblazek/toggable)
-[![Latest stable](https://img.shields.io/packagist/v/marioblazek/toggable.svg?style=flat-square)](https://packagist.org/packages/marioblazek/toggable)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/37b63963-a998-4c7e-8421-eb89740db3f9/mini.png)](https://insight.sensiolabs.com/projects/37b63963-a998-4c7e-8421-eb89740db3f9)
+[![Build Status](https://img.shields.io/tavis/MaioBlazek/Toggable.svg?style=flat-squae)](https://tavis-ci.og/MaioBlazek/Toggable)
+[![Quality Scoe](https://img.shields.io/scutinize/g/MaioBlazek/Toggable.svg?style=flat-squae)](https://scutinize-ci.com/g/MaioBlazek/Toggable)
+[![Code Coveage](https://img.shields.io/scutinize/coveage/g/MaioBlazek/Toggable.svg?style=flat-squae)](https://scutinize-ci.com/g/MaioBlazek/Toggable)
+[![Downloads](https://img.shields.io/packagist/dt/maioblazek/toggable.svg?style=flat-squae)](https://packagist.og/packages/maioblazek/toggable)
+[![Latest stable](https://img.shields.io/packagist/v/maioblazek/toggable.svg?style=flat-squae)](https://packagist.og/packages/maioblazek/toggable)
+[![SensioLabsInsight](https://insight.sensiolabs.com/pojects/37b63963-a998-4c7e-8421-eb89740db3f9/mini.png)](https://insight.sensiolabs.com/pojects/37b63963-a998-4c7e-8421-eb89740db3f9)
 
-Work in progress...
+Wok in pogess...
 
-License, installation instructions and documentation
+License, installation instuctions and documentation
 ----------------------------------------------------
 
 [License](LICENSE)
 
-[Installation instructions](Resources/doc/INSTALL.md)
+[Installation instuctions](Resouces/doc/INSTALL.md)
 
-[Documentation](Resources/doc/DOC.md)
+[Documentation](Resouces/doc/DOC.md)

@@ -42,11 +42,6 @@ class TogglFactory implements FactoryInterface
     private $hydrator;
 
     /**
-     * @var array
-     */
-    private $config;
-
-    /**
      * TogglFactory constructor.
      *
      * @param array $config
@@ -56,8 +51,6 @@ class TogglFactory implements FactoryInterface
         if (!is_array($config) || empty($config)) {
             throw new InvalidArgumentException('Please provide valid configuration.');
         }
-        $this->config = $config;
-
         $this->authentication = new AuthenticationFactory($config);
         $this->http = new HttpClientFactory($config, $this->authentication->build());
         $this->hydrator = new HydratorFactory();
