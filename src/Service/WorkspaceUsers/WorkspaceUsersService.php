@@ -2,6 +2,15 @@
 
 namespace Marek\Toggable\Service\WorkspaceUsers;
 
+use Marek\Toggable\API\Http\Request\WorkspaceUsers\DeleteWorkspaceUser;
+use Marek\Toggable\API\Http\Request\WorkspaceUsers\GetWorkspaceUsers;
+use Marek\Toggable\API\Http\Request\WorkspaceUsers\InviteUserToWorkspace;
+use Marek\Toggable\API\Http\Request\WorkspaceUsers\UpdateWorkspaceUser;
+use Marek\Toggable\API\Http\Response\WorkspaceUsers\Invitation;
+use Marek\Toggable\API\Http\Response\WorkspaceUsers\WorkspaceUser;
+use Marek\Toggable\API\Http\Response\WorkspaceUsers\WorkspaceUsers;
+use Marek\Toggable\API\Toggl\Values\Notification;
+use Marek\Toggable\API\Toggl\Values\Workspace\User;
 use Marek\Toggable\Service\AbstractService;
 
 /**
@@ -13,17 +22,72 @@ class WorkspaceUsersService extends AbstractService implements \Marek\Toggable\A
     /**
      * @inheritDoc
      */
-    public function getWorkspaces()
+    public function inviteUsers($workspaceId, array $emails)
     {
-        // TODO: Implement getWorkspaces() method.
+        $request = new InviteUserToWorkspace(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+                'data' => $emails,
+            )
+        );
+
+        $response = $this->delegate($request);
+
+        $workspaceUsers = array();
+        foreach($response->body['data'] as $workspaceUser) {
+            $workspaceUsers[] = $this->hydrator->hydrate($workspaceUser, new User());
+        }
+
+        $notifications = array();
+        foreach($response->body['notifications'] as $notification) {
+            $notifications[] = new Notification(
+                array(
+                    'message' => $notification,
+                )
+            );
+        }
+
+        return new Invitation(
+            array(
+                'workspaceUsers' => $workspaceUsers,
+                'notifications' => $notifications,
+            )
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public function getWorkspace($workspaceId)
+    public function updateWorkspaceUser($workspaceUserId, \Marek\Toggable\API\Toggl\Values\Workspace\User $user)
     {
-        // TODO: Implement getWorkspace() method.
+        $request = new UpdateWorkspaceUser(
+            array(
+                'workspaceUserId' => $this->validate($workspaceUserId),
+                'data' => $this->extractDataFromObject($user),
+            )
+        );
+
+        $response = $this->delegate($request);
+
+        return new WorkspaceUser(
+            array(
+                'workspaceUser' => $this->hydrateDataFromArrayToObject($response, new User())
+            )
+        );
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteWorkspaceUser($workspaceUserId)
+    {
+        $request = new DeleteWorkspaceUser(
+            array(
+                'workspaceUserId' => $this->validate($workspaceUserId),
+            )
+        );
+
+        return $this->delegate($request);
     }
 
     /**
@@ -31,46 +95,23 @@ class WorkspaceUsersService extends AbstractService implements \Marek\Toggable\A
      */
     public function getWorkspaceUsers($workspaceId)
     {
-        // TODO: Implement getWorkspaceUsers() method.
-    }
+        $request = new GetWorkspaceUsers(
+            array(
+                'workspaceId' => $this->validate($workspaceId),
+            )
+        );
 
-    /**
-     * @inheritDoc
-     */
-    public function getWorkspaceClients($workspaceId)
-    {
-        // TODO: Implement getWorkspaceClients() method.
-    }
+        $response = $this->delegate($request);
 
-    /**
-     * @inheritDoc
-     */
-    public function getWorkspaceProjects($workspaceId, $active = \Marek\Toggable\API\Toggl\Values\Activity::ACTIVE, $actualHours = 'false', $onlyTemplates = 'false')
-    {
-        // TODO: Implement getWorkspaceProjects() method.
-    }
+        $workspaceUsers = array();
+        foreach($response->body as $workspaceUser) {
+            $workspaceUsers[] = $this->hydrator->hydrate($workspaceUser, new User());
+        }
 
-    /**
-     * @inheritDoc
-     */
-    public function getWorkspaceTasks($workspaceId, $active = \Marek\Toggable\API\Toggl\Values\Activity::ACTIVE)
-    {
-        // TODO: Implement getWorkspaceTasks() method.
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getWorkspaceTags($workspaceId)
-    {
-        // TODO: Implement getWorkspaceTags() method.
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function updateWorkspace($workspaceId, \Marek\Toggable\API\Toggl\Values\Workspace\Workspace $workspace)
-    {
-        // TODO: Implement updateWorkspace() method.
+        return new WorkspaceUsers(
+            array(
+                'workspaceUsers' => $workspaceUsers,
+            )
+        );
     }
 }
