@@ -7,6 +7,7 @@
 [![Latest stable](https://img.shields.io/packagist/v/marioblazek/toggable.svg?style=flat-square)](https://packagist.org/packages/marioblazek/toggable)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/37b63963-a998-4c7e-8421-eb89740db3f9/mini.png)](https://insight.sensiolabs.com/projects/37b63963-a998-4c7e-8421-eb89740db3f9)
 
+
 Work in progress...
 
 License, installation instructions and documentation
