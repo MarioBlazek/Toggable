@@ -9,7 +9,7 @@ use Marek\Toggable\API\Http\Request\ProjectUsers\CreateProjectUser;
 use Marek\Toggable\API\Http\Request\ProjectUsers\DeleteProjectUser;
 use Marek\Toggable\API\Http\Request\ProjectUsers\UpdateProjectUser;
 use Marek\Toggable\API\Http\Response\ProjectUsers\ProjectUser;
-use Marek\Toggable\API\Http\Response\ProjectUsers as ProjectUsersResponse;
+use Marek\Toggable\API\Http\Response\ProjectUsers\ProjectUsers as ProjectUsersResponse;
 use Marek\Toggable\API\Toggl\Values\Project\User;
 use Marek\Toggable\Service\AbstractService;
 
