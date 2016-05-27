@@ -42,6 +42,6 @@ class CreateMultipleProjectUsers extends Request
         $data['uid'] = implode(",", $this->userIds);
         $data['pid'] = $this->projectId;
 
-        return array('project_user' => $this->data);
+        return array('project_user' => $data);
     }
 }

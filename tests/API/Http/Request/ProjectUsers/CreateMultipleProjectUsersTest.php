@@ -39,7 +39,14 @@ class CreateMultipleProjectUsersTest extends \PHPUnit_Framework_TestCase
 
     public function testItImplementesSerializeMethod()
     {
-        $this->assertEquals(array('project_user' => array('data')), $this->request->jsonSerialize());
+        $data = array(
+            'project_user' => array(
+                'data',
+                'uid' => "1,2,3,4,5",
+                'pid' => 123,
+            )
+        );
+        $this->assertEquals($data, $this->request->jsonSerialize());
     }
 
     public function testGetUri()
