@@ -67,7 +67,7 @@ class TaskService extends AbstractService implements \Marek\Toggable\API\Toggl\T
         $request = new UpdateTask(
             array(
                 'taskId' => $this->validate($taskId),
-                'data' => $task,
+                'data' => $this->extractDataFromObject($task),
             )
         );
 
@@ -102,7 +102,7 @@ class TaskService extends AbstractService implements \Marek\Toggable\API\Toggl\T
         $request = new BulkUpdateTasks(
             array(
                 'taskIds' => $taskIds,
-                'data' => $task,
+                'data' => $this->extractDataFromObject($task),
             )
         );
 
