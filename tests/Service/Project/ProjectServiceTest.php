@@ -186,8 +186,6 @@ class ProjectServiceTest extends \PHPUnit_Framework_TestCase
             'name' => 'Test name',
         );
 
-        $project = new Project($data);
-
         $response = new Response(
             array(
                 'statusCode' => 200,

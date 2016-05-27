@@ -2,7 +2,7 @@
 
 namespace Marek\Toggable\Service\ProjectUsers;
 
-use Marek\Toggable\API\Http\Request\Project\BulkDeleteProjects;
+use Marek\Toggable\API\Http\Request\ProjectUsers\BulkDeleteProjectUsers;
 use Marek\Toggable\API\Http\Request\ProjectUsers\BulkUpdateProjectUsers;
 use Marek\Toggable\API\Http\Request\ProjectUsers\CreateMultipleProjectUsers;
 use Marek\Toggable\API\Http\Request\ProjectUsers\CreateProjectUser;
@@ -132,7 +132,7 @@ class ProjectUsersService extends AbstractService implements \Marek\Toggable\API
      */
     public function deleteMultipleProjectUsers($projectUserIds)
     {
-        $request = new BulkDeleteProjects(
+        $request = new BulkDeleteProjectUsers(
             array(
                 'projectUserIds' => $projectUserIds,
             )

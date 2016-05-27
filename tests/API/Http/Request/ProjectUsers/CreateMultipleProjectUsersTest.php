@@ -15,6 +15,8 @@ class CreateMultipleProjectUsersTest extends \PHPUnit_Framework_TestCase
     {
         $this->request = new CreateMultipleProjectUsers(
             array(
+                'projectId' => 123,
+                'userIds' => array(1, 2, 3, 4, 5),
                 'data' => array('data'),
             )
         );

@@ -8,8 +8,8 @@ use Marek\Toggable\API\Http\Request\Request;
  * Class CreateMultipleProjectUsers
  * @package Marek\Toggable\API\Http\Request\ProjectUser
  *
- * @property-read \Marek\Toggable\API\Toggl\Values\Project\User[] $projectUsers
- * @property-read \Marek\Toggable\API\Toggl\Values\Project\User $projectUser
+ * @property-read array $userIds
+ * @property-read int $projectId
  */
 class CreateMultipleProjectUsers extends Request
 {
@@ -17,6 +17,16 @@ class CreateMultipleProjectUsers extends Request
      * @var string
      */
     protected $uri = 'project_users';
+
+    /**
+     * @var int
+     */
+    protected $projectId;
+
+    /**
+     * @var array
+     */
+    protected $userIds;
 
     /**
      * @var string
@@ -28,6 +38,10 @@ class CreateMultipleProjectUsers extends Request
      */
     public function jsonSerialize()
     {
+        $data = $this->data;
+        $data['uid'] = implode(",", $this->userIds);
+        $data['pid'] = $this->projectId;
+
         return array('project_user' => $this->data);
     }
 }
