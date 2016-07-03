@@ -71,12 +71,20 @@ class NativeHttpClientTest extends \PHPUnit_Framework_TestCase
         $response = $this->getMockForAbstractClass(ResponseInterface::class);
         $converter = $this->getMockForAbstractClass(ArgumentsConverterInterface::class);
 
-        $parser = $this->getMock(NativeResponseParser::class, array('parse'));
+        $parser = $this->getMockBuilder(NativeResponseParser::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('parse'))
+            ->getMock();
+
         $parser->expects($this->once())
             ->method('parse')
             ->willReturn($response);
 
-        $clientMock = $this->getMock(NativeHttpClient::class, array('send'), array($uri, $token, $converter, $parser));
+        $clientMock = $this->getMockBuilder(NativeHttpClient::class)
+            ->setConstructorArgs(array($uri, $token, $converter, $parser))
+            ->setMethods(array('send'))
+            ->getMock();
+        
         $clientMock->expects($this->once())
             ->method('send')
             ->willReturn($data);

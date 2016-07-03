@@ -24,8 +24,15 @@ class NativeRequestManagerTest extends \PHPUnit_Framework_TestCase
             ->setMethods(array('prepare', 'getResponse'))
             ->getMock();
 
-        $response = $this->getMock(Response::class);
-        $request = $this->getMock(Request::class);
+        $response = $this->getMockBuilder(Response::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array())
+            ->getMock();
+
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array())
+            ->getMock();
 
         $client->expects($this->once())
             ->method('prepare');
@@ -50,7 +57,10 @@ class NativeRequestManagerTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $request = $this->getMock(Request::class);
+        $request = $this->getMockBuilder(Request::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array())
+            ->getMock();
 
         $client->expects($this->once())
             ->method('getResponse')

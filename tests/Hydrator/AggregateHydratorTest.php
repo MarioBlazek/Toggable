@@ -3,17 +3,47 @@
 namespace Marek\Toggable\Tests\Hydrator;
 
 use Marek\Toggable\Hydrator\AggregateHydrator;
+use Marek\Toggable\Hydrator\HydratorInterface;
 
 class AggregateHydratorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var AggregateHydrator
      */
-    private $hydrator;
+    protected $hydrator;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $hydrator1;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $hydrator2;
+
+    /**
+     * @var \PHPUnit_Framework_MockObject_MockObject
+     */
+    protected $hydrator3;
 
     public function setUp()
     {
         $this->hydrator = new AggregateHydrator();
+        $this->hydrator1 = $this->getMockBuilder(HydratorInterface::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('canHydrate', 'hydrate', 'extract'))
+            ->getMock();
+
+        $this->hydrator2 = $this->getMockBuilder(HydratorInterface::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('canHydrate', 'hydrate', 'extract'))
+            ->getMock();
+
+        $this->hydrator3 = $this->getMockBuilder(HydratorInterface::class)
+            ->disableOriginalConstructor()
+            ->setMethods(array('canHydrate', 'hydrate', 'extract'))
+            ->getMock();
     }
 
     public function testInstanceOf()
@@ -29,26 +59,24 @@ class AggregateHydratorTest extends \PHPUnit_Framework_TestCase
     public function testItProperlyUsesHydrate()
     {
         $stdClass = new \stdClass();
-        $hydrator1 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator1->method('canHydrate')
+
+        $this->hydrator1->method('canHydrate')
             ->willReturn(false);
-        $hydrator1->expects($this->never())
+        $this->hydrator1->expects($this->never())
             ->method('hydrate');
 
-        $hydrator2 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator2->method('canHydrate')
+        $this->hydrator2->method('canHydrate')
             ->willReturn(true);
-        $hydrator2->method('hydrate')
+        $this->hydrator2->method('hydrate')
             ->willReturn($stdClass);
 
-        $hydrator3 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator3->expects($this->never())
+        $this->hydrator3->expects($this->never())
             ->method('hydrate');
 
 
-        $this->hydrator->add($hydrator1);
-        $this->hydrator->add($hydrator2);
-        $this->hydrator->add($hydrator3);
+        $this->hydrator->add($this->hydrator1);
+        $this->hydrator->add($this->hydrator2);
+        $this->hydrator->add($this->hydrator3);
 
         $result = $this->hydrator->hydrate(array(), new \stdClass());
 
@@ -60,26 +88,24 @@ class AggregateHydratorTest extends \PHPUnit_Framework_TestCase
     public function testItProperlyUsesExtract()
     {
         $data = array(42);
-        $hydrator1 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator1->method('canHydrate')
+
+        $this->hydrator1->method('canHydrate')
             ->willReturn(false);
-        $hydrator1->expects($this->never())
+        $this->hydrator1->expects($this->never())
             ->method('extract');
 
-        $hydrator2 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator2->method('canHydrate')
+        $this->hydrator2->method('canHydrate')
             ->willReturn(true);
-        $hydrator2->method('extract')
+        $this->hydrator2->method('extract')
             ->willReturn($data);
 
-        $hydrator3 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator3->expects($this->never())
+        $this->hydrator3->expects($this->never())
             ->method('hydrate');
 
 
-        $this->hydrator->add($hydrator1);
-        $this->hydrator->add($hydrator2);
-        $this->hydrator->add($hydrator3);
+        $this->hydrator->add($this->hydrator1);
+        $this->hydrator->add($this->hydrator2);
+        $this->hydrator->add($this->hydrator3);
 
         $result = $this->hydrator->extract(new \stdClass());
 
@@ -90,20 +116,18 @@ class AggregateHydratorTest extends \PHPUnit_Framework_TestCase
 
     public function testItShouldReturnPassedDataIfNoAvailableHydratorsFound()
     {
-        $hydrator1 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator1->method('canHydrate')
+        $this->hydrator1->method('canHydrate')
             ->willReturn(false);
-        $hydrator1->expects($this->never())
+        $this->hydrator1->expects($this->never())
             ->method('hydrate');
 
-        $hydrator2 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator2->method('canHydrate')
+        $this->hydrator2->method('canHydrate')
             ->willReturn(false);
-        $hydrator2->expects($this->never())
+        $this->hydrator2->expects($this->never())
             ->method('hydrate');
 
-        $this->hydrator->add($hydrator1);
-        $this->hydrator->add($hydrator2);
+        $this->hydrator->add($this->hydrator1);
+        $this->hydrator->add($this->hydrator2);
 
         $result = $this->hydrator->hydrate(array(1, 2, 3), new \stdClass());
 
@@ -113,20 +137,19 @@ class AggregateHydratorTest extends \PHPUnit_Framework_TestCase
     public function testItShouldReturnPassedObjectIfNoAvailableHydratorsFound()
     {
         $object = new \stdClass();
-        $hydrator1 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator1->method('canHydrate')
+
+        $this->hydrator1->method('canHydrate')
             ->willReturn(false);
-        $hydrator1->expects($this->never())
+        $this->hydrator1->expects($this->never())
             ->method('hydrate');
 
-        $hydrator2 = $this->getMock('Marek\Toggable\Hydrator\HydratorInterface', array('canHydrate', 'hydrate', 'extract'));
-        $hydrator2->method('canHydrate')
+        $this->hydrator2->method('canHydrate')
             ->willReturn(false);
-        $hydrator2->expects($this->never())
+        $this->hydrator2->expects($this->never())
             ->method('hydrate');
 
-        $this->hydrator->add($hydrator1);
-        $this->hydrator->add($hydrator2);
+        $this->hydrator->add($this->hydrator1);
+        $this->hydrator->add($this->hydrator2);
 
         $result = $this->hydrator->extract($object);
 
